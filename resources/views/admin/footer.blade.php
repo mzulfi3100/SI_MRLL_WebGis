@@ -15,7 +15,7 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-
+@yield('script_peta')
 <!-- jQuery -->
 <script src="{{ asset('Admin/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
