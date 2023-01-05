@@ -1,8 +1,8 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-dark bg-blue elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="{{('Admin/dist/img/LogoDishub.png')}}" alt="LogoDishub" class="brand-image img-circle elevation-3" style="opacity: .9">
+    <a href="/" class="brand-link">
+      <img src="{{('/Admin/dist/img/LogoDishub.png')}}" alt="LogoDishub" class="brand-image img-circle elevation-3" style="opacity: .9">
       <span class="brand-text font-weight-light">MRLL</span>
     </a>
 
@@ -19,7 +19,7 @@
         </div>
         <!-- Menu Kelola Data Kecamatan -->
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/administrator/data_kecamatan" class="nav-link">
             <i class="fas fa-landmark" style="color:black"></i>
               <p style="color:white;">
               &nbsp;&nbsp;Data Kecamatan
@@ -29,7 +29,7 @@
 
           <!-- Menu Kelola Data Jalan -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/administrator/data_jalan" class="nav-link">
             <i class="fas fa-road" style="color:black"></i>
               <p style="color:white">
               &nbsp;&nbsp;Data Jalan
@@ -39,7 +39,7 @@
 
           <!-- Menu Kelola Data Kemacetan -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/administrator/data_kemacetan" class="nav-link">
             <i class="fas fa-car-side" style="color:black"></i>
               <p style="color:white">
               &nbsp;&nbsp;Data Kemacetan
@@ -49,7 +49,7 @@
 
           <!-- Menu Kelola Data Kecelakaan -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/administrator/data_kecelakaan" class="nav-link">
             <i class="fas fa-car-crash" style="color:black"></i>
               <p style="color:white">
               &nbsp;&nbsp;Data Kecelakaan
@@ -62,7 +62,7 @@
           </div>
           <!-- Menu Melihat Peta Rawan Kemacetan-->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/administrator/peta_kemacetan" class="nav-link">
             <i class="fas fa-map-marked-alt" style="color:red"></i>
               <p style="color:white">
               &nbsp;&nbsp;Peta Rawan Kemacetan
@@ -72,7 +72,7 @@
 
           <!-- Menu Melihat Peta Rawan Kecelakaan-->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/administrator/peta_kecelakaan" class="nav-link">
             <i class="fas fa-map-marked-alt" style="color:yellow"></i>
               <p style="color:white;">
               &nbsp;&nbsp;Peta Rawan Kecelakaan
