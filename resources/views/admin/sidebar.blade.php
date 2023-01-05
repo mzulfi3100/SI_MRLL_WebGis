@@ -9,67 +9,81 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{('Admin/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">MRLL</a>
-        </div>
-      </div>
-
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Starter Pages
-                <i class="right fas fa-angle-left"></i>
-              </p>
+          
+        <div class="sidebar-heading" style="font-size:14px"><b>
+            ADMIN</b>
+        </div>
+        <!-- Menu Kelola Data Kecamatan -->
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fas fa-landmark"></i>
+              <p style="color:yellow"><b>
+              &nbsp;&nbsp;Data Kecamatan
+              </b></p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inactive Page</p>
-                </a>
-              </li>
-            </ul>
           </li>
+
+          <!-- Menu Kelola Data Jalan -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fas fa-road"></i>
+              <p style="color:yellow"><b>
+              &nbsp;&nbsp;Data Jalan
+              </b></p>
+            </a>
+          </li>
+
+          <!-- Menu Kelola Data Kemacetan -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fas fa-car-side"></i>
+              <p style="color:yellow"><b>
+              &nbsp;&nbsp;Data Kemacetan
+              </b></p>
+            </a>
+          </li>
+
+          <!-- Menu Kelola Data Kecelakaan -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fas fa-car-crash"></i>
+              <p style="color:yellow"><b>
+              &nbsp;&nbsp;Data Kecelakaan
+              </b></p>
+            </a>
+          </li>
+
+          <div class="sidebar-heading" style="font-size:14px"><b>
+            PETA</b>
+          </div>
+          <!-- Menu Melihat Peta Rawan Kemacetan-->
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
+              <p style="color:yellow"><b>
+                Peta Rawan Kemacetan
+              </b></p>
             </a>
           </li>
+
+          <!-- Menu Melihat Peta Rawan Kecelakaan-->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p style="color:yellow;"><b>
+                Peta Rawan Kecelakaan
+              </b></p>
+            </a>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
+    
     <!-- /.sidebar -->
   </aside>
