@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KecamatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,12 +33,15 @@ Route::get('administrator/data_kecelakaan', function () {
     return view ('admin/data_kecelakaan');
 });
 
-Route::get('administrator/peta_kemacetan', function () {
-    return view ('admin/peta_kemacetan');
-});
+Route::get('administrator/peta_kemacetan', [AdminController::class, 'peta_kemacetan']);
 
 Route::get('administrator/peta_kecelakaan', function () {
     return view ('admin/peta_kecelakaan');
 });
 
+Route::get('administrator/tambah_data_kecamatan', function () {
+    return view ('admin/tambah_data_kecamatan');
+});
+
+Route::resource('kecamatan', KecamatanController::class);
 
