@@ -19,5 +19,10 @@
         zoomOffset: -1,
         }
     ).addTo(mymap);
+
+    @foreach($kecamatans as $kec)
+        L.geoJSON(<?= $kec->batasKecamatan ?>).addTo(mymap)
+    @endforeach
+    
 </script>
 @stop

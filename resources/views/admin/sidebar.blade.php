@@ -19,7 +19,7 @@
         </div>
         <!-- Menu Kelola Data Kecamatan -->
         <li class="nav-item">
-            <a href="/administrator/data_kecamatan" class="nav-link">
+            <a href="/kecamatan" class="nav-link">
             <i class="fas fa-landmark" style="color:black"></i>
               <p style="color:white;">
               &nbsp;&nbsp;Data Kecamatan

@@ -16,4 +16,9 @@ class AdminController extends Controller
         $kecamatans = Kecamatan::get();
         return view('admin/peta_kemacetan', compact('kecamatans'));
     }
+
+    public function peta_kecelakaan(){
+        $kecamatans = Kecamatan::get();
+        return view('admin/peta_kecelakaan', compact('kecamatans'));
+    }
 }

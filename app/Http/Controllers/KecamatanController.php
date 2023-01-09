@@ -14,7 +14,10 @@ class KecamatanController extends Controller
      */
     public function index()
     {
-        //
+        $kecamatans = Kecamatan::latest()->paginate(10);
+      
+        return view('admin/data_kecamatan',compact('kecamatans'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -24,7 +27,7 @@ class KecamatanController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/tambah_data_kecamatan');
     }
 
     /**
@@ -44,7 +47,8 @@ class KecamatanController extends Controller
             'namaKecamatan' => $request->namaKecamatan,
             'batasKecamatan' => $request->batasKecamatan
         ]);
-       
+        
+        return redirect()->route('kecamatan.index');
     }
 
     /**
@@ -64,9 +68,9 @@ class KecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Kecamatan $kecamatan)
     {
-        //
+        return view('admin/edit_data_kecamatan', compact('kecamatan'));
     }
 
     /**
@@ -76,9 +80,16 @@ class KecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Kecamatan $kecamatan)
     {
-        //
+        $request->validate([
+            'namaKecamatan' => 'required',
+            'batasKecamatan' => 'required',
+        ]);
+
+        $kecamatan->update($request->all());
+      
+        return redirect()->route('kecamatan.index');
     }
 
     /**
@@ -87,8 +98,9 @@ class KecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Kecamatan $kecamatan)
     {
-        //
+        $kecamatan->delete();
+        return redirect()->route('kecamatan.index');
     }
 }
