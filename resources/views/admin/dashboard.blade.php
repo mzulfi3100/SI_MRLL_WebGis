@@ -50,9 +50,17 @@
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Jumlah Kecamatan</div>
+                      <?php
+                        $count = 0;
+                      ?>
                       <div class="row no-gutters align-items-center">
+                        @foreach($kecamatans as $kec)
+                          <?php
+                            $count++;
+                          ?>
+                        @endforeach
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">20 </div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> <?= $count ?>  </div>
                         </div>
                       </div>
                     </div>

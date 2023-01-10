@@ -9,7 +9,8 @@ class AdminController extends Controller
 {
     //
     public function index(){
-        return view('admin/dashboard');
+        $kecamatans = Kecamatan::get();
+        return view('admin/dashboard', compact('kecamatans'));
     }
 
     public function peta_kemacetan(){
