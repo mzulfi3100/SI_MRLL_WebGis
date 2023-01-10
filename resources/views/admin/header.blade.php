@@ -51,7 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" >
-          <a class="dropdown-item" href="/login">
+          <a class="dropdown-item" href="/administrator/register">
           <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400">
           </i>Tambah Akun</a>
             <div class="dropdown-divider"></div><a class="dropdown-item" href="/administrator/sign_out">

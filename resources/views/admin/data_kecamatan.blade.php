@@ -31,7 +31,7 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="text-center">
+        <div class="row text-center">
             {!! $kecamatans->links() !!}
         </div>
     </div>

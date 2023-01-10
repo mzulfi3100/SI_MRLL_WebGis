@@ -20,10 +20,6 @@
                 <input type="text" class="form-control" id="namaKecamatan" name="namaKecamatan">
             </div>
             <div class="form-group">
-                <label>Luas Kecamatan</label>
-                <input type="text" class="form-control" id="luasKecamatan" name="luasKecamatan">
-            </div>
-            <div class="form-group">
                 <label>Batas Kecamatan</label>
                 <input type="text" class="form-control" id="batasKecamatan" name="batasKecamatan">
             </div>
