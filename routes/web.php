@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,18 @@ Route::get('administrator/tambah_data_kecamatan', function () {
 });
 
 Route::resource('kecamatan', KecamatanController::class);
+
+Route::get('login', [AuthController::class, 'index']);
+
+Route::post('/administrator/login_process', [AuthController::class, 'login_process'])->name('login.process');
+
+Route::get('/administrator/register', [AuthController::class, 'register']);
+
+Route::post('/administrator/register_process', [AuthController::class, 'register_process'])->name('register.process');
+
+Route::get('/administrator/sign_out', [AuthController::class, 'sign_out']);
+
+
 
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------

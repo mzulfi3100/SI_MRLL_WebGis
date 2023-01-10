@@ -47,14 +47,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </li>
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="mr-2 d-none d-lg-inline text-gray-600 " style="color:white; ">Admin</span>
+          <span class="mr-2 d-none d-lg-inline text-gray-600 " style="color:white; ">ADMIN</span>
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" >
           <a class="dropdown-item" href="/login">
           <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400">
-          </i>Sign-in</a>
-            <div class="dropdown-divider"></div><a class="dropdown-item" href="/logout">
+          </i>Tambah Akun</a>
+            <div class="dropdown-divider"></div><a class="dropdown-item" href="/administrator/sign_out">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</a>
         </div>
       </li>
