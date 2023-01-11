@@ -15,7 +15,8 @@ class AdminController extends Controller
 
     public function peta_kemacetan(){
         $kecamatans = Kecamatan::get();
-        return view('admin/peta_kemacetan', compact('kecamatans'));
+        $kabupaten = json_decode(file_get_contents(public_path() . "\kabupaten.geojson"), true);
+        return view('admin/peta_kemacetan', compact('kecamatans', 'kabupaten'));
     }
 
     public function peta_kecelakaan(){
