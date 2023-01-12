@@ -41,6 +41,8 @@ Route::get('administrator/tambah_data_kecamatan', function () {
 
 Route::resource('kecamatan', KecamatanController::class);
 
+Route::get('batas_kecamatan', [AdminController::class, 'batas_kecamatan']);
+
 Route::get('login', [AuthController::class, 'index']);
 
 Route::post('/administrator/login_process', [AuthController::class, 'login_process'])->name('login.process');

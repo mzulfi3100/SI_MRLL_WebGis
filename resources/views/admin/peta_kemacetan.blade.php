@@ -4,15 +4,31 @@
 @stop
 @section('script_peta')
 <script>
-    var mymap = L.map("mapid").setView([ -5.390000, 105.292969], 12.4);
-
-    L.tileLayer(
-        'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-        {
+    var street = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',{
         maxZoom: 20,
         subdomains:['mt0','mt1','mt2','mt3']
+    });
+
+    var hybrid = L.tileLayer('http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}',{
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3']
+    });
+
+    var satellite = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3']
+    });
+
+    var kabupatenJson;
+
+    $.ajax({
+        url: "/kabupaten.geojson",
+        async: false,
+        dataType: 'json',
+        success: function(data){
+            kabupatenJson = data
         }
-    ).addTo(mymap);
+    });
 
     var myStyle = {
         "color": '#000000',
@@ -21,12 +37,36 @@
         "fillOpacity": 0 ,
     };
 
-    $.getJSON('/kabupaten.geojson', function(json){
-        L.geoJSON(json, {
-            style: myStyle
-        }).addTo(mymap);
+    var batasKabupaten = L.geoJSON(kabupatenJson, {
+        style: myStyle
     });
+
+    var batasKecamatan = L.layerGroup();
+
+    var myMap = L.map('mapid', {
+        center: [-5.390000, 105.292969],
+        zoom: 12.4,
+        layers: [street, hybrid, satellite, batasKabupaten, batasKecamatan]
+    });
+
+    var baseMaps = {
+        "Street": street,
+        "Hybrid": hybrid,
+        "Satellite": satellite,
+    };
+
+    var overlayMaps = {
+        "Kabupaten": batasKabupaten,
+        "Kecamatan": batasKecamatan
+    };
+
+    @foreach($kecamatans as $kec)
+        L.geoJSON(<?= $kec->batasKecamatan ?>,{
+            style: myStyle    
+        }).addTo(batasKecamatan).bindPopup("{{ $kec->namaKecamatan }}");
+    @endforeach
     
-        
+    var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(myMap);  
+
 </script>
 @stop
