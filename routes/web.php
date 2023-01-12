@@ -67,3 +67,7 @@ Route::get('/administrator/sign_out', [AuthController::class, 'sign_out']);
 // Route::get('password', [UserController::class, 'password'])->name('password');
 // Route::post('password', [UserController::class, 'password_action'])->name('password.action');
 // Route::get('logout', [UserController::class, 'logout'])->name('logout');
+
+Route::get('dashboardPenggunaJalan', function () {
+    return view ('penggunaJalan/landingPage');
+});
