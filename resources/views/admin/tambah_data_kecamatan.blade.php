@@ -1,6 +1,5 @@
-@include('admin/header')
-@include('admin/sidebar')
-<div class="content-wrapper">
+@extends('admin/template')
+@section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -11,7 +10,8 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-
+@stop
+@section('other')
     <div class="p-2">
         <form action="{{ route('kecamatan.store') }}" method="POST">
             @csrf
@@ -20,11 +20,23 @@
                 <input type="text" class="form-control" id="namaKecamatan" name="namaKecamatan">
             </div>
             <div class="form-group">
+                <label>Warna Kecamatan</label>
+                <input type="color" id="colorpicker" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"> 
+                <input type="text" id="hexcolor" name="warnaKecamatan"></input>
+            </div>
+            <div class="form-group">
                 <label>Batas Kecamatan</label>
                 <input type="text" class="form-control" id="batasKecamatan" name="batasKecamatan">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-</div>
-@include('admin/footer')
+@stop 
+@section('script_warna')
+<script>
+     $('#colorpicker').on('input', function() {
+        $('#hexcolor').val(this.value);
+        $('#hexcolor').value(this.value);
+    });
+</script>
+@stop

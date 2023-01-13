@@ -22,5 +22,6 @@
 <script src="{{ asset('Admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('Admin/dist/js/adminlte.min.js')}}"></script>
+@yield('script_warna')
 </body>
 </html>

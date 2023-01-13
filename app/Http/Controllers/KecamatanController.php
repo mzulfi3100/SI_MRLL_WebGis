@@ -84,6 +84,7 @@ class KecamatanController extends Controller
     {
         $request->validate([
             'namaKecamatan' => 'required',
+            'warnaKecamatan' => 'required',
             'batasKecamatan' => 'required',
         ]);
 

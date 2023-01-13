@@ -8,6 +8,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Kecamatan</th>
+                    <th>Warna Kecamatan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -16,6 +17,10 @@
                 <tr>
                     <td>{{ ++$i }}</td>
                     <td>{{ $kec->namaKecamatan }}</td>
+                    <td>
+                        <div style="background-color:{{ $kec->warnaKecamatan }}; width:25px; height:25px; border:1px solid #000;"></div>
+                    </td> 
+                    </td>
                     <td>
                         <form action="{{ route('kecamatan.destroy',$kec->id) }}" method="POST">
             

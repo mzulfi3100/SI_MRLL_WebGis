@@ -9,6 +9,6 @@ class Kecamatan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'namaKecamatan', 'batasKecamatan'
+        'namaKecamatan', 'warnaKecamatan', 'batasKecamatan'
     ];
 }

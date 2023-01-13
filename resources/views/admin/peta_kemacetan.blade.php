@@ -30,7 +30,7 @@
         }
     });
 
-    var myStyle = {
+    var kabupatenStyle = {
         "color": '#000000',
         "weight": 2,
         "opacity": 1,
@@ -38,13 +38,13 @@
     };
 
     var batasKabupaten = L.geoJSON(kabupatenJson, {
-        style: myStyle
+        style: kabupatenStyle
     });
 
     var batasKecamatan = L.layerGroup();
 
     var myMap = L.map('mapid', {
-        center: [-5.390000, 105.292969],
+        center: [-5.420000, 105.292969],
         zoom: 12.4,
         layers: [street, hybrid, satellite, batasKabupaten, batasKecamatan]
     });
@@ -61,9 +61,15 @@
     };
 
     @foreach($kecamatans as $kec)
+        var kecamatanStyle = {
+            "color": "<?= $kec->warnaKecamatan ?>",
+            "weight": 0,
+            "opacity": 1,
+            "fillOpacity": 0.5 ,
+        };
         L.geoJSON(<?= $kec->batasKecamatan ?>,{
-            style: myStyle    
-        }).addTo(batasKecamatan).bindPopup("{{ $kec->namaKecamatan }}");
+            style: kecamatanStyle    
+        }).addTo(batasKecamatan).bindPopup(" <?= $kec->namaKecamatan ?> ");
     @endforeach
     
     var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(myMap);  
