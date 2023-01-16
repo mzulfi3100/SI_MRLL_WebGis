@@ -14,10 +14,11 @@ class KecamatanController extends Controller
      */
     public function index()
     {
-        $kecamatans = Kecamatan::first()->paginate(10);
+        // $kecamatans = Kecamatan::first()->paginate(10);
       
-        return view('admin/data_kecamatan',compact('kecamatans'))
-            ->with('i', (request()->input('page', 1) - 1) * 10);
+        // return view('admin/data_kecamatan',compact('kecamatans'))
+        //     ->with('i', (request()->input('page', 1) - 1) * 10);
+        return view('admin/data_kecamatan');
     }
 
     /**
@@ -40,11 +41,13 @@ class KecamatanController extends Controller
     {        
         $request->validate([
             'namaKecamatan' => 'required',
+            'warnaKecamatan' => 'required',
             'batasKecamatan' => 'required',
         ]);
 
         Kecamatan::create([
             'namaKecamatan' => $request->namaKecamatan,
+            'warnaKecamatan' => $request->warnaKecamatan,
             'batasKecamatan' => $request->batasKecamatan
         ]);
         
@@ -99,8 +102,9 @@ class KecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kecamatan $kecamatan)
+    public function destroy($id)
     {
+        $kecamatan = Kecamatan::find($id);
         $kecamatan->delete();
         return redirect()->route('kecamatan.index');
     }

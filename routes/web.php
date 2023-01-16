@@ -53,12 +53,15 @@ Route::post('/administrator/register_process', [AuthController::class, 'register
 
 Route::get('/administrator/sign_out', [AuthController::class, 'sign_out']);
 
+Route::get('administrator/list', [AdminController::class, 'getKecamatan'])->name('administrator.list');
+
+Route::get('kecamatan/{id}/delete', [KecamatanController::class, 'destroy']);
 
 
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/
-// Route::get('/', function () {
+    // Route::get('/', function () {
 //     return view('home', ['title' => 'Home']);
 // })->name('home');
 

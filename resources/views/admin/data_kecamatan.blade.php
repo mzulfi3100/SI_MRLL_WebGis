@@ -1,10 +1,9 @@
-@include('admin/header')
-@include('admin/sidebar')
-<div class="content-wrapper">
+@extends('admin/template')
+@section('content')
     <div class="p-4">
         <a href="{{ route('kecamatan.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Kecamatan</a>
-        <table class="table table-striped p-3">
-            <thead>
+        <table class="table table-striped yajra-datatable p-3">
+            <thead> 
                 <tr>
                     <th>No</th>
                     <th>Nama Kecamatan</th>
@@ -13,38 +12,34 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($kecamatans as $kec)
-                <tr>
-                    <td>{{ ++$i }}</td>
-                    <td>{{ $kec->namaKecamatan }}</td>
-                    <td>
-                        <div style="background-color:{{ $kec->warnaKecamatan }}; width:25px; height:25px; border:1px solid #000;"></div>
-                    </td> 
-                    </td>
-                    <td>
-                        <form action="{{ route('kecamatan.destroy',$kec->id) }}" method="POST">
-            
-                            <a class="btn btn-primary" href="{{ route('kecamatan.edit',$kec->id) }}">Edit</a>
-        
-                            @csrf
-                            @method('DELETE')
-            
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    <td>
-                </tr>
-                @endforeach
             </tbody>
         </table>
-        <div class="row text-center">
-            {!! $kecamatans->links() !!}
-        </div>
     </div>
-</div>
-<!-- /.container-fluid -->
-<!-- End of Main Content -->
-
-<!--modal-->
-<!-- Button trigger modal -->
-
-@include('admin/footer')
+@stop
+@section('script_tabel')
+<script type="text/javascript">
+  $(function () {
+    var table = $('.yajra-datatable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('administrator.list') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'namaKecamatan', name: 'namaKecamatan'},
+            {
+                data: 'warna', 
+                name: 'warna', 
+                orderable: true, 
+                searchable: true
+            },
+            {
+                data: 'action', 
+                name: 'action', 
+                orderable: true, 
+                searchable: true
+            },
+        ]
+    });
+  });
+</script>
+@stop

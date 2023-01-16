@@ -21,8 +21,8 @@
             </div>
             <div class="form-group">
                 <label>Warna Kecamatan</label>
-                <input type="color" id="colorpicker" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"> 
-                <input type="text" id="hexcolor" name="warnaKecamatan"></input>
+                <input type="color" class="form-control" id="colorpicker"> 
+                <input type="hidden" class="form-control" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" id="hexcolor" name="warnaKecamatan">
             </div>
             <div class="form-group">
                 <label>Batas Kecamatan</label>
