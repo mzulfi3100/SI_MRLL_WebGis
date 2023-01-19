@@ -34,8 +34,8 @@
     <script type="text/javascript">
         $(function(){
             var table = $('.yajra-datatable').DataTable({
-                processing:true,
-                serverSide:true,
+                processing: false,
+                serverSide: true,
                 ajax: "{{ route('administrator.getJalan') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -46,8 +46,8 @@
                     {
                         data: 'action', 
                         name: 'action',
-                        orderable:true,
-                        searchable:true,
+                        orderable: false,
+                        searchable: false,
                     },
                 ]
             });

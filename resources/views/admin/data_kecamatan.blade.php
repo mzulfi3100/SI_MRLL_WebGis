@@ -31,7 +31,7 @@
 <script type="text/javascript">
   $(function () {
     var table = $('.yajra-datatable').DataTable({
-        processing: true,
+        processing: false,
         serverSide: true,
         ajax: "{{ route('administrator.list') }}",
         columns: [
@@ -40,14 +40,14 @@
             {
                 data: 'warna', 
                 name: 'warna', 
-                orderable: true, 
-                searchable: true
+                orderable: false, 
+                searchable: false
             },
             {
                 data: 'action', 
                 name: 'action', 
-                orderable: true, 
-                searchable: true
+                orderable: false, 
+                searchable: false
             },
         ]
     });

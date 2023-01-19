@@ -13,45 +13,45 @@
     <!-- /.content-header -->
 
     <div class="p-4">
-        <form action="{{ route('jalan.update', $jalans->id ) }}" method="POST">
+        <form action="{{ route('jalan.update', $jalan->id ) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group">
                 <label>Nama Jalan</label>
-                <input type="text" class="form-control" id="namaJalan" name="namaJalan" value="{{ $jalans->namaJalan }}">
+                <input type="text" class="form-control" id="namaJalan" name="namaJalan" value="{{ $jalan->namaJalan }}">
             </div>
             <div class="form-group">
                 <label>Tipe Jalan</label>
-                <input type="text" class="form-control" id="tipeJalan" name="tipeJalan" value="{{ $jalans->tipeJalan }}">
+                <input type="text" class="form-control" id="tipeJalan" name="tipeJalan" value="{{ $jalan->tipeJalan }}">
             </div>
             <div class="form-group">
                 <label>Panjang Jalan</label>
-                <input type="text" class="form-control" id="panjangJalan" name="panjangJalan" value="{{ $jalans->panjangJalan }}">
+                <input type="text" class="form-control" id="panjangJalan" name="panjangJalan" value="{{ $jalan->panjangJalan }}">
             </div>
             <div class="form-group">
                 <label>Lebar Jalan</label>
-                <input type="text" class="form-control" id="lebarJalan" name="lebarJalan" value="{{ $jalans->lebarJalan }}">
+                <input type="text" class="form-control" id="lebarJalan" name="lebarJalan" value="{{ $jalan->lebarJalan }}">
             </div>
             <div class="form-group">
                 <label>Kapasitas Jalan</label>
-                <input type="text" class="form-control" id="kapasitasJalan" name="kapasitasJalan" value="{{ $jalans->kapasitasJalan }}">
+                <input type="text" class="form-control" id="kapasitasJalan" name="kapasitasJalan" value="{{ $jalan->kapasitasJalan }}">
             </div>
             <div class="form-group">
                 <label>Hambatan Samping</label>
-                <input type="text" class="form-control" id="hambatanSamping" name="hambatanSamping" value="{{ $jalans->hambatanSamping }}">
+                <input type="text" class="form-control" id="hambatanSamping" name="hambatanSamping" value="{{ $jalan->hambatanJalan }}">
             </div>
             <div class="form-group">
                 <label>Kondisi Jalan</label>
-                <input type="text" class="form-control" id="kondisiJalan" name="kondisiJalan" value="{{ $jalans->kondisiJalan }}">
+                <input type="text" class="form-control" id="kondisiJalan" name="kondisiJalan" value="{{ $jalan->kondisiJalan }}">
             </div>
             <div class="form-group">
                 <label>Tingkat Pelayanan Jalan</label>
-                <input type="text" class="form-control" id="tingkatPelayananJalan" name="tingkatPelayananJalan" value="{{ $jalans->tingkatPelayananJalan }}">
+                <input type="text" class="form-control" id="tingkatPelayananJalan" name="tingkatPelayananJalan" value="{{ $jalan->tinkatPelayananJalan }}">
             </div>
             <div id="map" style="height:500px; width: 900px;" class="mb-4"></div>
             <div class="form-group">
                 <label>geoJSON Jalan</label>
-                <input type="text" class="form-control" id="geoJsonJalan" name="geoJsonJalan" value="{{ $jalans->geoJsonJalan }}"></input>
+                <input type="text" class="form-control" id="geoJsonJalan" name="geoJsonJalan" value="{{ $jalan->geoJsonJalan }}"></input>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -114,7 +114,7 @@
         };
 
         L.geoJSON(kabupatenJson, {
-            style: kabupatenStyle,
+            style: kabupatenStyle, 
             pmIgnore: true,
         }).addTo(map);
 
@@ -125,6 +125,43 @@
                 children: [
                     {label: '<div id="onlysel">-Show only selected-</div>'},
                     {
+                        label: 'Jalan',
+                        selectAllCheckbox: true,
+                        children: [
+                            @foreach($jalans as $jln)
+                            {
+                                label: '<?= $jln->namaJalan ?>', 
+                                layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
+                                    onEachFeature: function (feature, layer) {
+                                        layer.bindTooltip('<?= $jln->namaJalan ?>');
+                                        if('<?= $jln->tingkatPelayananJalan ?>' == 'A'){
+                                                layer.setStyle({color :'#3CB043'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'B'){
+                                                layer.setStyle({color :'#3CB043'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'C'){
+                                                layer.setStyle({color :'#3CB043'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'D'){
+                                                layer.setStyle({color :'#3CB043'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'E'){
+                                                layer.setStyle({color :'#FFF200'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'F'){
+                                                layer.setStyle({color :'#FF0000'});
+                                        }
+                                    },
+                                    pmIgnore: true,
+                                }).addTo(map),
+                                name:   'Nama Jalan: ' + '<?= $jln->namaJalan ?>' + '<br>' +
+                                        'Tipe Jalan: ' + '<?= $jln->tipeJalan ?>' + '<br>' +
+                                        'Panjang Jalan: ' + '<?= $jln->panjangJalan ?>' + '<br>' +
+                                        'Lebar Jalan: ' + '<?= $jln->lebarJalan ?>' + '<br>' +
+                                        'Kapasitas Jalan: ' + '<?= $jln->kapasitasJalan ?>' + '<br>' +
+                                        'Hambatan Samping: ' + '<?= $jln->hambatanJalan ?>' + '<br>' +
+                                        'Kondisi Jalan :' + '<?= $jln->kondisiJalan ?>' + '<br>' +
+                                        'Tingkat Pelayanan Jalan: ' + '<?= $jln->tingkatPelayananJalan ?>' + '<br>',
+                            },
+                            @endforeach
+                        ]
+                    },  {
                         label: 'Kecamatan',
                         selectAllCheckbox: true,
                         children: [
@@ -137,6 +174,7 @@
                                             "opacity": 1,
                                             "fillOpacity": 0.5 ,
                                         },
+                                        pmIgnore: true,
                                     })
                                 },
                             @endforeach
@@ -187,7 +225,24 @@
             });
         });
 
-        const jalanSelected = L.geoJSON(<?= $jalans->geoJsonJalan ?>).addTo(map);  
+        const jalanSelected = L.geoJSON(<?= $jalan->geoJsonJalan ?>, {
+            onEachFeature: function (feature, layer) {
+                layer.bindTooltip('<?= $jalan->namaJalan ?>');
+                if('<?= $jalan->tingkatPelayananJalan ?>' == 'A'){
+                    layer.setStyle({color :'#3CB043'});
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'B'){
+                        layer.setStyle({color :'#3CB043'});
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'C'){
+                        layer.setStyle({color :'#3CB043'});
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'D'){
+                        layer.setStyle({color :'#3CB043'});
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'E'){
+                        layer.setStyle({color :'#FFF200'});
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'F'){
+                        layer.setStyle({color :'#FF0000'});
+                }   
+            }
+        }).addTo(map);  
 
         jalanSelected.on('pm:edit', function(e){
             var layer = e.layer;
