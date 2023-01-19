@@ -114,7 +114,8 @@
         };
 
         L.geoJSON(kabupatenJson, {
-            style: kabupatenStyle
+            style: kabupatenStyle,
+            pmIgnore: true,
         }).addTo(map);
 
         var overlaysTree = 
