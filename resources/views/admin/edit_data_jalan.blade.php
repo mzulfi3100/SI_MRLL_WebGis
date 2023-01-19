@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label>Hambatan Samping</label>
-                <input type="text" class="form-control" id="hambatanSamping" name="hambatanSamping" value="{{ $jalans->hambatanJalan }}">
+                <input type="text" class="form-control" id="hambatanSamping" name="hambatanSamping" value="{{ $jalans->hambatanSamping }}">
             </div>
             <div class="form-group">
                 <label>Kondisi Jalan</label>
@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label>Tingkat Pelayanan Jalan</label>
-                <input type="text" class="form-control" id="tingkatPelayananJalan" name="tingkatPelayananJalan" value="{{ $jalans->tinkatPelayananJalan }}">
+                <input type="text" class="form-control" id="tingkatPelayananJalan" name="tingkatPelayananJalan" value="{{ $jalans->tingkatPelayananJalan }}">
             </div>
             <div id="map" style="height:500px; width: 900px;" class="mb-4"></div>
             <div class="form-group">
