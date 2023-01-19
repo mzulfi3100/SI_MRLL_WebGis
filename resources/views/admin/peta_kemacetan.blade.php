@@ -75,7 +75,24 @@
                             @foreach($jalans as $jln)
                             {
                                 label: '<?= $jln->namaJalan ?>', 
-                                layer: L.geoJSON(<?= $jln->geoJsonJalan ?>),
+                                layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
+                                    onEachFeature: function (feature, layer) {
+                                        layer.bindTooltip('<?= $jln->tingkatPelayananJalan ?>');
+                                        if('<?= $jln->tingkatPelayananJalan ?>' == 'A'){
+                                                layer.setStyle({color :'#3CB043'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'B'){
+                                                layer.setStyle({color :'#3CB043'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'C'){
+                                                layer.setStyle({color :'#3CB043'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'D'){
+                                                layer.setStyle({color :'#3CB043'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'E'){
+                                                layer.setStyle({color :'#FFF200'});
+                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'F'){
+                                                layer.setStyle({color :'#FF0000'});
+                                        }
+                                    }
+                                }).addTo(map),
                                 name:   'Nama Jalan: ' + '<?= $jln->namaJalan ?>' + '<br>' +
                                         'Tipe Jalan: ' + '<?= $jln->tipeJalan ?>' + '<br>' +
                                         'Panjang Jalan: ' + '<?= $jln->panjangJalan ?>' + '<br>' +
