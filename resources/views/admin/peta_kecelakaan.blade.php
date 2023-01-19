@@ -77,7 +77,7 @@
                                 label: '<?= $jln->namaJalan ?>', 
                                 layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
                                     onEachFeature: function (feature, layer) {
-                                        layer.bindTooltip('<?= $jln->tingkatPelayananJalan ?>');
+                                        layer.bindTooltip('<?= $jln->namaJalan ?>');
                                         if('<?= $jln->tingkatPelayananJalan ?>' == 'A'){
                                                 layer.setStyle({color :'#3CB043'});
                                         }else if('<?= $jln->tingkatPelayananJalan ?>' == 'B'){
@@ -131,6 +131,7 @@
                     selectorBack: false,
                     closedSymbol: '&#8862; &#x1f5c0;',
                     openedSymbol: '&#8863; &#x1f5c1;',
+                    collapseAll: 'Collapse all',
                     collapsed: false,
                 });
 
