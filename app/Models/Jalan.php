@@ -9,6 +9,7 @@ class Jalan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'namaJalan', 'kapasitasJalan'
+        'namaJalan', 'volumeJalan', 'lebarJalan', 'panjangJalan', 'tipeJalan', 'kapasitasJalan', 'tingkatPelayananJalan',
+        'kondisiJalan', 'hambatanSamping', 'geoJsonJalan',
     ];
 }

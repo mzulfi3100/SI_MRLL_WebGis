@@ -25,6 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/L.Control.Layers.Tree.css" crossorigin=""/>
+  <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />  
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Tampilan Preloader Logo Dishub -->

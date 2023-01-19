@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('kecamatans', function (Blueprint $table) {
             $table->id();
-            $table->string('namaKecamatan');
+            $table->string('namaKecamatan', 20);
+            $table->string('warnaKecamatan', 10)->default('#000000');
             $table->text('batasKecamatan');
             $table->timestamps();
         });

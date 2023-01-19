@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kecamatan;
+use App\Models\Jalan;
 use DataTables; 
 
 class AdminController extends Controller
@@ -16,13 +17,14 @@ class AdminController extends Controller
 
     public function peta_kemacetan(){
         $kecamatans = Kecamatan::get();
-        $kabupaten = json_decode(file_get_contents(public_path() . "\kabupaten.geojson"), true);
-        return view('admin/peta_kemacetan', compact('kecamatans', 'kabupaten'));
+        $jalans = Jalan::get();
+        return view('admin/peta_kemacetan', compact('kecamatans', 'jalans'));
     }
 
     public function peta_kecelakaan(){
         $kecamatans = Kecamatan::get();
-        return view('admin/peta_kecelakaan', compact('kecamatans'));
+        $jalans = Jalan::get();
+        return view('admin/peta_kecelakaan', compact('kecamatans', 'jalans'));
     }
 
     public function getKecamatan(Request $request)
@@ -40,6 +42,24 @@ class AdminController extends Controller
                     return $actionBtn;
                 })
                 ->rawColumns(['action', 'warna'])
+                ->make(true);
+        }
+    }
+
+    public function getJalan(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = Jalan::latest()->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="/administrator/jalan/'.$row->id.'/show" class="show btn btn-primary btn-sm">Show</a>
+                                <a href="/administrator/jalan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a>
+                                <a href="/administrator/jalan/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
     }

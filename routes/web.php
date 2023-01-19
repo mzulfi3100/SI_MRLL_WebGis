@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JalanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,11 @@ Route::get('administrator/list', [AdminController::class, 'getKecamatan'])->name
 
 Route::get('kecamatan/{id}/delete', [KecamatanController::class, 'destroy']);
 
+Route::resource('/administrator/jalan', JalanController::class);
+
+Route::get('/administrator/getJalan', [AdminController::class, 'getJalan'])->name('administrator.getJalan');
+
+Route::get('/administrator/jalan/{id}/delete', [JalanController::class, 'destroy']);
 
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------

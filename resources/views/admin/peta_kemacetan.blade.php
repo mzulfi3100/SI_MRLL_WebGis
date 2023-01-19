@@ -58,6 +58,10 @@
             "fillOpacity": 0 ,
         };
 
+        L.geoJSON(kabupatenJson, {
+            style: kabupatenStyle
+        }).addTo(map);
+
         var overlaysTree = 
             {
                 label: 'Layers',
@@ -65,6 +69,25 @@
                 children: [
                     {label: '<div id="onlysel">-Show only selected-</div>'},
                     {
+                        label: 'Jalan',
+                        selectAllCheckbox: true,
+                        children: [
+                            @foreach($jalans as $jln)
+                            {
+                                label: '<?= $jln->namaJalan ?>', 
+                                layer: L.geoJSON(<?= $jln->geoJsonJalan ?>),
+                                name:   'Nama Jalan: ' + '<?= $jln->namaJalan ?>' + '<br>' +
+                                        'Tipe Jalan: ' + '<?= $jln->tipeJalan ?>' + '<br>' +
+                                        'Panjang Jalan: ' + '<?= $jln->panjangJalan ?>' + '<br>' +
+                                        'Lebar Jalan: ' + '<?= $jln->lebarJalan ?>' + '<br>' +
+                                        'Kapasitas Jalan: ' + '<?= $jln->kapasitasJalan ?>' + '<br>' +
+                                        'Hambatan Samping: ' + '<?= $jln->hambatanJalan ?>' + '<br>' +
+                                        'Kondisi Jalan :' + '<?= $jln->kondisiJalan ?>' + '<br>' +
+                                        'Tingkat Pelayanan Jalan: ' + '<?= $jln->tingkatPelayananJalan ?>' + '<br>',
+                            },
+                            @endforeach
+                        ]
+                    }, {
                         label: 'Kecamatan',
                         selectAllCheckbox: true,
                         children: [
@@ -81,18 +104,7 @@
                                 },
                             @endforeach
                         ]
-                    },  {
-                        label: 'Kota',
-                        selectAllCheckbox: true,
-                        children: [
-                            {
-                                label: 'Bandar Lampung',
-                                layer: L.geoJSON(kabupatenJson, {
-                                    style: kabupatenStyle
-                                })
-                            }
-                        ]
-                    }
+                    },
                 ]
             };
 
@@ -106,7 +118,7 @@
 
         var makePopups = function(node) {
             if (node.layer) {
-                node.layer.bindPopup(node.label);
+                node.layer.bindPopup(node.name);
             }
             if (node.children) {
                 node.children.forEach(function(element) { makePopups(element); });

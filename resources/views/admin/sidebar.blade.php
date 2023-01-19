@@ -29,7 +29,7 @@
 
           <!-- Menu Kelola Data Jalan -->
           <li class="nav-item">
-            <a href="/administrator/data_jalan" class="nav-link">
+            <a href="/administrator/jalan" class="nav-link">
             <i class="fas fa-road" style="color:black"></i>
               <p style="color:white">
               &nbsp;&nbsp;Data Jalan

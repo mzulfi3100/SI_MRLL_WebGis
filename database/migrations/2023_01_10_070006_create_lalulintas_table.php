@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('lalulintas', function (Blueprint $table) {
-            $table->float('kecepatanLaluLintas', 4)->after('volumeLaluLintas');
+        Schema::create('lalulintas', function (Blueprint $table) {
+            $table->id();
+            $table->integer('volumeLaluLintas')->nullable();
+            $table->integer('kecepatanLaluLintas')->nullable();
+            $table->foreignId('jalanId')->references('id')->on('jalans');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('lalulintas', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('lalulintas');
     }
 };

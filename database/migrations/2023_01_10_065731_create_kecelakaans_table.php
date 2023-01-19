@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('kecelakaans', function (Blueprint $table) {
             $table->id();
-            $table->string('tahunKecelakaan');
-            $table->integer('jumlahKecelakaan');
-            $table->foreignId('idJalan')->references('id')->on('jalans');
+            $table->string('tahunKecelakaan')->nullable();
+            $table->string('vatalitasKecelakaan', 50)->nullable();
+            $table->string('penyebabKecelakaan', 150)->nullable();
+            $table->integer('jumlahKecelakaan')->nullable();
+            $table->foreignId('jalanId')->references('id')->on('jalans');
             $table->timestamps();
         });
     }
