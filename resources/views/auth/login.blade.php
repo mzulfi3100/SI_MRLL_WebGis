@@ -5,60 +5,66 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('Admin/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('Admin/dist/css/adminlte.min.css')}}">
-</head>
-<body class="hold-transition layout-top-nav">
-    <!-- Tampilan Preloader Logo Dishub -->
-    <div class="preloader flex-column justify-content-center align-items-center bg-gradient-dark">
-        <img class="animation__shake" src="{{('/Admin/dist/img/LogoDishub.png')}}" alt="LogoDishub" height="200" width="230">
-    </div>
-    <!-- End Tampilan Preloader Logo Dishub -->
-    <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-lightblue navbar-dark">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a style="color:white;font-size:18px" class="nav-link" href="/">
-                    &nbsp;&nbsp;&nbsp;SISTEM INFORMASI MANAJEMEN REKAYASA LALU LINTAS </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.navbar -->
-        <div class="p-4">
-            <h3 class="mb-4">LOGIN ADMIN</h3>
-            <form action="{{ route('login.process') }}" method="POST">
-                @csrf
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" class="form-control" id="username" name="username">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-        
-    </div>
-    <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('Admin/plugins/jquery/jquery.min.js')}}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('Admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('Admin/dist/js/adminlte.min.js')}}"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="Assets/css/style2.css" type="text/css">
+</head>
+<body>
+        <div class="wrapper">
+            <!-- bg-bubbles -> memanggil jumlah animasi yang muncul -->
+        <ul class="bg-bubbles"><li><li><li><li><li><li><li><li><li><li></li></li></li></li></li></li></li></li></li></li></ul>
+        <div class="container">
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-4">
+                    <h2 class="heading-section">Login Admin</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-wrap p-0">
+                    <form action="{{ route('login.process') }}" method="POST" class="signin-form">
+                        @csrf 
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                            </div>
+                            <div class="form-group">
+                                <input id="password" name="password" type="password" class="form-control" placeholder="Password"
+                                    required>
+                                <span style="position: absolute" toggle="#password"
+                                    class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary submit px-3">Submit</button>
+                            </div>
+                            <div class="form-group d-md-flex">
+                                <div class="w-50">
+                                    <label class="checkbox-wrap checkbox-primary">Remember Me
+                                        <input type="checkbox" checked>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    <script src="{{('/Assets/js/jquery.min.js')}}"></script>
+    <script src="{{('/Assets/js/popper.js')}}"></script>
+    <script src="{{('/Assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{('/Assets/js/main.js')}}"></script>
 </body>
 </html>
