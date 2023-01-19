@@ -91,7 +91,8 @@
                                             "opacity": 1,
                                             "fillOpacity": 0.5 ,
                                         },
-                                    })
+                                    }),
+                                    name: '<?= $kec->namaKecamatan ?>'
                                 },
                             @endforeach
                         ]
