@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kecamatan;
 use App\Models\Jalan;
+use App\Models\Lalulinta;
 use DataTables; 
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -26,6 +28,11 @@ class AdminController extends Controller
         $jalans = Jalan::get();
         return view('admin/peta_kecelakaan', compact('kecamatans', 'jalans'));
     }
+    
+    public function peta_apill(){
+        $kecamatans = Kecamatan::get();
+        return view('admin/peta_apill', compact('kecamatans'));
+    }
 
     public function getKecamatan(Request $request)
     {
@@ -38,7 +45,8 @@ class AdminController extends Controller
                     return $kotak;
                 })
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="kecamatan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a> <a href="kecamatan/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>';
+                    $actionBtn = '<a href="kecamatan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a> 
+                                <a href="kecamatan/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action', 'warna'])
@@ -57,6 +65,26 @@ class AdminController extends Controller
                     $actionBtn = '<a href="/administrator/jalan/'.$row->id.'/show" class="show btn btn-primary btn-sm">Show</a>
                                 <a href="/administrator/jalan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a>
                                 <a href="/administrator/jalan/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+
+    public function getLaluLinta(Request $request)
+    {
+        if($request->ajax())
+        {
+            // $data = DB::table('lalulintas')
+            //             ->join('jalans', 'lalulintas.jalanId', '=', 'jalans.id')
+            //             ->get();
+            $data = Lalulinta::latest()->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="/administrator/lalulinta/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a>
+                                <a href="/administrator/lalulinta/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

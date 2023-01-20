@@ -27,6 +27,16 @@
             </a>
           </li>
 
+          <!-- Menu Kelola Data Apill -->
+          <li class="nav-item">
+            <a href="/administrator/apill" class="nav-link">
+            <i class="fas fa-traffic-light" style="color:black"></i>
+              <p style="color:white">
+              &nbsp;&nbsp;&nbsp;Data APILL
+              </p>
+            </a>
+          </li>
+
           <!-- Menu Kelola Data Jalan -->
           <li class="nav-item">
             <a href="/administrator/jalan" class="nav-link">
@@ -37,12 +47,12 @@
             </a>
           </li>
 
-          <!-- Menu Kelola Data Kemacetan -->
+          <!-- Menu Kelola Data Lalu Lintas -->
           <li class="nav-item">
-            <a href="/administrator/data_kemacetan" class="nav-link">
+            <a href="/administrator/lalulinta" class="nav-link">
             <i class="fas fa-car-side" style="color:black"></i>
               <p style="color:white">
-              &nbsp;&nbsp;Data Kemacetan
+              &nbsp;&nbsp;Data Lalu Lintas
               </p>
             </a>
           </li>
@@ -76,6 +86,16 @@
             <i class="fas fa-map-marked-alt" style="color:yellow"></i>
               <p style="color:white;">
               &nbsp;&nbsp;Peta Rawan Kecelakaan
+              </p>
+            </a>
+          </li>
+
+          <!-- Menu Melihat Peta APILL-->
+          <li class="nav-item">
+            <a href="/administrator/peta_apill" class="nav-link">
+            <i class="fas fa-map-marked-alt" style="color:green"></i>
+              <p style="color:white;">
+              &nbsp;&nbsp;Peta APILL
               </p>
             </a>
           </li>
