@@ -10,6 +10,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Dashboard</title>
 
+  <!-- animasi text bergerak -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.8/typed.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- /animasi text bergerak -->
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -40,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <ul class="navbar-nav">
       <li class="nav-item">
         <a style="color:white;font-size:18px" class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-chevron-left"></i>
-        &nbsp;&nbsp;&nbsp;SISTEM INFORMASI MANAJEMEN REKAYASA LALU LINTAS </a>
+        &nbsp;&nbsp;&nbsp; <span id="typed" ></span></a>
       </li>
     </ul>
 
@@ -67,6 +72,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </ul>
 
   </nav>
+  <script>
+  new Typed('#typed',{
+    strings : ['SISTEM INFORMASI MANAJEMEN REKAYASA LALU LINTAS'],
+    typeSpeed : 100,
+    delaySpeed : 3000,
+    loop : true,
+    showCursor: false,
+  });
+  </script>
   <!-- /.navbar -->
 
   
