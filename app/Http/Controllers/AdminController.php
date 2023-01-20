@@ -76,10 +76,11 @@ class AdminController extends Controller
     {
         if($request->ajax())
         {
-            // $data = DB::table('lalulintas')
-            //             ->join('jalans', 'lalulintas.jalanId', '=', 'jalans.id')
-            //             ->get();
-            $data = Lalulinta::latest()->get();
+            $data = DB::table('lalulintas')
+                        ->join('jalans', 'lalulintas.jalanId', '=', 'jalans.id')
+                        ->select('lalulintas.*', 'jalans.namaJalan')
+                        ->get();
+            // $data = Lalulinta::get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){

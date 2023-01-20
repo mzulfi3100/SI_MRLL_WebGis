@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Lalulinta;
+use App\Models\Jalan;
 
 class LalulintaController extends Controller
 {
@@ -24,7 +25,8 @@ class LalulintaController extends Controller
      */
     public function create()
     {
-        return view('admin/tambah_data_lalu_lintas');
+        $jalans = Jalan::get();
+        return view('admin/tambah_data_lalu_lintas', compact('jalans'));
     }
 
     /**
@@ -65,7 +67,8 @@ class LalulintaController extends Controller
     public function edit($id)
     {
         $lalulinta = Lalulinta::find($id);
-        return view('admin/edit_data_lalu_lintas', compact('lalulinta'));
+        $jalans = Jalan::get();
+        return view('admin/edit_data_lalu_lintas', compact('lalulinta', 'jalans'));
     }
 
     /**

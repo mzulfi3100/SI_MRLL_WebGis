@@ -17,7 +17,12 @@
 
             <div class="form-group">
                 <label>Nama Jalan</label>
-                <input type="text" class="form-control" id="jalanId" name="jalanId">
+                <select class="form-control" id="jalanId" name="jalanId">
+                    <option value=""> - Pilih Jalan - </option>
+                    @foreach($jalans as $jln)
+                        <option value="<?= $jln->id ?>"> <?= $jln->namaJalan ?> </option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label>Volume Lalu Lintas</label>

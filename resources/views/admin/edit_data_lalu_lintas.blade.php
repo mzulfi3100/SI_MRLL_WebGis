@@ -18,7 +18,21 @@
 
             <div class="form-group">
                 <label>Nama Jalan</label>
-                <input type="text" class="form-control" id="jalanId" name="jalanId" value="{{ $lalulinta->jalanId }}">
+                <select class="form-control" id="jalanId" name="jalanId">
+
+                    @foreach($jalans as $jln)
+                        <?php if($jln->id == $lalulinta->jalanId){ ?>
+                            <option value="<?= $jln->id ?>"> - <?= $jln->namaJalan ?> - </option>
+                        <?php } ?> 
+                    @endforeach
+                    @foreach($jalans as $jln)
+                        <?php if($jln->id == $lalulinta->jalanId){ ?>
+
+                        <?php }else {?>
+                            <option value="<?= $jln->id ?>"> <?= $jln->namaJalan ?> </option>
+                        <?php }?> 
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label>Volume Lalu Lintas</label>

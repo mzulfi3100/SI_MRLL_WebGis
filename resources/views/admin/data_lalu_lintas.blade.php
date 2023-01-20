@@ -17,6 +17,7 @@
             <thead> 
                 <tr>
                     <th>No</th>
+                    <th>Nama Jalan</th>
                     <th>Volume Lalu Lintas</th>
                     <th>Kecepatan Rata-Rata</th>
                     <th>Aksi</th>
@@ -36,6 +37,7 @@
         ajax: "{{ route('administrator.getLaluLinta') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'namaJalan', name: 'namaJalan'},
             {data: 'volumeLaluLintas', name: 'volumeLaluLintas'},
             {data: 'kecepatanLaluLintas', name: 'kecepatanLaluLintas'},
             {
