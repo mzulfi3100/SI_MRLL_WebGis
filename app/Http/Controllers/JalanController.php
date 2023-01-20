@@ -66,8 +66,9 @@ class JalanController extends Controller
     public function edit($id)
     {
         $kecamatans = Kecamatan::get();
-        $jalans = Jalan::find($id);
-        return view('admin/edit_data_jalan', compact('jalans', 'kecamatans'));
+        $jalans = Jalan::get();
+        $jalan = Jalan::find($id);
+        return view('admin/edit_data_jalan', compact('jalan', 'jalans', 'kecamatans'));
     }
 
     /**
