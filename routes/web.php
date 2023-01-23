@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JalanController;
 use App\Http\Controllers\LalulintaController;
+use App\Http\Controllers\KecelakaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +21,6 @@ use App\Http\Controllers\LalulintaController;
 */
 
 Route::get('/', [AdminController::class, 'index']);
-
-Route::get('administrator/data_jalan', function () {
-    return view ('admin/data_jalan');
-});
-
-Route::get('administrator/data_kecelakaan', function () {
-    return view ('admin/data_kecelakaan');
-});
 
 Route::get('administrator/peta_kemacetan', [AdminController::class, 'peta_kemacetan']);
 
@@ -71,6 +64,11 @@ Route::get('/administrator/getLaluLinta', [AdminController::class, 'getLaluLinta
 
 Route::get('/administrator/lalulinta/{id}/delete', [LalulintaController::class, 'destroy']);
 
+Route::resource('/administrator/kecelakaan', KecelakaanController::class);
+
+Route::get('/administrator/getKecelakaan', [AdminController::class, 'getKecelakaan'])->name('administrator.getKecelakaan');
+
+Route::get('/administrator/kecelakaan/{id}/delete', [KecelakaanController::class, 'destroy']);
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/

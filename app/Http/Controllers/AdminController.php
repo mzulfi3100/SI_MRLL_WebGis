@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Kecamatan;
 use App\Models\Jalan;
 use App\Models\Lalulinta;
+use App\Models\Kecelakaan;
 use DataTables; 
 use Illuminate\Support\Facades\DB;
 
@@ -90,6 +91,28 @@ class AdminController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
+        }
+    }
+
+    public function getKecelakaan(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = DB::table('kecelakaans')
+                        ->join('jalans', 'kecelakaans.jalanId', '=', 'jalans.id')
+                        ->select('kecelakaans.*', 'jalans.namaJalan')
+                        ->get();
+            // $data = Kecelakaan::get();
+            return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $actionBtn =  ' <a href="/administrator/kecelakaan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a> 
+                                        <a href="/administrator/kecelakaan/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>
+                                        ';
+                        return $actionBtn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
         }
     }
 }

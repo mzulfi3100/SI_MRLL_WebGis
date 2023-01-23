@@ -59,7 +59,7 @@
 
           <!-- Menu Kelola Data Kecelakaan -->
           <li class="nav-item">
-            <a href="/administrator/data_kecelakaan" class="nav-link">
+            <a href="/administrator/kecelakaan" class="nav-link">
             <i class="fas fa-car-crash" style="color:black"></i>
               <p style="color:white">
               &nbsp;&nbsp;Data Kecelakaan

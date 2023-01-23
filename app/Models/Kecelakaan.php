@@ -9,6 +9,6 @@ class Kecelakaan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'tahunKecelakaan', 'jumlahKecelakaan'
+        'tahunKecelakaan', 'jumlahKecelakaan', 'vatalitasKecelakaan', 'penyebabKecelakaan', 'jalanId',
     ];
 }

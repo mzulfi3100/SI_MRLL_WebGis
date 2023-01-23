@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label>Hambatan Samping</label>
-                <input type="text" class="form-control" id="hambatanSamping" name="hambatanSamping" value="{{ $jalan->hambatanJalan }}">
+                <input type="text" class="form-control" id="hambatanSamping" name="hambatanSamping" value="{{ $jalan->hambatanSamping }}">
             </div>
             <div class="form-group">
                 <label>Kondisi Jalan</label>
@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label>Tingkat Pelayanan Jalan</label>
-                <input type="text" class="form-control" id="tingkatPelayananJalan" name="tingkatPelayananJalan" value="{{ $jalan->tinkatPelayananJalan }}">
+                <input type="text" class="form-control" id="tingkatPelayananJalan" name="tingkatPelayananJalan" value="{{ $jalan->tingkatPelayananJalan }}">
             </div>
             <div id="map" style="height:500px; width: 900px;" class="mb-4"></div>
             <div class="form-group">
@@ -125,43 +125,6 @@
                 children: [
                     {label: '<div id="onlysel">-Show only selected-</div>'},
                     {
-                        label: 'Jalan',
-                        selectAllCheckbox: true,
-                        children: [
-                            @foreach($jalans as $jln)
-                            {
-                                label: '<?= $jln->namaJalan ?>', 
-                                layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
-                                    onEachFeature: function (feature, layer) {
-                                        layer.bindTooltip('<?= $jln->namaJalan ?>');
-                                        if('<?= $jln->tingkatPelayananJalan ?>' == 'A'){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'B'){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'C'){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'D'){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'E'){
-                                                layer.setStyle({color :'#FFF200'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'F'){
-                                                layer.setStyle({color :'#FF0000'});
-                                        }
-                                    },
-                                    pmIgnore: true,
-                                }).addTo(map),
-                                name:   'Nama Jalan: ' + '<?= $jln->namaJalan ?>' + '<br>' +
-                                        'Tipe Jalan: ' + '<?= $jln->tipeJalan ?>' + '<br>' +
-                                        'Panjang Jalan: ' + '<?= $jln->panjangJalan ?>' + '<br>' +
-                                        'Lebar Jalan: ' + '<?= $jln->lebarJalan ?>' + '<br>' +
-                                        'Kapasitas Jalan: ' + '<?= $jln->kapasitasJalan ?>' + '<br>' +
-                                        'Hambatan Samping: ' + '<?= $jln->hambatanJalan ?>' + '<br>' +
-                                        'Kondisi Jalan :' + '<?= $jln->kondisiJalan ?>' + '<br>' +
-                                        'Tingkat Pelayanan Jalan: ' + '<?= $jln->tingkatPelayananJalan ?>' + '<br>',
-                            },
-                            @endforeach
-                        ]
-                    },  {
                         label: 'Kecamatan',
                         selectAllCheckbox: true,
                         children: [
@@ -224,31 +187,34 @@
             });
         });
 
-        const jalanSelected = L.geoJSON(<?= $jalan->geoJsonJalan ?>, {
-            onEachFeature: function (feature, layer) {
-                layer.bindTooltip('<?= $jalan->namaJalan ?>');
-                if('<?= $jalan->tingkatPelayananJalan ?>' == 'A'){
-                    layer.setStyle({color :'#3CB043'});
-                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'B'){
+        
+        if('<?= $jalan->geoJsonJalan ?>' != ''){
+            const jalanSelected = L.geoJSON(<?= $jalan->geoJsonJalan ?>, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindTooltip('<?= $jalan->namaJalan ?>');
+                    if('<?= $jalan->tingkatPelayananJalan ?>' == 'A'){
                         layer.setStyle({color :'#3CB043'});
-                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'C'){
-                        layer.setStyle({color :'#3CB043'});
-                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'D'){
-                        layer.setStyle({color :'#3CB043'});
-                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'E'){
-                        layer.setStyle({color :'#FFF200'});
-                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'F'){
-                        layer.setStyle({color :'#FF0000'});
-                }   
-            }
-        }).addTo(map);  
-
-        jalanSelected.on('pm:edit', function(e){
-            var layer = e.layer;
-            var data = e.layer.toGeoJSON();
-            var dataString = JSON.stringify(data);
-            $('#geoJsonJalan').val(dataString);
-        })
+                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'B'){
+                            layer.setStyle({color :'#3CB043'});
+                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'C'){
+                            layer.setStyle({color :'#3CB043'});
+                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'D'){
+                            layer.setStyle({color :'#3CB043'});
+                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'E'){
+                            layer.setStyle({color :'#FFF200'});
+                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'F'){
+                            layer.setStyle({color :'#FF0000'});
+                    }   
+                }
+            }).addTo(map);  
+            
+            jalanSelected.on('pm:edit', function(e){
+                var layer = e.layer;
+                var data = e.layer.toGeoJSON();
+                var dataString = JSON.stringify(data);
+                $('#geoJsonJalan').val(dataString);
+            })
+        }
 
         map.on('pm:remove', (e) => {
             $('#geoJsonJalan').val("");

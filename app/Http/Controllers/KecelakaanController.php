@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Jalan;
-use App\Models\Kecamatan;
+use App\Models\Kecelakaan;
 
-class JalanController extends Controller
+class KecelakaanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class JalanController extends Controller
      */
     public function index()
     {
-        return view('admin/data_jalan');
+        return view('admin/data_kecelakaan');
     }
 
     /**
@@ -25,8 +25,8 @@ class JalanController extends Controller
      */
     public function create()
     {
-        $kecamatans = Kecamatan::get();
-        return view('admin/tambah_data_jalan', compact('kecamatans'));
+        $jalans = Jalan::get();  
+        return view('admin/tambah_data_kecelakaan', compact('jalans'));
     }
 
     /**
@@ -38,13 +38,14 @@ class JalanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'namaJalan' => 'required',
-            'geoJsonJalan' => 'required',
+            'jalanId' => 'required',
+            'vatalitasKecelakaan' => 'required',
+            'tahunKecelakaan' => 'required',
         ]);
 
-        Jalan::create($request->all());
+        Kecelakaan::create($request->all());
 
-        return redirect()->route('jalan.index');
+        return redirect()->route('kecelakaan.index');
     }
 
     /**
@@ -66,10 +67,9 @@ class JalanController extends Controller
      */
     public function edit($id)
     {
-        $kecamatans = Kecamatan::get();
+        $kecelakaan = Kecelakaan::find($id);
         $jalans = Jalan::get();
-        $jalan = Jalan::find($id);
-        return view('admin/edit_data_jalan', compact('jalan', 'jalans', 'kecamatans'));
+        return view('admin/edit_data_kecelakaan', compact('jalans', 'kecelakaan'));
     }
 
     /**
@@ -79,16 +79,18 @@ class JalanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jalan $jalan)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'namaJalan' => 'required',
-            'geoJsonJalan' => 'required',
+            'jalanId' => 'required',
+            'vatalitasKecelakaan' => 'required',
+            'tahunKecelakaan' => 'required',
         ]);
 
-        $jalan->update($request->all());
+        $kecelakaan = Kecelakaan::find($id);
+        $kecelakaan->update($request->all());
 
-        return redirect()->route('jalan.index');
+        return redirect()->route('kecelakaan.index');
     }
 
     /**
@@ -99,8 +101,8 @@ class JalanController extends Controller
      */
     public function destroy($id)
     {
-        $jalans = Jalan::find($id);
-        $jalans->delete();
-        return redirect()->route('jalan.index');
+        $kecelakaan = Kecelakaan::find($id);
+        $kecelakaan->delete();
+        return redirect()->route('kecelakaan.index');
     }
 }
