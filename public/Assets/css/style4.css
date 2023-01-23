@@ -1,0 +1,40 @@
+/* li:hover {
+    background-color: #FAACA8;
+background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 33%, #1da6a0 66%, #1bcd0f 100%);
+background-size: 200%;
+  animation: gradient-animation1 7s infinite alternate;
+
+  }
+  @keyframes gradient-animation1{
+    0% {
+      background-position: left;
+    }
+  
+    100% {
+      background-position: right;
+    }
+  
+  } */
+  /* .table-hover thead tr:hover th, .table-hover tbody tr:hover td {
+    background-color: #D1D119;
+} */
+.table tbody tr:hover td, .table tbody tr:hover th {
+  background-color: #85c5eb;
+}
+.back-to-top {
+  position: fixed;
+  display: none;
+  right: 30px;
+  bottom: 30px;
+  z-index: 11;
+  animation: action 1s infinite alternate;
+}
+
+@keyframes action {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}

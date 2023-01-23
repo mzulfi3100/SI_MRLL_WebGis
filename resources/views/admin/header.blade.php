@@ -10,6 +10,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Dashboard</title>
 
+  <link rel="stylesheet" href="Assets/css/style4.css" type="text/css">
+
+  <!-- Jam -->
+  <script src="{{'/Assets/js/js/jam2.js'}}"></script>
+  <!-- /jam -->
   <!-- animasi text bergerak -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.8/typed.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -32,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/L.Control.Layers.Tree.css" crossorigin=""/>
   <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />  
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" onload="realtimeClock()">
 <!-- Tampilan Preloader Logo Dishub -->
 <div class="preloader flex-column justify-content-center align-items-center bg-gradient-dark">
   <img class="animation__shake" src="{{('/Admin/dist/img/LogoDishub.png')}}" alt="LogoDishub" height="200" width="230">
