@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JalanController;
 use App\Http\Controllers\LalulintaController;
 use App\Http\Controllers\KecelakaanController;
+use App\Http\Controllers\ApillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,12 @@ Route::resource('/administrator/kecelakaan', KecelakaanController::class);
 Route::get('/administrator/getKecelakaan', [AdminController::class, 'getKecelakaan'])->name('administrator.getKecelakaan');
 
 Route::get('/administrator/kecelakaan/{id}/delete', [KecelakaanController::class, 'destroy']);
+
+Route::resource('/administrator/apill', ApillController::class);
+
+Route::get('/administrator/getApill', [AdminController::class, 'getApill'])->name('administrator.getApill');
+
+Route::get('/administrator/apill/{id}/delete', [ApillController::class, 'destroy']);
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/

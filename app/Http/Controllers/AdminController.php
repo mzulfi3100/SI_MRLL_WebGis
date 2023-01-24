@@ -7,6 +7,7 @@ use App\Models\Kecamatan;
 use App\Models\Jalan;
 use App\Models\Lalulinta;
 use App\Models\Kecelakaan;
+use App\Models\Apill;
 use DataTables; 
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +33,8 @@ class AdminController extends Controller
     
     public function peta_apill(){
         $kecamatans = Kecamatan::get();
-        return view('admin/peta_apill', compact('kecamatans'));
+        $apills = Apill::get();
+        return view('admin/peta_apill', compact('kecamatans', 'apills'));
     }
 
     public function getKecamatan(Request $request)
@@ -109,6 +111,23 @@ class AdminController extends Controller
                         $actionBtn =  ' <a href="/administrator/kecelakaan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a> 
                                         <a href="/administrator/kecelakaan/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>
                                         ';
+                        return $actionBtn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+    }
+
+    public function getApill(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = Apill::get();
+            return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $actionBtn = '  <a href="/administrator/apill/'.$row->id.'/edit"class="edit btn btn-success btn-sm">Edit</a>
+                                        <a href="/administrator/apill/'.$row->id.'/delete"class="delete btn btn-danger btn-sm">Delete</a>';
                         return $actionBtn;
                     })
                     ->rawColumns(['action'])

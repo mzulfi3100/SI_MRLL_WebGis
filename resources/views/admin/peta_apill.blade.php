@@ -58,6 +58,16 @@
             "fillOpacity": 0 ,
         };
 
+        var green = L.icon({
+            iconUrl: '/marker-green.png',
+            iconSize: [38, 30],
+        });
+
+        var red = L.icon({
+            iconUrl: '/marker-red.png',
+            iconSize: [38, 30],
+        });
+
         L.geoJSON(kabupatenJson, {
             style: kabupatenStyle
         }).addTo(map);
@@ -68,6 +78,29 @@
                 selectAllCheckbox: 'Un/select all',
                 children: [
                     {label: '<div id="onlysel">-Show only selected-</div>'},
+                    {
+                        label: "Apill",
+                        selectAllCheckbox: true,
+                        children: [
+                            @foreach($apills as $apill)
+                                {
+                                    label: '<?= $apill->namaSimpang ?>',
+                                    layer: L.geoJSON(<?= $apill->geoJsonApill ?>, {
+                                        onEachFeature: function(feature, layer){
+                                            layer.bindTooltip('<?= $apill->namaSimpang ?>');
+                                            if('<?= $apill->terkoneksiATCS ?>' == 'Sudah'){
+                                                layer.setIcon(green);
+                                            }else{
+                                                layer.setIcon(red);
+                                            }
+                                        }
+                                    }).addTo(map),
+                                    name:   'Nama Simpang: ' + '<?= $apill->namaSimpang ?>' + '<br>' +
+                                            'Terkoneksi ATCS: ' + '<?= $apill->terkoneksiATCS ?>' + '<br>', 
+                                },
+                            @endforeach
+                        ]
+                    },
                     {
                         label: 'Kecamatan',
                         selectAllCheckbox: true,

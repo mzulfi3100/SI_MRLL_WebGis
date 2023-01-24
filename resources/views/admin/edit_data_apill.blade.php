@@ -2,55 +2,43 @@
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Tambah Data Jalan</h1>
-
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Edit Data Apill</h1>
+               
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
 
-    <div class="p-4">
-        <form action="{{ route('jalan.store') }}" method="POST">
+    <div class="p-2">
+        <form action="{{ route('apill.update', $apill->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="form-group">
-                <label>Nama Jalan</label>
-                <input type="text" class="form-control" id="namaJalan" name="namaJalan">
+                <label for="">Nama Simpang</label>
+                <input type="text" class="form-control" name="namaSimpang" id="namaSimpang" value="{{ $apill->namaSimpang }}">
             </div>
             <div class="form-group">
-                <label>Tipe Jalan</label>
-                <input type="text" class="form-control" id="tipeJalan" name="tipeJalan">
+                <label for="">Terkoneksi ATCS</label>
+                <select class="form-control" name="terkoneksiATCS" id="terkoneksiATCS" value="{{ $apill->terkoneksiATCS }}">
+                    <?php if($apill->terkoneksiATCS == 'Belum'){ ?>
+                        <option value="Belum">- Belum -</option>
+                    <?php }else{ ?>
+                        <option value="Sudah">- Sudah -</option>
+                    <?php } ?>
+
+                    <?php if($apill->terkoneksiATCS == 'Belum' ){ ?>
+                        <option value="Sudah">Sudah</option>
+                    <?php }else{ ?>
+                        <option value="Belum">Belum</option>
+                    <?php } ?>
+                </select>
             </div>
+            <div id="map" style="width:900px; height:500px" class="mb-4"></div>
             <div class="form-group">
-                <label>Panjang Jalan</label>
-                <input type="text" class="form-control" id="panjangJalan" name="panjangJalan">
-            </div>
-            <div class="form-group">
-                <label>Lebar Jalan</label>
-                <input type="text" class="form-control" id="lebarJalan" name="lebarJalan">
-            </div>
-            <div class="form-group">
-                <label>Kapasitas Jalan</label>
-                <input type="text" class="form-control" id="kapasitasJalan" name="kapasitasJalan">
-            </div>
-            <div class="form-group">
-                <label>Hambatan Samping</label>
-                <input type="text" class="form-control" id="hambatanSamping" name="hambatanSamping">
-            </div>
-            <div class="form-group">
-                <label>Kondisi Jalan</label>
-                <input type="text" class="form-control" id="kondisiJalan" name="kondisiJalan">
-            </div>
-            <div class="form-group">
-                <label>Tingkat Pelayanan Jalan</label>
-                <input type="text" class="form-control" id="tingkatPelayananJalan" name="tingkatPelayananJalan">
-            </div>
-            <div id="map" style="height:500px; width: 900px;" class="mb-4"></div>
-            <div class="form-group">
-                <label>geoJSON Jalan</label>
-                <textarea type="text" class="form-control" id="geoJsonJalan" name="geoJsonJalan"></textarea>
+                <label for="">Geo Json Apill</label>
+                <input type="text" class="form-control" name="geoJsonApill" id="geoJsonApill" value="{{ $apill->geoJsonApill }}"></input>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -113,7 +101,7 @@
         };
 
         L.geoJSON(kabupatenJson, {
-            style: kabupatenStyle,
+            style: kabupatenStyle, 
             pmIgnore: true,
         }).addTo(map);
 
@@ -152,7 +140,6 @@
                     closedSymbol: '&#8862; &#x1f5c0;',
                     openedSymbol: '&#8863; &#x1f5c1;',
                     collapseAll: 'Collapse all',
-                    expandAll: 'Expand all',
                     collapsed: false,
                 });        
 
@@ -165,9 +152,11 @@
         map.pm.addControls({  
             position: 'topleft',  
             drawCircle: false,
-            drawMarker: false,
+            drawMarker: true,
             drawRectangle: false,
             drawCircleMarker: false,
+            drawPolyline: false,
+            drawPolygon: false,
             drawText: false,
             cutPolygon: false,
             dragMode: false,
@@ -178,17 +167,45 @@
             var layer = e.layer;
             var data = e.layer.toGeoJSON();
             var dataString = JSON.stringify(data);
-            $('#geoJsonJalan').val(dataString);
+            $('#geoJsonApill').val(dataString);
             e.layer.on('pm:update', function (ed) {
                 var layer = e.layer;
                 var data = e.layer.toGeoJSON();
                 var dataString = JSON.stringify(data);
-                $('#geoJsonJalan').val(dataString);
+                $('#geoJsonApill').val(dataString);
             });
         });
+        
+        var green = L.icon({
+            iconUrl: '/marker-green.png',
+            iconSize: [38, 30],
+        });
+
+        var red = L.icon({
+            iconUrl: '/marker-red.png',
+            iconSize: [38, 30],
+        });
+
+        const apillSelected = L.geoJSON(<?= $apill->geoJsonApill ?>, {
+            onEachFeature: function (feature, layer) {
+                layer.bindTooltip('<?= $apill->namaSimpang ?>');
+                if('<?= $apill->terkoneksiATCS ?>' == 'Sudah'){
+                    layer.setIcon(green);
+                }else{
+                    layer.setIcon(red);
+                }
+            }
+        }).addTo(map);  
+        
+        apillSelected.on('pm:edit', function(e){
+            var layer = e.layer;
+            var data = e.layer.toGeoJSON();
+            var dataString = JSON.stringify(data);
+            $('#geoJsonApill').val(dataString);
+        })
 
         map.on('pm:remove', (e) => {
-            $('#geoJsonJalan').val("");
-        });
+            $('#geoJsonApill').val("");
+        })
     </script>
 @stop

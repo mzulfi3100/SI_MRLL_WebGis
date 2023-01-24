@@ -186,35 +186,32 @@
                 $('#geoJsonJalan').val(dataString);
             });
         });
-
         
-        if('<?= $jalan->geoJsonJalan ?>' != ''){
-            const jalanSelected = L.geoJSON(<?= $jalan->geoJsonJalan ?>, {
-                onEachFeature: function (feature, layer) {
-                    layer.bindTooltip('<?= $jalan->namaJalan ?>');
-                    if('<?= $jalan->tingkatPelayananJalan ?>' == 'A'){
+        const jalanSelected = L.geoJSON(<?= $jalan->geoJsonJalan ?>, {
+            onEachFeature: function (feature, layer) {
+                layer.bindTooltip('<?= $jalan->namaJalan ?>');
+                if('<?= $jalan->tingkatPelayananJalan ?>' == 'A'){
+                    layer.setStyle({color :'#3CB043'});
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'B'){
                         layer.setStyle({color :'#3CB043'});
-                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'B'){
-                            layer.setStyle({color :'#3CB043'});
-                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'C'){
-                            layer.setStyle({color :'#3CB043'});
-                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'D'){
-                            layer.setStyle({color :'#3CB043'});
-                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'E'){
-                            layer.setStyle({color :'#FFF200'});
-                    }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'F'){
-                            layer.setStyle({color :'#FF0000'});
-                    }   
-                }
-            }).addTo(map);  
-            
-            jalanSelected.on('pm:edit', function(e){
-                var layer = e.layer;
-                var data = e.layer.toGeoJSON();
-                var dataString = JSON.stringify(data);
-                $('#geoJsonJalan').val(dataString);
-            })
-        }
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'C'){
+                        layer.setStyle({color :'#3CB043'});
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'D'){
+                        layer.setStyle({color :'#3CB043'});
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'E'){
+                        layer.setStyle({color :'#FFF200'});
+                }else if('<?= $jalan->tingkatPelayananJalan ?>' == 'F'){
+                        layer.setStyle({color :'#FF0000'});
+                }   
+            }
+        }).addTo(map);  
+        
+        jalanSelected.on('pm:edit', function(e){
+            var layer = e.layer;
+            var data = e.layer.toGeoJSON();
+            var dataString = JSON.stringify(data);
+            $('#geoJsonJalan').val(dataString);
+        })
 
         map.on('pm:remove', (e) => {
             $('#geoJsonJalan').val("");
