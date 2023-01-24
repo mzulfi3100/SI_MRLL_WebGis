@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data Lalu Lintas</h1>
+            <h1 class="m-0">Data Kecelakaan</h1>
           </div><!-- /.row -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -39,7 +39,7 @@
 
     <!-- /.content-header -->
     <div class="p-4">
-        <a href="{{ route('lalulinta.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Lalu Lintas</a>
+        <a href="{{ route('kecelakaan.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Kecelakaan</a>
         <table class="table table-striped yajra-datatable p-3">
             <thead class="table-dark"> 
                 <tr>
