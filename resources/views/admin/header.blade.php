@@ -10,7 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Dashboard</title>
 
-  <link rel="stylesheet" href="Assets/css/style4.css" type="text/css">
+  <link rel="stylesheet" href="{{'/Assets/css/style4.css'}}" type="text/css">
 
   <!-- Jam -->
   <script src="{{'/Assets/js/js/jam2.js'}}"></script>
