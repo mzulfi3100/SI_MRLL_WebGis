@@ -22,7 +22,6 @@ return new class extends Migration
             $table->double('kapasitasJalan', 10, 2)->nullable();
             $table->string('hambatanSamping', 15)->nullable(); 
             $table->string('kondisiJalan', 10)->nullable();
-            $table->char('tingkatPelayananJalan', 1)->nullable();
             $table->text('geoJsonJalan')->nullable();
             $table->timestamps();
         });

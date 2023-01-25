@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('apills', function (Blueprint $table) {
+        Schema::create('jalans_kecamatans', function (Blueprint $table) {
             $table->id();
-            $table->string('namaSimpang', 100);
-            $table->string('terkoneksiATCS', 15);
-            $table->text('geoJsonApill');
             $table->foreignId('jalanId')->references('id')->on('jalans');
+            $table->foreignId('kecamatanId')->references('id')->on('kecamatans');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('apills');
+        Schema::dropIfExists('jalans_kecamatans');
     }
 };

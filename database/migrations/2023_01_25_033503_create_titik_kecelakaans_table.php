@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rawan_kecelakaans', function (Blueprint $table) {
+        Schema::create('titik_kecelakaans', function (Blueprint $table) {
             $table->id();
-            $table->string('rawan', 5);
+            $table->string('lokasiKecelakaan', 100);
+            $table->string('geoJsonKecelakaan', 100);
+            $table->string('deskripsiKecelakaan', 100);
             $table->foreignId('jalanId')->references('id')->on('jalans');
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rawan_kecelakaans');
+        Schema::dropIfExists('titik_kecelakaans');
     }
 };
