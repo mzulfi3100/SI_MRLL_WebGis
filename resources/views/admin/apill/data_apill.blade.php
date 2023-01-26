@@ -250,6 +250,12 @@
         //inisialisasi layergroup tempat menyimpan layer jalan yang dipilih
         var jalanGroup = new L.LayerGroup();
         var kecamatanGroup = new L.LayerGroup();
+        var getJalanGroup = new L.LayerGroup();
+        var getKecamatanGroup = new L.LayerGroup();
+        var getApillGroup = new L.LayerGroup();
+        var getJalanLayer;
+        var getKecamatanLayer;
+        var apillSelected;
         var jalanSelected;
         var kecamatanSelected;
 
@@ -264,6 +270,9 @@
             @foreach($kecamatans as $kec)
                 if('<?= $kec->id ?>' == kecamatanId){
                     kecamatanSelected = L.geoJSON(<?= $kec->geoJsonKecamatan ?>, {
+                        style: {
+                            'fillOpacity': '0',
+                        },
                         pmIgnore: true,
                     }).addTo(kecamatanGroup);
                 }
@@ -282,6 +291,7 @@
         $('#kecamatanId').mouseenter(function() {
             if(kecamatanSelected != null){
                 kecamatanGroup.removeLayer(kecamatanSelected);
+                getKecamatanGroup.removeLayer(getKecamatanLayer);
             }
         });
 
@@ -302,6 +312,7 @@
         $('#jalanId').mouseenter(function() {
             if(jalanSelected != null){
                 jalanGroup.removeLayer(jalanSelected);
+                getJalanGroup.removeLayer(getJalanLayer);
             }
         });
 
@@ -347,12 +358,7 @@
     <!-- DataTable -->
     <script type="text/javascript">
         $(function(){
-            var getJalanGroup = new L.LayerGroup();
-            var getKecamatanGroup = new L.LayerGroup();
-            var getApillGroup = new L.LayerGroup();
-            var getJalanLayer;
-            var getKecamatanLayer;
-            var apillSelected;
+            
             
 
             $.ajaxSetup({
