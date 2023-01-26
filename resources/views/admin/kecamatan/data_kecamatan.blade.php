@@ -65,7 +65,7 @@
     </div>
     <!-- Modal -->
     <div id="modalKecamatan" class="modal fade" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog ">
         <div class="modal-content">
           <form id="kecamatanForm" name="kecamatanForm">
             <div class="modal-header">

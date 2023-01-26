@@ -323,12 +323,7 @@
             iconUrl: '/marker-red.png',
             iconSize: [38, 30],
         });
-
-        var green = L.icon({
-            iconUrl: '/marker-green.png',
-            iconSize: [38, 30],
-        });
-
+        
         const apillSelected = L.geoJSON(<?= $apill->geoJsonApill ?>, {
             onEachFeature: function (feature, layer) {
                 layer.bindTooltip('<?= $apill->namaSimpang ?>');

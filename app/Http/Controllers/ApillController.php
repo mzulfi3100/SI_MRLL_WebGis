@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Apill;
 use App\Models\Kecamatan;
 use App\Models\Jalan;
+use DataTables;
 
 class ApillController extends Controller
 {
@@ -15,9 +16,40 @@ class ApillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin/apill/data_apill');
+        if($request->ajax())
+        {
+            $data = Apill::latest()->get();
+            return DataTables::of($data)
+                        ->addIndexColumn()
+                        ->addColumn('action', function($row){
+                            $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editApill">Edit</a> ';
+                            $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteApill">Delete</a>';
+                            return $actionBtn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+        }
+        $kecamatans = Kecamatan::get();
+        $dataJln = DB::table('jalans_kecamatans')
+                ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId')
+                ->distinct()
+                ->get();
+        $dataKec = DB::table('jalans_kecamatans')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
+                    ->distinct()
+                    ->get();
+        $data = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
+                    ->get();
+        $jalans = Jalan::get();
+        $apills = Apill::get();
+        return view('admin/apill/data_apill', compact('kecamatans', 'jalans', 'data', 'dataKec', 'dataJln', 'apills'));
     }
 
     /**
@@ -30,8 +62,8 @@ class ApillController extends Controller
         $kecamatans = Kecamatan::get();
         $data = DB::table('jalans_kecamatans')
                 ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
-                ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
+                ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId',)
+                ->distinct()
                 ->get();
         $dataKec = DB::table('jalans_kecamatans')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
@@ -51,14 +83,24 @@ class ApillController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kecamatanId' => 'required',
+            'jalanId' => 'required',
             'namaSimpang' => 'required',
             'terkoneksiATCS' => 'required',
             'geoJsonApill' => 'required',
         ]);
 
-        Apill::create($request->all());
+        Apill::updateOrCreate([
+            'id' => $request->apillId
+        ],  [
+            'kecamatanId' => $request->kecamatanId,
+            'jalanId' => $request->jalanId,
+            'namaSimpang' => $request->namaSimpang,
+            'terkoneksiATCS' => $request->terkoneksiATCS,
+            'geoJsonApill' => $request->geoJsonApill,
+        ]);
 
-        return redirect()->route('apill.index');
+        return response()->json(['success'=>'Product saved successfully.']);
     }
 
     /**
@@ -80,21 +122,9 @@ class ApillController extends Controller
      */
 
     public function edit($id)
-    {
-        $kecamatans = Kecamatan::get();
-        $jalans = Jalan::get();
-        $data = DB::table('jalans_kecamatans')
-                ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
-                ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
-                ->get();
-        $dataKec = DB::table('jalans_kecamatans')
-                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                    ->select('kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
-                    ->distinct()
-                    ->get();
+    {    
         $apill = Apill::find($id);
-        return view('admin/apill/edit_data_apill', compact('kecamatans', 'jalans', 'apill', 'data', 'dataKec'));
+        return response()->json($apill);
     }
 
     /**
@@ -131,6 +161,6 @@ class ApillController extends Controller
     {
         $apill = Apill::find($id);
         $apill->delete();
-        return redirect()->route('apill.index');
+        return response()->json(['success'=>'Product deleted successfully.']);
     }
 }
