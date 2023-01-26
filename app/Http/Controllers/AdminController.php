@@ -36,48 +36,7 @@ class AdminController extends Controller
         $apills = Apill::get();
         return view('admin/peta_apill', compact('kecamatans', 'apills'));
     }
-
-    public function getKecamatan(Request $request)
-    {
-        if ($request->ajax()) {
-            $data = Kecamatan::latest()->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('warna', function($row){
-                    $kotak = '<div style="background-color:'.$row->warnaKecamatan.'; width:25px; height:25px; border:1px solid #000;"></div>';
-                    return $kotak;
-                })
-                ->addColumn('action', function($row){
-                    $actionBtn = '<a href="kecamatan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a> 
-                    <button type="button" class="delete btn btn-danger btn-sm" data-target="#modalHapusKecamatan" data-toggle="modal" >Delete</button>
-                               
-                    <div id="modalHapusKecamatan" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="hapus-kecamatan">Hapus Data Kecamatan</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Anda yakin ingin menghapus data ini ?</p>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <a href="kecamatan/'.$row->id.'/delete" class="btn btn-danger">Hapus</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>';
-                    return $actionBtn;
-                })
-                ->rawColumns(['action', 'warna'])
-                ->make(true);
-        }
-    }
-
+    
     public function getJalan(Request $request)
     {
         if($request->ajax())
@@ -87,7 +46,7 @@ class AdminController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="/administrator/jalan/'.$row->id.'/show" class="show btn btn-primary btn-sm">Show</a>
-                                <a href="/administrator/jalan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a>
+                                <a href="/administrator/jalan/'.$row->id.'/edit" class="edit btn btn-success btn-sm" data-id=".$row->id.">Edit</a>
                                 <button type="button" class="delete btn btn-danger btn-sm" data-target="#modalHapusJalan" data-toggle="modal" >Delete</button>
                                
                                 <div id="modalHapusJalan" class="modal fade" role="dialog">

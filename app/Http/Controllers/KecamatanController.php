@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kecamatan;
+use DataTables;
 
 class KecamatanController extends Controller
 {
@@ -12,12 +13,24 @@ class KecamatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $kecamatans = Kecamatan::first()->paginate(10);
-      
-        // return view('admin/data_kecamatan',compact('kecamatans'))
-        //     ->with('i', (request()->input('page', 1) - 1) * 10);
+        if ($request->ajax()) {
+            $data = Kecamatan::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('warna', function($row){
+                    $kotak = '<div style="background-color:'.$row->warnaKecamatan.'; width:25px; height:25px; border:1px solid #000;"></div>';
+                    return $kotak;
+                })
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editKecamatan">Edit</a> ';
+                    $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKecamatan">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action', 'warna'])
+                ->make(true);
+        }
         return view('admin/kecamatan/data_kecamatan');
     }
 
@@ -44,12 +57,25 @@ class KecamatanController extends Controller
             'geoJsonKecamatan' => 'required',
         ]);
 
-        Kecamatan::create([
-            'namaKecamatan' => $request->namaKecamatan,
-            'geoJsonKecamatan' => $request->geoJsonKecamatan
-        ]);
+        if($request->warnaKecamatan == ''){
+            Kecamatan::updateOrCreate([
+                'id' => $request->kecamatanId
+            ],[
+                'namaKecamatan' => $request->namaKecamatan,
+                'warnaKecamatan' => '#000000',
+                'geoJsonKecamatan' => $request->geoJsonKecamatan
+            ]);
+        }else{
+            Kecamatan::updateOrCreate([
+                'id' => $request->kecamatanId
+            ],[
+                'namaKecamatan' => $request->namaKecamatan,
+                'warnaKecamatan' => $request->warnaKecamatan,
+                'geoJsonKecamatan' => $request->geoJsonKecamatan
+            ]);
+        }
         
-        return redirect()->route('kecamatan.index');
+        return response()->json(['success'=>'Product saved successfully.']);
     }
 
     /**
@@ -69,9 +95,10 @@ class KecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kecamatan $kecamatan)
+    public function edit($id)
     {
-        return view('admin/kecamatan/edit_data_kecamatan', compact('kecamatan'));
+        $kecamatan = Kecamatan::find($id);
+        return response()->json($kecamatan);
     }
 
     /**
@@ -104,7 +131,7 @@ class KecamatanController extends Controller
     {
         $kecamatan = Kecamatan::find($id);
         $kecamatan->delete();
-        return redirect()->route('kecamatan.index');
+        return response()->json(['success'=>'Product deleted successfully.']);
     }
     public function deleteAllTruncate(){
 
