@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('jalans_kecamatans', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('jalanId')->references('id')->on('jalans');
             $table->foreignId('kecamatanId')->references('id')->on('kecamatans');
+            $table->primary(['jalanId', 'kecamatanId']);
             $table->timestamps();
         });
     }

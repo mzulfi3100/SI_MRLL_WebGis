@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('lokasiKecelakaan', 100);
             $table->string('geoJsonKecelakaan', 100);
             $table->string('deskripsiKecelakaan', 100);
-            $table->foreignId('jalanId')->references('id')->on('jalans');
+            $table->foreignId('jalanId')->references('jalanId')->on('jalans_kecamatans');
+            $table->foreignId('kecamatanId')->references('kecamatanId')->on('jalans_kecamatans');
             $table->timestamps();
         });
     }

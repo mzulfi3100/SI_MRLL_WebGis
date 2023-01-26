@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('vatalitasKecelakaan', 50)->nullable();
             $table->string('penyebabKecelakaan', 150)->nullable();
             $table->integer('jumlahKecelakaan')->nullable();
-            $table->foreignId('jalanId')->references('id')->on('jalans');
+            $table->foreignId('jalanId')->references('jalanId')->on('jalans_kecamatans');
+            $table->foreignId('kecamatanId')->references('kecamatanId')->on('jalans_kecamatans');
             $table->timestamps();
         });
     }

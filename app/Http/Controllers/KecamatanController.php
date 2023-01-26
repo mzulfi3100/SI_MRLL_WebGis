@@ -18,7 +18,7 @@ class KecamatanController extends Controller
       
         // return view('admin/data_kecamatan',compact('kecamatans'))
         //     ->with('i', (request()->input('page', 1) - 1) * 10);
-        return view('admin/data_kecamatan');
+        return view('admin/kecamatan/data_kecamatan');
     }
 
     /**
@@ -28,7 +28,7 @@ class KecamatanController extends Controller
      */
     public function create()
     {
-        return view('admin/tambah_data_kecamatan');
+        return view('admin/kecamatan/tambah_data_kecamatan');
     }
 
     /**
@@ -41,14 +41,12 @@ class KecamatanController extends Controller
     {        
         $request->validate([
             'namaKecamatan' => 'required',
-            'warnaKecamatan' => 'required',
-            'batasKecamatan' => 'required',
+            'geoJsonKecamatan' => 'required',
         ]);
 
         Kecamatan::create([
             'namaKecamatan' => $request->namaKecamatan,
-            'warnaKecamatan' => $request->warnaKecamatan,
-            'batasKecamatan' => $request->batasKecamatan
+            'geoJsonKecamatan' => $request->geoJsonKecamatan
         ]);
         
         return redirect()->route('kecamatan.index');
@@ -73,7 +71,7 @@ class KecamatanController extends Controller
      */
     public function edit(Kecamatan $kecamatan)
     {
-        return view('admin/edit_data_kecamatan', compact('kecamatan'));
+        return view('admin/kecamatan/edit_data_kecamatan', compact('kecamatan'));
     }
 
     /**
@@ -88,7 +86,7 @@ class KecamatanController extends Controller
         $request->validate([
             'namaKecamatan' => 'required',
             'warnaKecamatan' => 'required',
-            'batasKecamatan' => 'required',
+            'geoJsonKecamatan' => 'required',
         ]);
 
         $kecamatan->update($request->all());

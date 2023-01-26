@@ -10,8 +10,10 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
+    <!-- End Content Header -->
 @stop
 @section('other')
+    <!-- Form Tambah -->
     <div class="p-2">
         <form action="{{ route('kecamatan.store') }}" method="POST">
             @csrf
@@ -26,17 +28,19 @@
             </div>
             <div class="form-group">
                 <label>Batas Kecamatan</label>
-                <input type="text" class="form-control" id="batasKecamatan" name="batasKecamatan">
+                <input type="text" class="form-control" id="geoJsonKecamatan" name="geoJsonKecamatan">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+    <!-- End Form Tambah -->
 @stop 
 @section('script_warna')
-<script>
-     $('#colorpicker').on('input', function() {
-        $('#hexcolor').val(this.value);
-        $('#hexcolor').value(this.value);
-    });
-</script>
+    <!-- Ambil Warna Terinput -->
+    <script>
+        $('#colorpicker').on('input', function() {
+            $('#hexcolor').val(this.value);
+        });
+    </script>
+    <!-- Ambil Warna Terinput -->
 @stop
