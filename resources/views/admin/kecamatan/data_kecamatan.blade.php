@@ -40,7 +40,7 @@
   <!-- /.content-header -->
   <!-- Tabel Data Kecamatan -->
   <div class="p-4">
-      <a href="{{ route('kecamatan.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Kecamatan</a>
+      
       <!-- <a href="{{ route('kecamatan.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Kecamatan</a> -->
         <!-- Trigger modal tambah data with a button -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahKecamatan">Tambah Data</button>
