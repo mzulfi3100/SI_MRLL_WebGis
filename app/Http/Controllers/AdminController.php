@@ -49,7 +49,28 @@ class AdminController extends Controller
                 })
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="kecamatan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a> 
-                                <a href="kecamatan/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>';
+                    <button type="button" class="delete btn btn-danger btn-sm" data-target="#modalHapusKecamatan" data-toggle="modal" >Delete</button>
+                               
+                    <div id="modalHapusKecamatan" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="hapus-kecamatan">Hapus Data Kecamatan</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Anda yakin ingin menghapus data ini ?</p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                <a href="kecamatan/'.$row->id.'/delete" class="btn btn-danger">Hapus</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action', 'warna'])
@@ -67,7 +88,28 @@ class AdminController extends Controller
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="/administrator/jalan/'.$row->id.'/show" class="show btn btn-primary btn-sm">Show</a>
                                 <a href="/administrator/jalan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a>
-                                <a href="/administrator/jalan/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>';
+                                <button type="button" class="delete btn btn-danger btn-sm" data-target="#modalHapusJalan" data-toggle="modal" >Delete</button>
+                               
+                                <div id="modalHapusJalan" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="hapus-jalan">Hapus Data Jalan</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Anda yakin ingin menghapus data ini ?</p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                            <a href="/administrator/jalan/'.$row->id.'/delete" class="btn btn-danger">Hapus</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -88,7 +130,28 @@ class AdminController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="/administrator/lalulinta/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a>
-                                <a href="/administrator/lalulinta/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>';
+                                <button type="button" class="delete btn btn-danger btn-sm" data-target="#modalHapusLaluLintas" data-toggle="modal" >Delete</button>
+                               
+                                <div id="modalHapusLaluLintas" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="hapus-jalan">Hapus Data Lalu Lintas</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Anda yakin ingin menghapus data ini ?</p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                            <a href="/administrator/lalulinta/'.$row->id.'/delete" class="btn btn-danger">Hapus</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -109,8 +172,28 @@ class AdminController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                         $actionBtn =  ' <a href="/administrator/kecelakaan/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a> 
-                                        <a href="/administrator/kecelakaan/'.$row->id.'/delete" class="delete btn btn-danger btn-sm">Delete</a>
-                                        ';
+                        <button type="button" class="delete btn btn-danger btn-sm" data-target="#modalHapusKecamatan" data-toggle="modal" >Delete</button>
+                               
+                        <div id="modalHapusKecamatan" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="hapus-kecelakaan">Hapus Data Kecelakaan</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Anda yakin ingin menghapus data ini ?</p>
+                                </div>
+    
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    <a href="/administrator/kecelakaan/'.$row->id.'/delete" class="btn btn-danger">Hapus</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>';
                         return $actionBtn;
                     })
                     ->rawColumns(['action'])
@@ -126,9 +209,30 @@ class AdminController extends Controller
             return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                        $actionBtn = '  <a href="/administrator/apill/'.$row->id.'/edit"class="edit btn btn-success btn-sm">Edit</a>
-                                        <a href="/administrator/apill/'.$row->id.'/delete"class="delete btn btn-danger btn-sm">Delete</a>';
-                        return $actionBtn;
+                        $actionBtn = '<a href="/administrator/apill/'.$row->id.'/edit"class="edit btn btn-success btn-sm">Edit</a>
+                        <button type="button" class="delete btn btn-danger btn-sm" data-target="#modalHapusAPILL" data-toggle="modal" >Delete</button>
+                               
+                        <div id="modalHapusAPILL" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="hapus-apill">Hapus Data APILL</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Anda yakin ingin menghapus data ini ?</p>
+                                </div>
+    
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    <a href="/administrator/apill/'.$row->id.'/delete" class="btn btn-danger">Hapus</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>';
+                    return $actionBtn;
                     })
                     ->rawColumns(['action'])
                     ->make(true);

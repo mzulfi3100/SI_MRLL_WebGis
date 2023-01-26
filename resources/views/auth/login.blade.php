@@ -8,6 +8,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login</title>
+  <style>
+    .solid {border-style: solid;}
+  </style>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap">
@@ -20,11 +23,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="Assets/css/style2.css" type="text/css">
 </head>
 <body>
-        <div class="wrapper">
-            <!-- bg-bubbles -> memanggil jumlah animasi yang muncul -->
+        <div class="wrapper"><!-- bg-bubbles -> memanggil jumlah animasi yang muncul -->
         <ul class="bg-bubbles"><li><li><li><li><li><li><li><li><li><li></li></li></li></li></li></li></li></li></li></li></ul>
-        <div class="container">
-            <div>&nbsp;</div>
+        <!-- bagian utama -->
+        <div class="container fadeInDown">
             <div>&nbsp;</div>
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mb-4">
@@ -54,6 +56,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <input type="checkbox" checked>
                                         <span class="checkmark"></span>
                                     </label>
+                                </div><div>| &nbsp;</div>
+                                <div> <a href="/dashboardPenggunaJalan" style="font-size: 15px; font-weight: bold">Kembali Ke Menu Awal</a>
                                 </div>
                             </div>
                         </form>
@@ -61,6 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
             </div>
         </div>
+        <!-- /bagian utama -->
         </div>
     <script src="{{('/Assets/js/jquery.min.js')}}"></script>
     <script src="{{('/Assets/js/popper.js')}}"></script>

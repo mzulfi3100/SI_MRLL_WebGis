@@ -38,7 +38,54 @@
 
     <!-- /.content-header -->
     <div class="p-4">
-        <a href="{{ route('lalulinta.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Lalu Lintas</a>
+        <!-- <a href="{{ route('lalulinta.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Lalu Lintas</a> -->
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahLaluLintas">Tambah Data </button>
+        <!-- Trigger modal hapus all data with a button -->
+        <a href="#" type="button" class="btn btn-danger" >Hapus Semua</a>
+        <!-- Modal -->
+        <div id="modalTambahLaluLintas" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addNewJurnalLabel">Tambah Data Lalu Lintas</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red" >
+                    <span aria-hidden="true">&times;</span>
+                  </button>   
+                </div>
+                <form action="{{ route('lalulinta.store') }}" method="POST">
+                  @csrf
+                  <div class="modal-body">
+                  <div class="form-group">
+                <label>Nama Jalan</label>
+                <select class="form-control" id="jalanId" name="jalanId">
+                    <option value=""> - Pilih Jalan - </option>
+                    @foreach($jalans as $jln)
+                        <option value="<?= $jln->id ?>"> <?= $jln->namaJalan ?> </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Volume Lalu Lintas</label>
+                <input type="text" class="form-control" id="volumeLaluLintas" name="volumeLaluLintas">
+            </div>
+            <div class="form-group">
+                <label>Kecepatan Rata-Rata</label>
+                <input type="text" class="form-control" id="kecepatanLaluLintas" name="kecepatanLaluLintas">
+            </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                  <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div>&nbsp;
+          </div>
+        
         <table class="table table-striped yajra-datatable p-3">
             <thead class="table-dark"> 
                 <tr>

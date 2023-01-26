@@ -15,7 +15,8 @@ class KecelakaanController extends Controller
      */
     public function index()
     {
-        return view('admin/data_kecelakaan');
+        $jalans = Jalan::get();  
+        return view('admin/data_kecelakaan', compact('jalans'));
     }
 
     /**
@@ -23,11 +24,7 @@ class KecelakaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $jalans = Jalan::get();  
-        return view('admin/tambah_data_kecelakaan', compact('jalans'));
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -69,7 +66,7 @@ class KecelakaanController extends Controller
     {
         $kecelakaan = Kecelakaan::find($id);
         $jalans = Jalan::get();
-        return view('admin/edit_data_kecelakaan', compact('jalans', 'kecelakaan'));
+        return view('admin/data_kecelakaan', compact('jalans', 'kecelakaan'));
     }
 
     /**

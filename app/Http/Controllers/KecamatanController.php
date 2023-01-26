@@ -106,4 +106,9 @@ class KecamatanController extends Controller
         $kecamatan->delete();
         return redirect()->route('kecamatan.index');
     }
+    public function deleteAllTruncate(){
+
+        $kecamatan = Kecamatan::truncate();
+        return redirect()->route('kecamatan.index');
+    }
 }

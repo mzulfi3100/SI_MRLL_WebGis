@@ -15,7 +15,8 @@ class LalulintaController extends Controller
      */
     public function index()
     {
-        return view('admin/data_lalu_lintas');
+        $jalans = Jalan::get();
+        return view('admin/data_lalu_lintas', compact('jalans'));
     }
 
     /**
@@ -23,12 +24,6 @@ class LalulintaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $jalans = Jalan::get();
-        return view('admin/tambah_data_lalu_lintas', compact('jalans'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *

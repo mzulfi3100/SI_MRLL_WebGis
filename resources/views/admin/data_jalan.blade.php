@@ -38,7 +38,9 @@
     <!-- /.content-header -->
 
     <div class="p-4">
-        <a href="{{ route('jalan.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Jalan</a>
+        <a href="{{ route('jalan.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data</a>
+        <!-- Trigger modal hapus all data with a button -->
+        <a href="#" type="button" class="btn btn-danger" >Hapus Semua</a>
         <table class="table table-striped yajra-datatable p-3">
             <thead class="table-dark"> 
                 <tr>

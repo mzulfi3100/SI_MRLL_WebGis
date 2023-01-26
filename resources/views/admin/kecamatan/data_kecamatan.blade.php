@@ -41,6 +41,78 @@
   <!-- Tabel Data Kecamatan -->
   <div class="p-4">
       <a href="{{ route('kecamatan.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Kecamatan</a>
+      <!-- <a href="{{ route('kecamatan.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Kecamatan</a> -->
+        <!-- Trigger modal tambah data with a button -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahKecamatan">Tambah Data</button>
+        <!-- Trigger modal hapus all data with a button -->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapusSemuaKecamatan">&nbsp;Hapus Semua</button>
+            <div id="modalHapusSemuaKecamatan" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" style ="color:red" id="hapus-jalan">Peringatan! </h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Apakah anda yakin semua Data Kecamatan akan dihapus?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <a href="{{ route('kecamatan.delete.all.truncate') }}" class="btn btn-danger">Lanjutkan</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <!-- Modal -->
+        <div id="modalTambahKecamatan" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addNewJurnalLabel">Tambah Data Kecamatan </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                    <span aria-hidden="true">&times;</span>
+                  </button>   
+                </div>
+                <form action="{{ route('kecamatan.store') }}" method="POST">
+                  @csrf
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label>Nama Kecamatan</label>
+                      <input type="text" class="form-control" id="namaKecamatan" name="namaKecamatan">
+                    </div>
+                    <div class="form-group">
+                      <label>Warna Kecamatan</label>
+                      <input type="color" class="form-control" id="colorpicker"> 
+                      <input type="hidden" class="form-control" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" id="hexcolor" name="warnaKecamatan">
+                    </div>
+                    <div class="form-group">
+                      <label>Batas Kecamatan</label>
+                      <input type="text" class="form-control" id="batasKecamatan" name="batasKecamatan">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                  </div>
+                </form>
+              </div>
+              @section('script_warna')
+              <script>
+              $('#colorpicker').on('input', function() {
+                $('#hexcolor').val(this.value);
+                $('#hexcolor').value(this.value);
+              });
+              </script>
+              @stop
+            </div>
+          </div>
+        <div>&nbsp;
+        </div>
+        
+        <!-- table -->
       <table class="table table-striped yajra-datatable p-3">
           <thead class="table-dark"> 
               <tr>

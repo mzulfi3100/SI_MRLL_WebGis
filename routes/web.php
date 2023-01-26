@@ -76,6 +76,8 @@ Route::resource('/administrator/apill', ApillController::class);
 Route::get('/administrator/getApill', [AdminController::class, 'getApill'])->name('administrator.getApill');
 
 Route::get('/administrator/apill/{id}/delete', [ApillController::class, 'destroy']);
+
+Route::get('/kecamatan/delete/all/truncate', [KecamatanController::class, 'deleteAllTruncate'])->name('kecamatan.delete.all.truncate');
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/
