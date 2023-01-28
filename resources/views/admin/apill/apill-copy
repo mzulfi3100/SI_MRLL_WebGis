@@ -69,6 +69,21 @@
             <div class="modal-body">
                 <input type="hidden" name="apillId" id="apillId">
                 <div class="form-group">
+                    <label>Nama Kecamatan</label>
+                    <select class="form-control" id="kecamatanId" name="kecamatanId">
+                        <option value=""> - Pilih Kecamatan - </option>
+                        @foreach($dataKec as $kec)
+                            <option value="<?= $kec->kecamatanId ?>"> <?= $kec->namaKecamatan ?> </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nama Jalan</label>
+                    <select class="form-control" id="jalanId" name="jalanId">
+                        <option value=""> - Pilih Jalan - </option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="">Nama Simpang</label>
                     <input type="text" class="form-control" name="namaSimpang" id="namaSimpang">
                 </div>
@@ -232,8 +247,71 @@
         });
 
         //inisialisasi layergroup tempat menyimpan layer jalan yang dipilih
+        var jalanGroup = new L.LayerGroup();
+        var kecamatanGroup = new L.LayerGroup();
+        var getJalanGroup = new L.LayerGroup();
+        var getKecamatanGroup = new L.LayerGroup();
         var getApillGroup = new L.LayerGroup();
+        var getJalanLayer;
+        var getKecamatanLayer;
         var apillSelected;
+        var jalanSelected;
+        var kecamatanSelected;
+
+        //mengambil data jalan pada kecamatan yang diinputkan
+        $('#kecamatanId').on('input', function() {
+            $('#jalanId').empty();
+            $('#jalanId').append($("<option>", {
+                text: "- Pilih Jalan -",
+            }));
+            kecamatanGroup.addTo(map);
+            var kecamatanId = this.value;
+            @foreach($kecamatans as $kec)
+                if('<?= $kec->id ?>' == kecamatanId){
+                    kecamatanSelected = L.geoJSON(<?= $kec->geoJsonKecamatan ?>, {
+                        
+                        pmIgnore: true,
+                    }).addTo(kecamatanGroup);
+                }
+            @endforeach
+            @foreach($data as $jln)
+                if(<?= $jln->kecamatanId ?>== kecamatanId ){
+                    $('#jalanId').append($("<option>", {
+                        value: <?= $jln->jalanId ?>,
+                        text: "<?= $jln->namaJalan ?>",
+                    }));
+                }
+            @endforeach
+        })
+
+        //menghapus layer jalan jika mouse mengarah ke select jalan
+        $('#kecamatanId').mouseenter(function() {
+            if(kecamatanSelected != null){
+                kecamatanGroup.removeLayer(kecamatanSelected);
+                getKecamatanGroup.removeLayer(getKecamatanLayer);
+            }
+        });
+
+        //mengambil id jalan yang diinputkan
+        $('#jalanId').on('input', function() {
+            jalanGroup.addTo(map);
+            jalanId = this.value;
+            @foreach($jalans as $jln)
+                if('<?= $jln->id ?>' == jalanId){
+                    jalanSelected = L.geoJSON(<?= $jln->geoJsonJalan ?>, {
+                        pmIgnore: true,
+                    }).addTo(jalanGroup);
+                }
+            @endforeach
+        });
+
+        //menghapus layer jalan jika mouse mengarah ke select jalan
+        $('#jalanId').mouseenter(function() {
+            if(jalanSelected != null){
+                jalanGroup.removeLayer(jalanSelected);
+                getJalanGroup.removeLayer(getJalanLayer);
+            }
+        });
 
         //meggambar 
         map.on('pm:create', (e)=> {
@@ -274,14 +352,12 @@
     <!-- DataTable -->
     <script type="text/javascript">
         $(function(){
-            // setup ajax
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-            // render data
             var table = $('.yajra-datatable').DataTable({
                 processing: false,
                 serverSide: true,
@@ -304,7 +380,6 @@
                 ]
             });
 
-            // tambah data
             $('#tambahApillBaru').click(function(){
                 $('#saveBtn').val('tambahApill');
                 $('#apillId').val('');
@@ -317,9 +392,9 @@
                     }, 0);
                 });
                 $('#apillModal').modal('show');
+                $('#kecamatanId').empty();
+                $('#jalanId').empty();
                 $('#terkoneksiATCS').empty();
-
-                //hapus layer geoJSON
                 map.eachLayer(function(layer) {
                     if (!!layer.toGeoJSON) {
                         console.log(layer);
@@ -327,8 +402,9 @@
                     }
                 });
 
-                //jika tidak ada geoJson apill yang tersimpan
-                if(apillSelected != null){
+                if(getKecamatanLayer != null && getJalanLayer != null && apillSelected != null){
+                    getKecamatanGroup.removeLayer(getKecamatanLayer);
+                    getJalanGroup.removeLayer(getJalanLayer);
                     getApillGroup.removeLayer(apillSelected);
                 }
                 
@@ -337,8 +413,28 @@
                     style: kabupatenStyle, 
                     pmIgnore: true, //diabaikan oleh geomann
                 }).addTo(map);
+                $('#kecamatanId').append($('<option>', {
+                    text: "- Pilih Kecamatan -",
+                }));
+                
+                @foreach($dataKec as $kec)
+                    $('#kecamatanId').append($('<option>', {
+                        value: <?= $kec->kecamatanId ?>,
+                        text: "<?= $kec->namaKecamatan ?>",
+                    }));
+                @endforeach
 
-                //tambah option terkoneksiATCS
+                $('#jalanId').append($('<option>', {
+                    text: "- Pilih Jalan -",
+                }));
+                
+                @foreach($dataJln as $jln)
+                    $('#jalanId').append($('<option>', {
+                        value: <?= $jln->jalanId ?>,
+                        text: "<?= $jln->namaJalan ?>",
+                    }));
+                @endforeach
+
                 $('#terkoneksiATCS').append($('<option>', {
                     text: "- Pilih -",
                 }));
@@ -352,7 +448,6 @@
                 }));
             });
 
-            // edit data
             $('body').on('click', '.editApill', function () {
                 var apillId = $(this).data('id');
                 $('#saveBtn').html('Simpan');
@@ -369,28 +464,65 @@
                     $('#namaSimpang').val(data.namaSimpang);
                     $('#terkoneksiATCS').val(data.terkoneksiATCS);
                     $('#geoJsonApill').val(data.geoJsonApill);
+                    $('#kecamatanId').empty();
+                    $('#jalanId').empty();
                     $('#terkoneksiATCS').empty();
-
-                    //hapus layer geoJSON
+                    if(getKecamatanLayer != null && getJalanLayer != null && apillSelected != null){
+                        getKecamatanGroup.removeLayer(getKecamatanLayer);
+                        getJalanGroup.removeLayer(getJalanLayer);
+                        getApillGroup.removeLayer(apillSelected);
+                    }
                     map.eachLayer(function(layer) {
                         if (!!layer.toGeoJSON) {
                             console.log(layer);
                             map.removeLayer(layer);
                         }
                     });
-
-                    //jika tidak ada geoJson apill yang tersimpan
-                    if(apillSelected != null){
-                        getApillGroup.removeLayer(apillSelected);
-                    }
-
                     //memasukkan json kabupatan ke dalam map
                     L.geoJSON(kabupatenJson, {
                         style: kabupatenStyle, 
                         pmIgnore: true, //diabaikan oleh geomann
                     }).addTo(map);
                     
-                    // tambah option pada select terkoneksiATCS
+                    getJalanGroup.addTo(map);
+                    getKecamatanGroup.addTo(map);
+                    getApillGroup.addTo(map);
+                    @foreach($dataKec as $kec)
+                        if(<?= $kec->kecamatanId ?> == data.kecamatanId){
+                            $('#kecamatanId').append($('<option>', {
+                                value: <?= $kec->kecamatanId ?>,
+                                text: "- <?= $kec->namaKecamatan ?> -",
+                            }));
+                        }
+                    @endforeach
+                    @foreach($dataKec as $kec)
+                        if(<?= $kec->kecamatanId ?> == data.kecamatanId){
+                            
+                        }else{
+                            $('#kecamatanId').append($('<option>', {
+                                value: <?= $kec->kecamatanId ?>,
+                                text: " <?= $kec->namaKecamatan ?> ",
+                            }));
+                        }
+                    @endforeach
+                    @foreach($dataJln as $jln)
+                        if(<?= $jln->jalanId ?> == data.jalanId){
+                            $('#jalanId').append($('<option>', {
+                                value: <?= $jln->jalanId ?>,
+                                text: "- <?= $jln->namaJalan?> -",
+                            }));
+                        }
+                    @endforeach
+                    @foreach($dataJln as $jln)
+                        if(<?= $jln->jalanId ?> == data.jalanId){
+                            
+                        }else{
+                            $('#jalanId').append($('<option>', {
+                                value: <?= $jln->jalanId ?>,
+                                text: "<?= $jln->namaJalan?>",
+                            }));
+                        }
+                    @endforeach
                     var terkoneksiATCS = data.terkoneksiATCS;
                     $('#terkoneksiATCS').append($('<option>', {
                         value: data.terkoneksiATCS,
@@ -407,9 +539,28 @@
                             text: "Sudah",
                         }));
                     };
+                   
+
                     
-                    // menampilkan marker apill pada id yang dipilih
-                    getApillGroup.addTo(map);
+
+                    @foreach($kecamatans as $kec)
+                        if('<?= $kec->id ?>' == data.kecamatanId ){
+                            getKecamatanLayer = L.geoJSON(<?= $kec->geoJsonKecamatan ?>,{
+                                style: {
+                                    'fillOpacity': '0',
+                                },
+                                pmIgnore: true,
+                            }).addTo(getKecamatanGroup);
+                        }
+                    @endforeach
+
+                    @foreach($jalans as $jln)
+                        if('<?= $jln->id ?>' == data.jalanId ){
+                            getJalanLayer = L.geoJSON(<?= $jln->geoJsonJalan ?>, {
+                                pmIgnore: true,
+                            }).addTo(getJalanGroup);
+                        }
+                    @endforeach
                     var geoJsonApill = JSON.parse(data.geoJsonApill);
                     apillSelected = L.geoJSON(geoJsonApill).addTo(getApillGroup); 
 
@@ -423,7 +574,6 @@
                 });
             });
 
-            // simpan button
             $('#saveBtn').click(function(e){
                 console.log('tes');
                 e.preventDefault();
@@ -448,7 +598,6 @@
                 });
             });
 
-            // delete data
             $('body').on('click', '.deleteApill', function () {
                 var apillId = $(this).data("id");
                 confirm("Are You sure want to delete !");

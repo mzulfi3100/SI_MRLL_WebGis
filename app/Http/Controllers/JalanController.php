@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Jalan;
 use App\Models\Kecamatan;
+use App\Models\JalanKecamatan;
+use Illuminate\Support\Facades\DB;
+use DataTables;
 
 class JalanController extends Controller
 {
@@ -13,9 +16,40 @@ class JalanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin/data_jalan');
+        // mengambil data jalan
+        if($request->ajax())
+        {
+            $data = DB::table('jalans_kecamatans')
+                        ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                        ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan')
+                        ->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    // btn show
+                    $actionBtn = '<a href="/administrator/jalan/'.$row->id.'/show" class="show btn btn-primary btn-sm">Show</a>';
+                    // btn edit
+                    $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Edit" class="edit btn btn-success btn-sm editJalan" id="editJalan">Edit</a>';
+                    // btn delete
+                    $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteJalan" id="deleteJalan">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        // $dataKec = DB::table('jalans_kecamatans')
+        //                 ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+        //                 ->select('jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan')
+        //                 ->get();
+        // mengambil data kecamatan dari yang terbaru
+        $kecamatans = Kecamatan::latest()->get();
+        // mengambil data jalan dari yang terbaru
+        $jalans = Jalan::latest()->get();
+        // menampilkan view data_jalan dan mengirim data kecamatan dan jalan dari database
+        return view('admin/data_jalan', compact('kecamatans', 'jalans'));
     }
 
     /**
@@ -37,14 +71,28 @@ class JalanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'namaJalan' => 'required',
-            'geoJsonJalan' => 'required',
+
+        // update atau create data jalan
+        $jalan = Jalan::updateOrCreate([
+            'id' => $request->jalanId
+        ],[
+            'namaJalan' => $request->namaJalan,
+            'tipeJalan' => $request->tipeJalan,
+            'panjangJalan' => $request->panjangJalan,
+            'lebarJalan' => $request->lebarJalan,
+            'kapasitasJalan' => $request->kapasitasJalan,
+            'hambatanSamping' => $request->hambatanSamping,
+            'kondisiJalan' => $request->kondisiJalan,
+            'geoJsonJalan' => $request->geoJsonJalan,
         ]);
 
-        Jalan::create($request->all());
-
-        return redirect()->route('jalan.index');
+        JalanKecamatan::updateOrCreate([
+            'jalanId' => $jalan->id,
+        ],[
+            'kecamatanId' => $request->kecamatanId,
+        ]);
+        // mengembalikan response success
+        return response()->json(['success'=>'Data Jalan Telah Berhasil Disimpan']);
     }
 
     /**
@@ -64,12 +112,17 @@ class JalanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $kecId)
     {
-        $kecamatans = Kecamatan::get();
-        $jalans = Jalan::get();
-        $jalan = Jalan::find($id);
-        return view('admin/edit_data_jalan', compact('jalan', 'jalans', 'kecamatans'));
+        $jalan = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->where('jalans_kecamatans.jalanId', '=', $id)
+                    ->where('jalans_kecamatans.kecamatanId', '=', $kecId)
+                    ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan')
+                    ->first();
+
+        return response()->json($jalan);
     }
 
     /**
@@ -97,10 +150,28 @@ class JalanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $request)
     {
-        $jalans = Jalan::find($id);
-        $jalans->delete();
-        return redirect()->route('jalan.index');
+        // mengambil data jalan yang dipilih
+        $jalan = db::table('jalans_kecamatans')
+                    ->where('jalas_kecamatans.jalanId' , '=', $id)
+                    ->where('jalas_kecamatans.kecamatanId' , '=', $request->kecamatanId)
+                    ->delete();
+        // mengembalikan response success
+        return response()->json(['success' => 'Data Jalan Telah Berhasil Dihapus']);
     }
+
+    public function hapus(Request $request)
+    {
+        JalanKecamatan::where('jalanId', $request->jalan)
+                        ->where('kecamatanId', $request->kecamatan)
+                        ->delete();
+
+        $jalan = Jalan::find($request->jalan);
+        $jalan->delete();
+
+        // mengembalikan response success
+        return response()->json(['success' => 'Data Jalan Telah Berhasil Dihapus']);
+    }
+
 }

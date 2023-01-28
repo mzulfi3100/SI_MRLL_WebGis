@@ -39,41 +39,6 @@ class AdminController extends Controller
     
     public function getJalan(Request $request)
     {
-        if($request->ajax())
-        {
-            $data = Jalan::latest()->get();
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $actionBtn = '<a href="/administrator/jalan/'.$row->id.'/show" class="show btn btn-primary btn-sm">Show</a>
-                                <a href="/administrator/jalan/'.$row->id.'/edit" class="edit btn btn-success btn-sm" data-id=".$row->id.">Edit</a>
-                                <button type="button" class="delete btn btn-danger btn-sm" data-target="#modalHapusJalan" data-toggle="modal" >Delete</button>
-                               
-                                <div id="modalHapusJalan" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="hapus-jalan">Hapus Data Jalan</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Anda yakin ingin menghapus data ini ?</p>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                            <a href="/administrator/jalan/'.$row->id.'/delete" class="btn btn-danger">Hapus</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>';
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
     }
 
     public function getLaluLinta(Request $request)

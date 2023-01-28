@@ -9,6 +9,6 @@ class Apill extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'namaSimpang', 'terkoneksiATCS', 'geoJsonApill', 'jalanId', 'kecamatanId'
+        'namaSimpang', 'terkoneksiATCS', 'geoJsonApill',
     ];
 }

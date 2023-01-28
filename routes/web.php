@@ -53,7 +53,7 @@ Route::resource('/administrator/jalan', JalanController::class);
 
 Route::get('/administrator/getJalan', [AdminController::class, 'getJalan'])->name('administrator.getJalan');
 
-Route::get('/administrator/jalan/{id}/delete', [JalanController::class, 'destroy']);
+Route::get('/administrator/jalan/{id}/delete', [JalanController::class, 'destroy'])->name('jalan.destroy/{id}');
 
 Route::get('/administrator/apill');
 
@@ -78,6 +78,10 @@ Route::get('/administrator/getApill', [AdminController::class, 'getApill'])->nam
 Route::get('/administrator/apill/{id}/delete', [ApillController::class, 'destroy']);
 
 Route::get('/kecamatan/delete/all/truncate', [KecamatanController::class, 'deleteAllTruncate'])->name('kecamatan.delete.all.truncate');
+
+Route::post('/jalan/delete', [JalanController::class, 'hapus'])->name('jalan.hapus');
+
+Route::get('/administrator/jalan/{id}/{kedId}/edit', [JalanController::class, 'edit']);
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/

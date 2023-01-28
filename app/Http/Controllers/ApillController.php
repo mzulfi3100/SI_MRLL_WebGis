@@ -32,24 +32,8 @@ class ApillController extends Controller
                         ->make(true);
         }
         $kecamatans = Kecamatan::get();
-        $dataJln = DB::table('jalans_kecamatans')
-                ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
-                ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId')
-                ->distinct()
-                ->get();
-        $dataKec = DB::table('jalans_kecamatans')
-                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                    ->select('kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
-                    ->distinct()
-                    ->get();
-        $data = DB::table('jalans_kecamatans')
-                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
-                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
-                    ->get();
         $jalans = Jalan::get();
-        $apills = Apill::get();
-        return view('admin/apill/data_apill', compact('kecamatans', 'jalans', 'data', 'dataKec', 'dataJln', 'apills'));
+        return view('admin/apill/data_apill', compact('kecamatans', 'jalans'));
     }
 
     /**
@@ -83,8 +67,6 @@ class ApillController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kecamatanId' => 'required',
-            'jalanId' => 'required',
             'namaSimpang' => 'required',
             'terkoneksiATCS' => 'required',
             'geoJsonApill' => 'required',
@@ -93,8 +75,6 @@ class ApillController extends Controller
         Apill::updateOrCreate([
             'id' => $request->apillId
         ],  [
-            'kecamatanId' => $request->kecamatanId,
-            'jalanId' => $request->jalanId,
             'namaSimpang' => $request->namaSimpang,
             'terkoneksiATCS' => $request->terkoneksiATCS,
             'geoJsonApill' => $request->geoJsonApill,
