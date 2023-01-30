@@ -23,12 +23,15 @@ class KecamatanController extends Controller
                     $kotak = '<div style="background-color:'.$row->warnaKecamatan.'; width:25px; height:25px; border:1px solid #000;"></div>';
                     return $kotak;
                 })
+                ->addColumn('checkbox', function($row){
+                    return '<input type="checkbox" name="kecamatan_checkbox" data-id="'.$row['id'].'"><label></label>';
+                })
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editKecamatan">Edit</a> ';
                     $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKecamatan">Delete</a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action', 'warna'])
+                ->rawColumns(['action', 'checkbox', 'warna'])
                 ->make(true);
         }
         return view('admin/kecamatan/data_kecamatan');
@@ -137,5 +140,13 @@ class KecamatanController extends Controller
 
         $kecamatan = Kecamatan::truncate();
         return redirect()->route('kecamatan.index');
+    }
+    public function deleteSelectedKecamatan(Request $request){
+        $kecamatan_ids = $request->kecamatan_id;
+        Kecamatan::whereIn('id', $kecamatan_ids)->delete();
+        return response()->json(['code'=>1, 'msg'=>'Kecamatan telah dihapus']);
+    }
+    public function exportData(Request $request){
+
     }
 }

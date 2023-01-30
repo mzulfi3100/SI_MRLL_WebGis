@@ -82,6 +82,8 @@ Route::get('/kecamatan/delete/all/truncate', [KecamatanController::class, 'delet
 Route::post('/jalan/delete', [JalanController::class, 'hapus'])->name('jalan.hapus');
 
 Route::get('/administrator/jalan/{id}/{kedId}/edit', [JalanController::class, 'edit']);
+
+Route::post('/deleteSelectedKecamatan', [KecamatanController::class, 'deleteSelectedKecamatan'])->name('delete.selected.kecamatan');
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/

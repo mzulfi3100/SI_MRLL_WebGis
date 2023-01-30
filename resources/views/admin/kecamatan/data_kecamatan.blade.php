@@ -44,6 +44,10 @@
     <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahKecamatanBaru">Tambah Data</button>
     <!-- Trigger modal hapus all data with a button -->
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapusSemuaKecamatan">&nbsp;Hapus Semua</button>
+    <!-- Trigger export data to excel with a button -->
+    <a download class="btn btn-warning" >&nbsp;Ekspor Excel</a>
+    
+    <button class="btn btn-danger d-none" id="deleteAllBtn">Delete Selected</button>
     <div id="modalHapusSemuaKecamatan" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -125,9 +129,10 @@
     </div>
     
     <!-- table -->
-    <table class="table table-striped yajra-datatable p-3">
+    <table class="table table-striped yajra-datatable p-3" id="counties-table">
         <thead class="table-dark"> 
             <tr>
+              <th><input type="checkbox" name="main_checkbox"><label></label></th>
               <th>No</th>
               <th>Nama Kecamatan</th>
               <th>Warna Kecamatan</th>
@@ -161,7 +166,12 @@
         processing: false,
         serverSide: true,
         ajax: "{{ route('kecamatan.index') }}",
-        columns: [
+        columns: [{
+              data: 'checkbox', 
+              name: 'checkbox', 
+              orderable: false, 
+              searchable: false
+            },
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'namaKecamatan', name: 'namaKecamatan'},
             {
@@ -177,6 +187,79 @@
                 searchable: false
             },
         ]
+      }).on('draw', function(){
+        $('input[name="kecamatan_checkbox"]').each(function(){
+          this.checked = false;
+        });
+        $('input[name="main_checkbox"]').prop('checked', false);
+        $('button#deleteAllBtn').addClass('d-none');
+      });
+
+      // bagian listing checkbox //
+      $(document).on('click', 'input[name="main_checkbox"]', function(){
+        if(this.checked){
+          $('input[name="kecamatan_checkbox"]').each(function(){
+            this.checked = true;
+          });
+        }else{
+          $('input[name="kecamatan_checkbox"]').each(function(){
+            this.checked = false;
+          });
+        }
+        toggledeleteAllBtn();
+      });
+
+      //bagian listing 2 checkbox//
+      $(document).on('change', 'input[name="kecamatan_checkbox"]', function(){
+        if($('input[name="kecamatan_checkbox"]').length == $('input[name="kecamatan_checkbox"]:checked').length){
+          $('input[name="main_checkbox"]').prop('checked', true);
+        }else{
+          $('input[name="main_checkbox"]').prop('checked', false);
+        }
+        toggledeleteAllBtn(); 
+      });
+
+      //bagian tampilan delete btn//
+
+      function toggledeleteAllBtn(){
+        if($('input[name="kecamatan_checkbox"]:checked').length > 0){
+          $('button#deleteAllBtn').text('Delete ('+$('input[name="kecamatan_checkbox"]:checked').length+')').removeClass('d-none');
+        }else{
+          $('button#deleteAllBtn').addClass('d-none');
+        }
+      }
+
+      //bagian//
+      $(document).on('click', 'button#deleteAllBtn', function(){
+        var checkedKecamatan = [];
+        $('input[name="kecamatan_checkbox"]:checked').each(function(){
+          checkedKecamatan.push($(this).data('id'));
+        });
+        // alert(checkedKecamatan);
+        var url='{{ route("delete.selected.kecamatan")}}';
+        if(checkedKecamatan.length > 0){
+          swal.fire({
+            title:'Are you sure?',
+            html:'You want to delete <b>('+checkedKecamatan.length+')</b> kecamatan',
+            showCancelButton:true,
+            showCloseButton:true,
+            confirmButtonText:'Yes, Delete',
+            cancelButtonText:'Cancel',
+            confirmButtonColor:'#556ee6',
+            cancelButtonColor:'#d33',
+            width:300,
+            allowOutsideClick:false
+          }).then(function(result){
+            if(result.value){
+              $.post(url, {kecamatan_id:checkedKecamatan}, function(data){
+                if(data.code == 1){
+                  $('#counties-table').DataTable().ajax.reload(null, true);
+                  toastr.success(data.msg);
+                }
+              },'json');
+            }
+          })
+        }
       });
       
       $('#tambahKecamatanBaru').click(function(){
@@ -245,6 +328,10 @@
 
     });    
   </script>
+  
+  <!-- js modal dan notif -->
+  <script src="{{ asset('Admin/sweetalert2/sweetalert2.min.js') }}"></script>
+  <script src="{{ asset('Admin/toastr/toastr.min.js') }}"></script>
   <!-- End DataTable -->
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
