@@ -86,7 +86,7 @@ class LalulintaController extends Controller
             'jalanKecamatanId' => $request->jalanKecamatanId,
         ]);
 
-        return redirect()->route('lalulinta.index');
+        return response()->json(['success'=>'Product saved successfully.']);
     }
 
     /**
@@ -112,6 +112,7 @@ class LalulintaController extends Controller
                     ->join('jalans_kecamatans', 'lalulintas.jalanKecamatanId', '=', 'jalans_kecamatans.id')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->where('lalulintas.id', '=', $id)
                     ->select('lalulintas.*', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId',)
                     ->first();
         return response()->json($data);

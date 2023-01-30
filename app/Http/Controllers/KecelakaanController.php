@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Jalan;
 use App\Models\Kecelakaan;
+use App\Models\Kecamatan;
+use DataTables;
 
 class KecelakaanController extends Controller
 {
@@ -13,10 +16,45 @@ class KecelakaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jalans = Jalan::get();  
-        return view('admin/data_kecelakaan', compact('jalans'));
+        if($request->ajax())
+        {
+            $data = DB::table('kecelakaans')
+                    ->join('jalans_kecamatans', 'kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('kecelakaans.*', 'jalans.namaJalan', 'kecamatans.namaKecamatan',)
+                    ->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editLaka">Edit</a> ';
+                    $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteLaka">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $data = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId', 'jalans_kecamatans.id')
+                    ->get();
+        $dataKec = DB::table('jalans_kecamatans')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
+                    ->distinct()
+                    ->get();
+        $dataJln = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId')
+                    ->distinct()
+                    ->get();
+        
+        $kecamatans = Kecamatan::get();
+        $jalans = Jalan::get();
+        return view('admin/data_kecelakaan', compact('kecamatans', 'jalans', 'data' ,'dataKec', 'dataJln'));
     }
 
     /**
@@ -35,14 +73,21 @@ class KecelakaanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kecamatanId' => 'required',
             'jalanId' => 'required',
-            'vatalitasKecelakaan' => 'required',
-            'tahunKecelakaan' => 'required',
         ]);
 
-        Kecelakaan::create($request->all());
+        Kecelakaan::updateOrCreate([
+            'id' => $request->lakaId
+        ],  [
+            'vatalitasKecelakaan' => $request->vatalitasKecelakaan,
+            'penyebabKecelakaan' => $request->penyebabKecelakaan,
+            'jumlahKorban' => $request->jumlahKorban,
+            'tahunKecelakaan' => $request->tahunKecelakaan,
+            'jalanKecamatanId' => $request->jalanKecamatanId,
+        ]);
 
-        return redirect()->route('kecelakaan.index');
+        return response()->json(['success'=>'Product saved successfully.']);
     }
 
     /**
@@ -64,9 +109,14 @@ class KecelakaanController extends Controller
      */
     public function edit($id)
     {
-        $kecelakaan = Kecelakaan::find($id);
-        $jalans = Jalan::get();
-        return view('admin/data_kecelakaan', compact('jalans', 'kecelakaan'));
+        $data = DB::table('kecelakaans')
+                    ->join('jalans_kecamatans', 'kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->where('kecelakaans.id', '=', $id)
+                    ->select('kecelakaans.*', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId')
+                    ->first();
+        return response()->json($data);
     }
 
     /**
@@ -100,6 +150,6 @@ class KecelakaanController extends Controller
     {
         $kecelakaan = Kecelakaan::find($id);
         $kecelakaan->delete();
-        return redirect()->route('kecelakaan.index');
+        return response()->json(['success'=>'Product deleted successfully.']);
     }
 }
