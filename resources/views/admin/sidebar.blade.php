@@ -48,23 +48,61 @@
           </li>
 
           <!-- Menu Kelola Data Lalu Lintas -->
-          <li class="nav-item">
-            <a href="/administrator/lalulinta" class="nav-link">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
             <i class="fas fa-car-side" style="color:black"></i>
               <p style="color:white">
-              &nbsp;&nbsp;Data Lalu Lintas
+              &nbsp;&nbsp;Lalu Lintas
+              <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/administrator/lalulinta" class="nav-link">
+                  <i class="far fa-circle" style="color:black"></i>
+                  <p style="color:white">
+                  &nbsp;&nbsp;Data Lalu Lintas
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/administrator/titik_kemacetan" class="nav-link">
+                  <i class="far fa-circle" style="color:black"></i>
+                  <p style="color:white">
+                  &nbsp;&nbsp;Data Titik Kemacetan
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <!-- Menu Kelola Data Kecelakaan -->
-          <li class="nav-item">
-            <a href="/administrator/kecelakaan" class="nav-link">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
             <i class="fas fa-car-crash" style="color:black"></i>
               <p style="color:white">
-              &nbsp;&nbsp;Data Kecelakaan
-             </p>
+              &nbsp;&nbsp;Kecelakaan
+              <i class="fas fa-angle-left right"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/administrator/kecelakaan" class="nav-link">
+                <i class="far fa-circle" style="color:black"></i>
+                  <p style="color:white">
+                  &nbsp;&nbsp;Data Kecelakaan
+                </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/administrator/titik_kecelakaan" class="nav-link">
+                  <i class="far fa-circle" style="color:black"></i>
+                  <p style="color:white">
+                  &nbsp;&nbsp;Data Titik Kecelakaan
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <div class="sidebar-heading" style="font-size:14px;color:black;"><b>
