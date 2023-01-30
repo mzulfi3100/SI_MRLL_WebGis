@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Lalulinta;
 use App\Models\Jalan;
+use App\Models\Kecamatan;
+use DataTables;
 
 class LalulintaController extends Controller
 {
@@ -13,10 +16,45 @@ class LalulintaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax())
+        {
+            $data = DB::table('lalulintas')
+                    ->join('jalans_kecamatans', 'lalulintas.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('lalulintas.*', 'jalans.namaJalan', 'kecamatans.namaKecamatan',)
+                    ->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editLalin">Edit</a> ';
+                    $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteLalin">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $data = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId', 'jalans_kecamatans.id')
+                    ->get();
+        $dataKec = DB::table('jalans_kecamatans')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
+                    ->distinct()
+                    ->get();
+        $dataJln = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId')
+                    ->distinct()
+                    ->get();
+        
+        $kecamatans = Kecamatan::get();
         $jalans = Jalan::get();
-        return view('admin/data_lalu_lintas', compact('jalans'));
+        return view('admin/data_lalu_lintas', compact('kecamatans', 'jalans', 'data' ,'dataKec', 'dataJln'));
     }
 
     /**
@@ -33,11 +71,20 @@ class LalulintaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kecamatanId' => 'required',
             'jalanId' => 'required',
-            'volumeLaluLintas' => 'required',
+            'volume' => 'required',
+            'tahun' => 'required',
         ]);
 
-        Lalulinta::create($request->all());
+        LaluLinta::updateOrCreate([
+            'id' => $request->lalinId
+        ],  [
+            'volume' => $request->volume,
+            'kecepatan' => $request->kecepatan,
+            'tahun' => $request->tahun,
+            'jalanKecamatanId' => $request->jalanKecamatanId,
+        ]);
 
         return redirect()->route('lalulinta.index');
     }
@@ -61,9 +108,13 @@ class LalulintaController extends Controller
      */
     public function edit($id)
     {
-        $lalulinta = Lalulinta::find($id);
-        $jalans = Jalan::get();
-        return view('admin/edit_data_lalu_lintas', compact('lalulinta', 'jalans'));
+        $data = DB::table('lalulintas')
+                    ->join('jalans_kecamatans', 'lalulintas.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('lalulintas.*', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId',)
+                    ->first();
+        return response()->json($data);
     }
 
     /**
@@ -97,6 +148,6 @@ class LalulintaController extends Controller
     {
         $lalulinta = Lalulinta::find($id);
         $lalulinta->delete();
-        return redirect()->route('lalulinta.index');
+        return response()->json(['success'=>'Product deleted successfully.']);
     }
 }
