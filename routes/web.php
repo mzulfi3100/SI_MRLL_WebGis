@@ -10,6 +10,7 @@ use App\Http\Controllers\LalulintaController;
 use App\Http\Controllers\KecelakaanController;
 use App\Http\Controllers\ApillController;
 use App\Http\Controllers\TitikKemacetanController;
+use App\Http\Controllers\TitikKecelakaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +88,8 @@ Route::get('/administrator/jalan/{id}/{kedId}/edit', [JalanController::class, 'e
 Route::post('/deleteSelectedKecamatan', [KecamatanController::class, 'deleteSelectedKecamatan'])->name('delete.selected.kecamatan');
 
 Route::resource('/administrator/titik_kemacetan', TitikKemacetanController::class);
+
+Route::resource('/administrator/titik_kecelakaan', TitikKecelakaanController::class);
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/
