@@ -48,7 +48,7 @@
           </li>
 
           <!-- Menu Kelola Data Lalu Lintas -->
-          <li class="nav-item menu-open">
+          <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="fas fa-car-side" style="color:black"></i>
               <p style="color:white">
@@ -77,7 +77,7 @@
           </li>
 
           <!-- Menu Kelola Data Kecelakaan -->
-          <li class="nav-item menu-open">
+          <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="fas fa-car-crash" style="color:black"></i>
               <p style="color:white">

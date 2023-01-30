@@ -58,7 +58,15 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Jalan</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">30 </div>
+                    <?php
+                      $count = 0;
+                    ?>
+                    @foreach($jalans as $jln)
+                      <?php
+                        $count++;
+                      ?>
+                    @endforeach
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count ?> </div>
                   </div>
                   <div class="col-auto">
                     <i class= "fas fa-fw fa-road fa-3x text-gray-300" ></i>
@@ -106,7 +114,7 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                       <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Jalan Rawan Kemacetan</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">11 </div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0 </div>
                         </div>
                       </div>
                     </div>
@@ -127,7 +135,7 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                       <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Jalan Rawan Kecelakaan</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">16 </div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0 </div>
                         </div>
                       </div>
                     </div>

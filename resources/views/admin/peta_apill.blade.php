@@ -107,7 +107,7 @@
                         children: [
                             @foreach($kecamatans as $kec)
                                 {
-                                    label: '<?= $kec->namaKecamatan ?>', layer: L.geoJSON(<?= $kec->batasKecamatan ?>, {
+                                    label: '<?= $kec->namaKecamatan ?>', layer: L.geoJSON(<?= $kec->geoJsonKecamatan ?>, {
                                         style: {
                                             "color": "<?= $kec->warnaKecamatan ?>",
                                             "weight": 0,
@@ -115,7 +115,7 @@
                                             "fillOpacity": 0.5 ,
                                         },
                                     }),
-                                    name: '<?= $kec->namaKecamatan ?>'
+                                    name: '<?= $kec->namaKecamatan ?>',
                                 },
                             @endforeach
                         ]
