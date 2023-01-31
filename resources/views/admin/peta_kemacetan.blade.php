@@ -72,23 +72,23 @@
                         label: 'Jalan',
                         selectAllCheckbox: true,
                         children: [
-                            @foreach($jalans as $jln)
+                            @foreach($data as $jln)
                             {
                                 label: '<?= $jln->namaJalan ?>',
                                 layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
                                     onEachFeature: function (feature, layer) {
                                         layer.bindTooltip('<?= $jln->namaJalan ?>');
-                                        if('<?= $jln->tingkatPelayananJalan ?>' == 'A'){
+                                        if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 0.19){
                                             layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'B'){
+                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0.20 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 0.44){
                                                 layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'C'){
+                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0.45 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 0.69){
                                                 layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'D'){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'E'){
+                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0.70 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 0.84){
                                                 layer.setStyle({color :'#FFF200'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'F'){
+                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0.85 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 1.00){
+                                                layer.setStyle({color :'#FFF200'});
+                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> > 1.00){
                                                 layer.setStyle({color :'#FF0000'});
                                         }
                                     }
@@ -98,9 +98,11 @@
                                         'Panjang Jalan: ' + '<?= $jln->panjangJalan ?>' + '<br>' +
                                         'Lebar Jalan: ' + '<?= $jln->lebarJalan ?>' + '<br>' +
                                         'Kapasitas Jalan: ' + '<?= $jln->kapasitasJalan ?>' + '<br>' +
-                                        'Hambatan Samping: ' + '<?= $jln->hambatanJalan ?>' + '<br>' +
+                                        'Hambatan Samping: ' + '<?= $jln->hambatanSamping ?>' + '<br>' +
                                         'Kondisi Jalan :' + '<?= $jln->kondisiJalan ?>' + '<br>' +
-                                        'Tingkat Pelayanan Jalan: ' + '<?= $jln->tingkatPelayananJalan ?>' + '<br>',
+                                        'Volume Lalu Lintas :' + '<?= $jln->volume ?>' + '<br>' +
+                                        'Kecepatan Tempuh :' + '<?= $jln->kecepatan ?>' + '<br>'
+                                        
                             },
                             @endforeach
                         ]
@@ -110,7 +112,7 @@
                         children: [
                             @foreach($kecamatans as $kec)
                                 {
-                                    label: '<?= $kec->namaKecamatan ?>', layer: L.geoJSON(<?= $kec->batasKecamatan ?>, {
+                                    label: '<?= $kec->namaKecamatan ?>', layer: L.geoJSON(<?= $kec->geoJsonKecamatan ?>, {
                                         style: {
                                             "color": "<?= $kec->warnaKecamatan ?>",
                                             "weight": 0,

@@ -21,9 +21,19 @@ class AdminController extends Controller
     }
 
     public function peta_kemacetan(){
+        $data = DB::table('lalulintas')
+                    ->join(DB::raw('(select lalulintas.jalanKecamatanId, max(lalulintas.tahun) as MaxDate from lalulintas group by lalulintas.jalanKecamatanId) tm'), function($join){
+                        $join->on('lalulintas.jalanKecamatanId', '=', 'tm.jalanKecamatanId')
+                        ->on('lalulintas.tahun', '=', 'tm.MaxDate');
+                    })
+                    ->join('jalans_kecamatans', 'lalulintas.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId')
+                    ->get();  
         $kecamatans = Kecamatan::get();
         $jalans = Jalan::get();
-        return view('admin/peta_kemacetan', compact('kecamatans', 'jalans'));
+        return view('admin/peta_kemacetan', compact('kecamatans', 'jalans', 'data'));
     }
 
     public function peta_kecelakaan(){
