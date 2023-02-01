@@ -33,7 +33,10 @@ class TitikKecelakaanController extends Controller
                     $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteTitikLaka">Delete</a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('checkbox', function($row){
+                    return '<input type="checkbox" name="titikKecelakaan_checkbox" data-id="'.$row->id.'"><label></label>';
+                })
+                ->rawColumns(['action','checkbox'])
                 ->make(true);
         }
         $data = DB::table('jalans_kecamatans')
@@ -145,5 +148,13 @@ class TitikKecelakaanController extends Controller
         $titikMacet = TitikKecelakaan::find($id);
         $titikMacet->delete();
         return response()->json(['success'=>'Product deleted successfully']);
+    }
+    public function deleteSelectedTitikKecelakaan(Request $request){
+        $titikKecelakaan_ids = $request->titikKecelakaan_id;
+        $countTitikKecelakaans = $request->countingTitikKecelakaan;
+
+        //menghapus data di tabel jalan berdasarkan id jalan
+        TitikKecelakaan::whereIn('id', $titikKecelakaan_ids)->delete();
+        return response()->json(['code'=>1, 'msg'=> [$countTitikKecelakaans, ' Data Titik Kecelakaan Berhasil Dihapus']]);
     }
 }

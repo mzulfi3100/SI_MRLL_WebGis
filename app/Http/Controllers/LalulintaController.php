@@ -33,7 +33,10 @@ class LalulintaController extends Controller
                     $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteLalin">Delete</a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('checkbox', function($row){
+                    return '<input type="checkbox" name="lalin_checkbox" data-id="'.$row->id.'"><label></label>';
+                })
+                ->rawColumns(['action', 'checkbox'])
                 ->make(true);
         }
         $data = DB::table('jalans_kecamatans')
@@ -86,7 +89,7 @@ class LalulintaController extends Controller
             'jalanKecamatanId' => $request->jalanKecamatanId,
         ]);
 
-        return response()->json(['success'=>'Product saved successfully.']);
+        return response()->json(['msg'=>'Data telah berhasil disimpan.']);
     }
 
     /**
@@ -145,10 +148,19 @@ class LalulintaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $lalulinta = Lalulinta::find($id);
+        $lalulinta = Lalulinta::find($request->lalinId);
         $lalulinta->delete();
-        return response()->json(['success'=>'Product deleted successfully.']);
+        return response()->json(['code'=>1, 'msg'=> ' Data Lalu Lintas Berhasil Dihapus']);
     }
+    public function deleteSelectedLalin(Request $request){
+        $lalin_ids = $request->lalin_id;
+        $countLalins = $request->countingLalin;
+
+        //menghapus data di tabel Lalu lintas berdasarkan id lalin
+        LaluLinta::whereIn('id', $lalin_ids)->delete();
+        return response()->json(['code'=>1, 'msg'=> [$countLalins, ' Data Lalu Lintas Berhasil Dihapus']]);
+    }
+    
 }

@@ -41,9 +41,13 @@
     <!-- Tabel Apill -->
     <div class="p-4">
         <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahApillBaru">Tambah Data</button>
+        <!-- Trigger selected delete data with a button -->
+        <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
+        
         <table class="table table-striped yajra-datatable p-3">
             <thead class="table-dark">
                 <tr>
+                    <th><input type="checkbox" name="main_checkbox"><label></label></th>
                     <th>No</th>
                     <th>Nama Simpang</th>
                     <th>Terkoneksi ATCS</th>
@@ -283,10 +287,14 @@
 
             // render data
             var table = $('.yajra-datatable').DataTable({
+                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 processing: false,
                 serverSide: true,
                 ajax: "{{ route('apill.index') }}",
                 columns: [
+                    {data: 'checkbox', name: 'checkbox', 
+                        orderable: false, 
+                        searchable: false},
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'namaSimpang', name: 'namaSimpang'},
                     {
@@ -302,6 +310,86 @@
                         searchable: false
                     },
                 ]
+            }).on('draw', function(){
+                $('input[name="apill_checkbox"]').each(function(){
+                    this.checked = false;
+                });
+                $('input[name="main_checkbox"]').prop('checked', false);
+                $('button#deleteAllBtn').addClass('d-none');
+            });
+
+            // bagian listing checkbox
+            $(document).on('click', 'input[name="main_checkbox"]', function(){
+                if(this.checked){
+                    $('input[name="apill_checkbox"]').each(function(){
+                        this.checked = true;
+                    });
+                }else{
+                    $('input[name="apill_checkbox"]').each(function(){
+                        this.checked = false;
+                    });
+                }
+                toggledeleteAllBtn();
+            });
+
+            //bagian listing 2 checkbox
+            $(document).on('change', 'input[name="apill_checkbox"]', function(){
+                if($('input[name="jalan_checkbox"]').length == $('input[name="apill_checkbox"]:checked').length){
+                    $('input[name="main_checkbox"]').prop('checked', true);
+                }else{
+                    $('input[name="main_checkbox"]').prop('checked', false);
+                }
+                toggledeleteAllBtn(); 
+            });
+            
+            //bagian tampilan delete btn
+            function toggledeleteAllBtn(){
+                if($('input[name="apill_checkbox"]:checked').length > 0){
+                    $('button#deleteAllBtn').text('Hapus Data ('+$('input[name="apill_checkbox"]:checked').length+')').removeClass('d-none');
+                }else{
+                    $('button#deleteAllBtn').addClass('d-none');
+                }
+            }
+            
+            //bagian utama selected delete
+            $(document).on('click', 'button#deleteAllBtn', function(){
+                var checkedApill = [];
+                var url = '{{ route("delete.selected.apill")}}';
+                $('input[name="apill_checkbox"]:checked').each(function(){
+                    checkedApill.push($(this).data('id'))
+                });
+                
+                // untuk melihat id data yang dipilih/checked
+                // alert(checkedApill);
+                if(checkedApill.length > 0){
+                    var countApill = [checkedApill.length];
+                    swal.fire({
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        title:'<h3 style ="color:red">Peringatan!</h3>',
+                        icon: 'warning',
+                        html:'Apakah anda yakin ingin menghapus <b>'+checkedApill.length+'</b> data apill yang dipilih?',
+                        showCancelButton:true,
+                        showCloseButton:true,
+                        confirmButtonText:'Lanjutkan',
+                        cancelButtonText:'Kembali',
+                        confirmButtonColor:'#28a745',
+                        cancelButtonColor:'#d33',
+                        width:500,
+                        allowOutsideClick:false
+                    }).then(function(result){
+                        if(result.value){
+                            $.post(url, {apill_id:checkedApill, countingApill:countApill}, function(data){
+                                if(data.code == 1){
+                                    $('#counties-table').DataTable().ajax.reload(null, true);
+                                    toastr.success(data.msg);
+                                    table.draw();
+                                }
+                            },'json');
+                        }
+                    })
+                }
             });
 
             // tambah data
@@ -466,6 +554,7 @@
             });
         });
     </script>
+    
     <!-- End DataTable -->
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>

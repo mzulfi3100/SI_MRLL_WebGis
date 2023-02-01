@@ -15,6 +15,9 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
+<!-- js modal dan notif alert -->
+<script src="{{ asset('Admin/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('Admin/toastr/toastr.min.js') }}"></script>
 <!-- jQuery -->
 <script src="{{ asset('Admin/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->

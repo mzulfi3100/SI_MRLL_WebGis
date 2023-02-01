@@ -24,7 +24,7 @@ class KecamatanController extends Controller
                     return $kotak;
                 })
                 ->addColumn('checkbox', function($row){
-                    return '<input type="checkbox" name="kecamatan_checkbox" data-id="'.$row['id'].'"><label></label>';
+                    return '<input type="checkbox" name="kecamatan_checkbox" data-id="'.$row->id.'"><label></label>';
                 })
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editKecamatan">Edit</a> ';
@@ -143,8 +143,10 @@ class KecamatanController extends Controller
     }
     public function deleteSelectedKecamatan(Request $request){
         $kecamatan_ids = $request->kecamatan_id;
+        $countKecamatans = $request->countingKecamatan;
+
         Kecamatan::whereIn('id', $kecamatan_ids)->delete();
-        return response()->json(['code'=>1, 'msg'=>'Kecamatan telah dihapus']);
+        return response()->json(['code'=>1, 'msg'=> [$countKecamatans, ' Data Kecamatan Berhasil Dihapus']]);
     }
     public function exportData(Request $request){
 

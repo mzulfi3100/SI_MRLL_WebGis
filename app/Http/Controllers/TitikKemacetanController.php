@@ -33,7 +33,10 @@ class TitikKemacetanController extends Controller
                     $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteTitikMacet">Delete</a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('checkbox', function($row){
+                    return '<input type="checkbox" name="titikKemacetan_checkbox" data-id="'.$row->id.'"><label></label>';
+                })
+                ->rawColumns(['action', 'checkbox'])
                 ->make(true);
         }
         $data = DB::table('jalans_kecamatans')
@@ -145,5 +148,13 @@ class TitikKemacetanController extends Controller
         $titikMacet = TitikKemacetan::find($id);
         $titikMacet->delete();
         return response()->json(['success'=>'Product deleted successfully']);
+    }
+    public function deleteSelectedTitikKemacetan(Request $request){
+        $titikKemacetan_ids = $request->titikKemacetan_id;
+        $countTitikKemacetans = $request->countingTitikKemacetan;
+
+        //menghapus data di tabel jalan berdasarkan id jalan
+        TitikKemacetan::whereIn('id', $titikKemacetan_ids)->delete();
+        return response()->json(['code'=>1, 'msg'=> [$countTitikKemacetans, ' Data Titik Kemacetan Berhasil Dihapus']]);
     }
 }

@@ -43,11 +43,12 @@
     <!-- Trigger modal tambah data with a button -->
     <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahKecamatanBaru">Tambah Data</button>
     <!-- Trigger modal hapus all data with a button -->
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapusSemuaKecamatan">&nbsp;Hapus Semua</button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapusSemuaKecamatan">Hapus Semua</button>
     <!-- Trigger export data to excel with a button -->
-    <a download class="btn btn-warning" >&nbsp;Ekspor Excel</a>
+    <a download class="btn btn-warning" >Ekspor Excel</a>
+    <!-- Trigger selected delete data with a button -->
+    <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
     
-    <button class="btn btn-danger d-none" id="deleteAllBtn">Delete Selected</button>
     <div id="modalHapusSemuaKecamatan" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -93,7 +94,6 @@
                   <label>Geo JSON Kecamatan</label>
                   <input type="text" class="form-control" id="geoJsonKecamatan" name="geoJsonKecamatan" value="">
                 </div>
-              
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -103,7 +103,7 @@
         </div>
       </div>
     </div>
-    <div>&nbsp;
+    <div>
     </div>
     <!-- Hapus Modal -->
     <!-- <button type="button" class="delete btn btn-danger btn-sm" data-target="#modalHapusKecamatan" data-toggle="modal" >Delete</button>            -->
@@ -163,30 +163,25 @@
       });
 
       var table = $('.yajra-datatable').DataTable({
+        "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
         processing: false,
         serverSide: true,
+        columnDefs: [
+            {orderable: false, searchable: false, targets: [0, 1, 3, 4]},
+            {width: 10, targets: 0},
+            {width: 50, targets: 1},
+            {width: 260, targets: 2},
+            {width: 200, targets: 3},
+            {width: 250, targets: 4},
+        ],
         ajax: "{{ route('kecamatan.index') }}",
-        columns: [{
-              data: 'checkbox', 
-              name: 'checkbox', 
-              orderable: false, 
-              searchable: false
-            },
+        columns: [
+            {data: 'checkbox', name: 'checkbox'},
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'namaKecamatan', name: 'namaKecamatan'},
-            {
-                data: 'warna', 
-                name: 'warna', 
-                orderable: false, 
-                searchable: false
-            },
-            {
-                data: 'action', 
-                name: 'action', 
-                orderable: false, 
-                searchable: false
-            },
-        ]
+            {data: 'warna', name: 'warna',},
+            {data: 'action', name: 'action',},
+        ],
       }).on('draw', function(){
         $('input[name="kecamatan_checkbox"]').each(function(){
           this.checked = false;
@@ -223,35 +218,41 @@
 
       function toggledeleteAllBtn(){
         if($('input[name="kecamatan_checkbox"]:checked').length > 0){
-          $('button#deleteAllBtn').text('Delete ('+$('input[name="kecamatan_checkbox"]:checked').length+')').removeClass('d-none');
+          $('button#deleteAllBtn').text('Hapus Data ('+$('input[name="kecamatan_checkbox"]:checked').length+')').removeClass('d-none');
         }else{
           $('button#deleteAllBtn').addClass('d-none');
         }
       }
 
-      //bagian//
+      //bagian utama selected delete
       $(document).on('click', 'button#deleteAllBtn', function(){
         var checkedKecamatan = [];
         $('input[name="kecamatan_checkbox"]:checked').each(function(){
           checkedKecamatan.push($(this).data('id'));
         });
+        // untuk melihat id data yang dipilih/checked
         // alert(checkedKecamatan);
-        var url='{{ route("delete.selected.kecamatan")}}';
+        var url='#';
         if(checkedKecamatan.length > 0){
+          var countKecamatan = [checkedKecamatan.length];
           swal.fire({
-            title:'Are you sure?',
-            html:'You want to delete <b>('+checkedKecamatan.length+')</b> kecamatan',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            title:'<h3 style ="color:red">Peringatan!</h3>',
+            icon: 'warning',
+            html:'Apakah anda yakin ingin menghapus <b>'+checkedKecamatan.length+'</b> data kecamatan yang dipilih?',
             showCancelButton:true,
             showCloseButton:true,
-            confirmButtonText:'Yes, Delete',
-            cancelButtonText:'Cancel',
-            confirmButtonColor:'#556ee6',
+            confirmButtonText:'Lanjutkan',
+            cancelButtonText:'Kembali',
+            confirmButtonColor:'#28a745',
             cancelButtonColor:'#d33',
-            width:300,
+            width:500,
             allowOutsideClick:false
           }).then(function(result){
             if(result.value){
-              $.post(url, {kecamatan_id:checkedKecamatan}, function(data){
+              $.post(url, {kecamatan_id:checkedKecamatan, countingKecamatan:countKecamatan}, function(data){
                 if(data.code == 1){
                   $('#counties-table').DataTable().ajax.reload(null, true);
                   toastr.success(data.msg);
@@ -260,6 +261,8 @@
             }
           })
         }
+        //menghitung nilai kecamatan didalam checkbox
+        // alert(countKecamatan);
       });
       
       $('#tambahKecamatanBaru').click(function(){

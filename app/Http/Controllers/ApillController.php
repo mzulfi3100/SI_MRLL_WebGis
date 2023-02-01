@@ -28,7 +28,10 @@ class ApillController extends Controller
                             $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteApill">Delete</a>';
                             return $actionBtn;
                         })
-                        ->rawColumns(['action'])
+                        ->addColumn('checkbox', function($row){
+                            return '<input type="checkbox" name="apill_checkbox" data-id="'.$row->id.'"><label></label>';
+                        })
+                        ->rawColumns(['action', 'checkbox'])
                         ->make(true);
         }
         $kecamatans = Kecamatan::get();
@@ -142,5 +145,13 @@ class ApillController extends Controller
         $apill = Apill::find($id);
         $apill->delete();
         return response()->json(['success'=>'Product deleted successfully.']);
+    }
+    public function deleteSelectedApill(Request $request){
+        $apill_ids = $request->apill_id;
+        $countApills = $request->countingApill;
+        // $count_jalan = $request->jalan_id;
+        //menghapus data di tabel apill berdasarkan id apill
+        Apill::whereIn('id', $apill_ids)->delete();
+        return response()->json(['code'=>1, 'msg'=> [$countApills, ' Data Apill Berhasil Dihapus']]);
     }
 }

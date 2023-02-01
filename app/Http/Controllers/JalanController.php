@@ -37,7 +37,10 @@ class JalanController extends Controller
                     $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteJalan" id="deleteJalan">Delete</a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('checkbox', function($row){
+                    return '<input type="checkbox" name="jalan_checkbox" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'"><label></label>';
+                })
+                ->rawColumns(['action','checkbox'])
                 ->make(true);
         }
         // $dataKec = DB::table('jalans_kecamatans')
@@ -173,5 +176,17 @@ class JalanController extends Controller
         // mengembalikan response success
         return response()->json(['success' => 'Data Jalan Telah Berhasil Dihapus']);
     }
-
+    public function deleteSelectedJalan(Request $request){
+        $jalan_ids = $request->jalan_id;
+        $jalan_kecs = $request->jalan_kec;
+        $countJalans = $request->countingJalan;
+        // $count_jalan = $request->jalan_id;
+        //menghapus data di tabel jalankecamatan berdasarkan id jalan dan id kecamatan
+        JalanKecamatan::whereIn('jalanId', $jalan_ids)
+                        ->whereIn('kecamatanId', $jalan_kecs)
+                        ->delete();
+        //menghapus data di tabel jalan berdasarkan id jalan
+        Jalan::whereIn('id', $jalan_ids)->delete();
+        return response()->json(['code'=>1, 'msg'=> [$countJalans, ' Data Jalan Berhasil Dihapus']]);
+    }
 }

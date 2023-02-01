@@ -92,6 +92,21 @@ Route::resource('/administrator/titik_kemacetan', TitikKemacetanController::clas
 Route::resource('/administrator/titik_kecelakaan', TitikKecelakaanController::class);
 
 Route::post('/administrator/kecelakaan/hitung_pemetaan', [KecelakaanController::class, 'hitung_pemetaan']);
+
+Route::post('/deleteSelectedJalan', [JalanController::class, 'deleteSelectedJalan'])->name('delete.selected.jalan');
+
+Route::post('/deleteSelectedLalin', [LaluLintaController::class, 'deleteSelectedLalin'])->name('delete.selected.lalin');
+
+Route::post('/deleteSelectedTitikKemacetan', [TitikKemacetanController::class, 'deleteSelectedTitikKemacetan'])->name('delete.selected.titikKemacetan');
+
+Route::post('/deleteSelectedTitikKecelakaan', [TitikKecelakaanController::class, 'deleteSelectedTitikKecelakaan'])->name('delete.selected.titikKecelakaan');
+
+Route::post('/deleteSelectedApill', [ApillController::class, 'deleteSelectedApill'])->name('delete.selected.apill');
+
+Route::post('/administrator/lalu_lintas/destroy', [LaluLintaController::class, 'destroy'])->name('lalulinta.destroy');
+
+Route::post('/deleteSelectedKecelakaan', [KecelakaanController::class, 'deleteSelectedKecelakaan'])->name('delete.selected.kecelakaan');
+
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/

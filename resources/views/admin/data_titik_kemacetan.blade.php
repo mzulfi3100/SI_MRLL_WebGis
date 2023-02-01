@@ -41,9 +41,13 @@
     <!-- Tabel Apill -->
     <div class="p-4">
         <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahTitikMacetBaru">Tambah Data</button>
+        <!-- Trigger selected delete data with a button -->
+        <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
+        
         <table class="table table-striped yajra-datatable p-3">
             <thead class="table-dark">
                 <tr>
+                    <th><input type="checkbox" name="main_checkbox"><label></label></th>
                     <th>No</th>
                     <th>Nama Jalan</th>
                     <th>Kecamatan</th>
@@ -363,10 +367,13 @@
             });
 
             var table = $('.yajra-datatable').DataTable({
+                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 processing: false,
                 serverSide: true,
                 ajax: "{{ route('titik_kemacetan.index') }}",
                 columns: [
+                    {data: 'checkbox', name: 'checkbox', orderable: false,
+                        searchable: false,},
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'namaJalan', name: 'namaJalan'},
                     {data: 'namaKecamatan', name: 'namaKecamatan'},
@@ -379,6 +386,86 @@
                         searchable: false
                     },
                 ]
+            }).on('draw', function(){
+                $('input[name="titikKemacetan_checkbox"]').each(function(){
+                    this.checked = false;
+                });
+                $('input[name="main_checkbox"]').prop('checked', false);
+                $('button#deleteAllBtn').addClass('d-none');
+            });
+
+            // bagian listing checkbox
+            $(document).on('click', 'input[name="main_checkbox"]', function(){
+                if(this.checked){
+                    $('input[name="titikKemacetan_checkbox"]').each(function(){
+                        this.checked = true;
+                    });
+                }else{
+                    $('input[name="titikKemacetan_checkbox"]').each(function(){
+                        this.checked = false;
+                    });
+                }
+                toggledeleteAllBtn();
+            });
+
+            //bagian listing 2 checkbox
+            $(document).on('change', 'input[name="titikKemacetan_checkbox"]', function(){
+                if($('input[name="titikKemacetan_checkbox"]').length == $('input[name="titikKemacetan_checkbox"]:checked').length){
+                    $('input[name="main_checkbox"]').prop('checked', true);
+                }else{
+                    $('input[name="main_checkbox"]').prop('checked', false);
+                }
+                toggledeleteAllBtn(); 
+            });
+            
+            //bagian tampilan delete btn
+            function toggledeleteAllBtn(){
+                if($('input[name="titikKemacetan_checkbox"]:checked').length > 0){
+                    $('button#deleteAllBtn').text('Hapus Data ('+$('input[name="titikKemacetan_checkbox"]:checked').length+')').removeClass('d-none');
+                }else{
+                    $('button#deleteAllBtn').addClass('d-none');
+                }
+            }
+            
+            //bagian utama selected delete
+            $(document).on('click', 'button#deleteAllBtn', function(){
+                var checkedTitikKemacetan = [];
+                var url = '{{ route("delete.selected.titikKemacetan")}}';
+                $('input[name="titikKemacetan_checkbox"]:checked').each(function(){
+                    checkedTitikKemacetan.push($(this).data('id'))
+                });
+                
+                // untuk melihat id data yang dipilih/checked
+                // alert(checkedTitikKemacetan);
+                if(checkedTitikKemacetan.length > 0){
+                    var countTitikKemacetan= [checkedTitikKemacetan.length];
+                    swal.fire({
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        title:'<h3 style ="color:red">Peringatan!</h3>',
+                        icon: 'warning',
+                        html:'Apakah anda yakin ingin menghapus <b>'+checkedTitikKemacetan.length+'</b> data titik kemacetan yang dipilih?',
+                        showCancelButton:true,
+                        showCloseButton:true,
+                        confirmButtonText:'Lanjutkan',
+                        cancelButtonText:'Kembali',
+                        confirmButtonColor:'#28a745',
+                        cancelButtonColor:'#d33',
+                        width:500,
+                        allowOutsideClick:false
+                    }).then(function(result){
+                        if(result.value){
+                            $.post(url, {titikKemacetan_id:checkedTitikKemacetan, countingTitikKemacetan:countTitikKemacetan}, function(data){
+                                if(data.code == 1){
+                                    $('#counties-table').DataTable().ajax.reload(null, true);
+                                    toastr.success(data.msg);
+                                    table.draw();
+                                }
+                            },'json');
+                        }
+                    })
+                }
             });
 
             $('#tambahTitikMacetBaru').click(function(){
