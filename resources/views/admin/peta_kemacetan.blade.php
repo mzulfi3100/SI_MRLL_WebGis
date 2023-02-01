@@ -69,6 +69,20 @@
                 children: [
                     {label: '<div id="onlysel">-Show only selected-</div>'},
                     {
+                        label: 'Titik Kemacetan',
+                        selectAllCheckbox: true,
+                        children: [
+                            @foreach($titikMacet as $titik)
+                            {
+                                label: '<?= $titik->lokasiKemacetan ?>',
+                                layer: L.geoJSON(<?= $titik->geoJsonKemacetan ?>).addTo(map),
+                                name:   'Lokasi: ' + '<?= $titik->lokasiKemacetan ?>' + '<br>' +
+                                        'Deskripis: ' + '<?= $titik->deskripsiKemacetan ?>' + '<br>' 
+                                        
+                            },
+                            @endforeach
+                        ]
+                    },  {
                         label: 'Jalan',
                         selectAllCheckbox: true,
                         children: [

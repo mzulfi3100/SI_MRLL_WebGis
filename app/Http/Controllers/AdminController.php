@@ -8,6 +8,8 @@ use App\Models\Jalan;
 use App\Models\Lalulinta;
 use App\Models\Kecelakaan;
 use App\Models\Apill;
+use App\Models\TitikKemacetan;
+use App\Models\TitikKecelakaan;
 use DataTables; 
 use Illuminate\Support\Facades\DB;
 
@@ -31,9 +33,10 @@ class AdminController extends Controller
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
                     ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId')
                     ->get();  
+        $titikMacet = TitikKemacetan::get();
         $kecamatans = Kecamatan::get();
         $jalans = Jalan::get();
-        return view('admin/peta_kemacetan', compact('kecamatans', 'jalans', 'data'));
+        return view('admin/peta_kemacetan', compact('kecamatans', 'jalans', 'data', 'titikMacet'));
     }
 
     public function peta_kecelakaan(){
@@ -50,9 +53,10 @@ class AdminController extends Controller
                             })
                             ->select('kecelakaans.*')
                             ->get();
+        $titikLaka = TitikKecelakaan::get();
         $kecamatans = Kecamatan::get();
         $jalans = Jalan::get();
-        return view('admin/peta_kecelakaan', compact('kecamatans', 'jalans', 'perhitungan', 'totalKecelakaan'));
+        return view('admin/peta_kecelakaan', compact('kecamatans', 'jalans', 'perhitungan', 'totalKecelakaan', 'titikLaka'));
     }
     
     public function peta_apill(){
