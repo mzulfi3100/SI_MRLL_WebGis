@@ -93,6 +93,8 @@ Route::resource('/administrator/titik_kecelakaan', TitikKecelakaanController::cl
 
 Route::post('/administrator/kecelakaan/hitung_pemetaan', [KecelakaanController::class, 'hitung_pemetaan']);
 
+Route::post('/deleteSelectedKecamatan', [KecamatanController::class, 'deleteSelectedKecamatan'])->name('delete.selected.kecamatan');
+
 Route::post('/deleteSelectedJalan', [JalanController::class, 'deleteSelectedJalan'])->name('delete.selected.jalan');
 
 Route::post('/deleteSelectedLalin', [LaluLintaController::class, 'deleteSelectedLalin'])->name('delete.selected.lalin');
