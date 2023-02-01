@@ -253,6 +253,8 @@
         //menambahkan layer control tree ke map
         lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
 
+        map.addControl(L.control.search({position: 'topright'}));
+
         // Geomann drawing geoJson Control
         map.pm.addControls({
             position: 'topleft',

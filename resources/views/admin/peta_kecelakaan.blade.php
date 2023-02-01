@@ -160,5 +160,7 @@
             lay.collapseTree(true).expandSelected(true);
         });
 
+        map.addControl(L.control.search({position: 'topleft'}));
+
     </script>
 @stop
