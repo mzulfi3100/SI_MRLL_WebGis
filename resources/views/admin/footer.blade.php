@@ -28,6 +28,8 @@
 <script src="/L.Control.Layers.Tree.js"></script>
 <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
 <script src="//unpkg.com/@sjaakp/leaflet-search/dist/leaflet-search.js"></script>
+<script src="/leaflet.legend.js"></script>
+<script src="/leaflet.browser.print.min.js"></script>
 @yield('script_peta')
 @yield('script_warna')
 @yield('script_tabel')

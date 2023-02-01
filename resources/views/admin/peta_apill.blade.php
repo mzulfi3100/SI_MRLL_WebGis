@@ -146,6 +146,46 @@
         L.DomEvent.on(L.DomUtil.get('onlysel'), 'click', function() {
             lay.collapseTree(true).expandSelected(true);
         });
+        
+        map.addControl(L.control.search({position: 'topleft'}));
 
+        L.control.Legend({
+            position: "bottomleft",
+            collapsed: false,
+            symbolWidth: 15,
+            opacity: 1,
+            column: 2,
+            legends: [{
+                label: "Terkoneksi ATCS",
+                type: "image",
+                url: "/marker-green.png"
+            },  {
+                label: "Tidak Terkoneksi ATCS",
+                type: "image",
+                url: "/marker-red.png"
+            }]
+        }).addTo(map);
+
+        L.control.browserPrint().addTo(map);
+
+        map.on("browser-print-start", function(e){
+            /*on print start we already have a print map and we can create new control and add it to the print map to be able to print custom information */
+            L.control.Legend({
+                position: "bottomleft",
+                collapsed: false,
+                symbolWidth: 15,
+                opacity: 1,
+                column: 2,
+                legends: [{
+                    label: "Terkoneksi ATCS",
+                    type: "image",
+                    url: "/marker-green.png"
+                },  {
+                    label: "Tidak Terkoneksi ATCS",
+                    type: "image",
+                    url: "/marker-red.png"
+                }]
+            }).addTo(e.printMap);
+        });
     </script>
 @stop
