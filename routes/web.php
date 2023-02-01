@@ -90,6 +90,8 @@ Route::post('/deleteSelectedKecamatan', [KecamatanController::class, 'deleteSele
 Route::resource('/administrator/titik_kemacetan', TitikKemacetanController::class);
 
 Route::resource('/administrator/titik_kecelakaan', TitikKecelakaanController::class);
+
+Route::post('/administrator/kecelakaan/hitung_pemetaan', [KecelakaanController::class, 'hitung_pemetaan']);
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/

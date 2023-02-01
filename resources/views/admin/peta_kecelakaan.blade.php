@@ -72,35 +72,31 @@
                         label: 'Jalan',
                         selectAllCheckbox: true,
                         children: [
-                            @foreach($jalans as $jln)
+                            @foreach($perhitungan as $htg)
                             {
-                                label: '<?= $jln->namaJalan ?>', 
-                                layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
+                                label: '<?= $htg->namaJalan ?>', 
+                                layer: L.geoJSON(<?= $htg->geoJsonJalan ?>, {
                                     onEachFeature: function (feature, layer) {
-                                        layer.bindTooltip('<?= $jln->namaJalan ?>');
-                                        if('<?= $jln->tingkatPelayananJalan ?>' == 'A'){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'B'){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'C'){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'D'){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'E'){
-                                                layer.setStyle({color :'#FFF200'});
-                                        }else if('<?= $jln->tingkatPelayananJalan ?>' == 'F'){
-                                                layer.setStyle({color :'#FF0000'});
+                                        layer.bindTooltip('<?= $htg->namaJalan ?>');
+                                        if('<?= $htg->nilai ?>' > 0){
+                                            layer.setStyle({color :'#FF0000'});
+                                        }else if('<?= $htg->nilai ?>' < 0){
+                                            layer.setStyle({color :'#3CB043'});
                                         }
                                     }
                                 }).addTo(map),
-                                name:   'Nama Jalan: ' + '<?= $jln->namaJalan ?>' + '<br>' +
-                                        'Tipe Jalan: ' + '<?= $jln->tipeJalan ?>' + '<br>' +
-                                        'Panjang Jalan: ' + '<?= $jln->panjangJalan ?>' + '<br>' +
-                                        'Lebar Jalan: ' + '<?= $jln->lebarJalan ?>' + '<br>' +
-                                        'Kapasitas Jalan: ' + '<?= $jln->kapasitasJalan ?>' + '<br>' +
-                                        'Hambatan Samping: ' + '<?= $jln->hambatanJalan ?>' + '<br>' +
-                                        'Kondisi Jalan :' + '<?= $jln->kondisiJalan ?>' + '<br>' +
-                                        'Tingkat Pelayanan Jalan: ' + '<?= $jln->tingkatPelayananJalan ?>' + '<br>',
+                                name:   'Nama Jalan: ' + '<?= $htg->namaJalan ?>' + '<br>' +
+                                        'Tipe Jalan: ' + '<?= $htg->tipeJalan ?>' + '<br>' +
+                                        'Panjang Jalan: ' + '<?= $htg->panjangJalan ?>' + '<br>' +
+                                        'Lebar Jalan: ' + '<?= $htg->lebarJalan ?>' + '<br>' +
+                                        'Kapasitas Jalan: ' + '<?= $htg->kapasitasJalan ?>' + '<br>' +
+                                        'Hambatan Samping: ' + '<?= $htg->hambatanSamping ?>' + '<br>' +
+                                        'Kondisi Jalan :' + '<?= $htg->kondisiJalan ?>' + '<br>' +
+                                        @foreach($totalKecelakaan as $total)
+                                            <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
+                                                'Total Kecelakaan :' + '<?= $total->totalKecelakaan ?>' + '<br>'
+                                            <?php } ?>
+                                        @endforeach
                             },
                             @endforeach
                         ]
@@ -110,7 +106,7 @@
                         children: [
                             @foreach($kecamatans as $kec)
                                 {
-                                    label: '<?= $kec->namaKecamatan ?>', layer: L.geoJSON(<?= $kec->batasKecamatan ?>, {
+                                    label: '<?= $kec->namaKecamatan ?>', layer: L.geoJSON(<?= $kec->geoJsonKecamatan ?>, {
                                         style: {
                                             "color": "<?= $kec->warnaKecamatan ?>",
                                             "weight": 0,

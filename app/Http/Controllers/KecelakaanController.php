@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Jalan;
 use App\Models\Kecelakaan;
 use App\Models\Kecamatan;
+use App\Models\Zscore;
 use DataTables;
 
 class KecelakaanController extends Controller
@@ -36,6 +37,12 @@ class KecelakaanController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+        $perhitungan = DB::table('perhitungan_data_kecelakaans')
+                        ->join('jalans_kecamatans', 'perhitungan_data_kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                        ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                        ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                        ->select('perhitungan_data_kecelakaans.*')
+                        ->get();
         $data = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
@@ -54,7 +61,7 @@ class KecelakaanController extends Controller
         
         $kecamatans = Kecamatan::get();
         $jalans = Jalan::get();
-        return view('admin/data_kecelakaan', compact('kecamatans', 'jalans', 'data' ,'dataKec', 'dataJln'));
+        return view('admin/data_kecelakaan', compact('kecamatans', 'jalans', 'data' ,'dataKec', 'dataJln', 'perhitungan'));
     }
 
     /**
@@ -80,9 +87,11 @@ class KecelakaanController extends Controller
         Kecelakaan::updateOrCreate([
             'id' => $request->lakaId
         ],  [
-            'vatalitasKecelakaan' => $request->vatalitasKecelakaan,
+            'jumlahKorbanMeninggalDunia' => $request->jumlahKorbanMeninggalDunia,
+            'jumlahKorbanLukaBerat' => $request->jumlahKorbanLukaBerat,
+            'jumlahKorbanLukaRingan' => $request->jumlahKorbanLukaRingan,
             'penyebabKecelakaan' => $request->penyebabKecelakaan,
-            'jumlahKorban' => $request->jumlahKorban,
+            'totalKecelakaan' => $request->totalKecelakaan,
             'tahunKecelakaan' => $request->tahunKecelakaan,
             'jalanKecamatanId' => $request->jalanKecamatanId,
         ]);
@@ -151,5 +160,21 @@ class KecelakaanController extends Controller
         $kecelakaan = Kecelakaan::find($id);
         $kecelakaan->delete();
         return response()->json(['success'=>'Product deleted successfully.']);
+    }
+
+    public function hitung_pemetaan(Request $request)
+    {
+        Zscore::truncate();
+        $data = $request->all();
+        $i = 0;
+        foreach($data as $key){
+            $zscore = new Zscore;    
+            $zscore->nilai = $data['zscore'][$i];
+            $zscore->jalanKecamatanId = $data['jalanKecamatanId'][$i];
+            $zscore->save();
+            $i++;
+        }
+
+        return redirect()->route('kecelakaan.index');
     }
 }

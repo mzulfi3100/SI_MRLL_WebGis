@@ -44,6 +44,14 @@
         <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahLakaBaru">Tambah Data</button>
         <!-- Trigger modal hapus all data with a button -->
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapusSemuaKecelakaan">Hapus Semua</button>
+        <form action="/administrator/kecelakaan/hitung_pemetaan" method="POST">
+            @csrf
+            <div class="hitung_wrapper">
+                
+            </div>
+            <button type="submit" id="btnHitung" class="btn btn-warning" >Hitung Pemetaan Daerah Rawan Kecelakaan </button>
+        </form>
+
         <div id="modalHapusSemuaKecelakaan" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -82,7 +90,7 @@
                                 <select class="form-control" id="kecamatanId" name="kecamatanId">
                                     <option value=""> - Pilih Kecamatan - </option>
                                     @foreach($dataKec as $kec)
-                                        <option value="<?= $kec->kecamatanId ?>"> <?= $kec->namaKecamatan ?> </option>
+x                                        <option value="<?= $kec->kecamatanId ?>"> <?= $kec->namaKecamatan ?> </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -94,16 +102,20 @@
                             </div>
                             <div id="map" style="width:900px; height:500px" class="mb-4"></div>
                             <div class="form-group">
-                                <label for="">Vatalitas</label>
-                                <input type="text" class="form-control" name="vatalitasKecelakaan" id="vatalitasKecelakaan">
+                                <label for="">Korban Meninggal Dunia</label>
+                                <input type="text" class="form-control" name="jumlahKorbanMeninggalDunia" id="jumlahKorbanMeninggalDunia">
                             </div>
                             <div class="form-group">
-                                <label for="">Penyebab</label>
-                                <input type="text" class="form-control" name="penyebabKecelakaan" id="penyebabKecelakaan">
+                                <label for="">Korban Luka Berat</label>
+                                <input type="text" class="form-control" name="jumlahKorbanLukaBerat" id="jumlahKorbanLukaBerat">
                             </div>
                             <div class="form-group">
-                                <label for="">Jumlah Korban</label>
-                                <input type="text" class="form-control" name="jumlahKorban" id="jumlahKorban">
+                                <label for="">Korban Luka Ringan</label>
+                                <input type="text" class="form-control" name="jumlahKorbanLukaRingan" id="jumlahKorbanLukaRingan">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Total Kecelakaan</label>
+                                <input type="text" class="form-control" name="totalKecelakaan" id="totalKecelakaan">
                             </div>
                             <div class="form-group">
                                 <label for="">Tahun</label>
@@ -127,9 +139,10 @@
                     <th>No</th>
                     <th>Nama Jalan</th>
                     <th>Nama Kecamatan</th>
-                    <th>Vatalitas</th>
-                    <th>Penyebab</th>
-                    <th>Jumlah Korban</th>
+                    <th>MD</th>
+                    <th>LB</th>
+                    <th>LR</th>
+                    <th>Total Kecelakaan</th>
                     <th>Tahun</th>
                     <th>Aksi</th>
                 </tr>
@@ -360,9 +373,10 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'namaJalan', name: 'namaJalan'},
                 {data: 'namaKecamatan', name: 'namaKecamatan'},
-                {data: 'vatalitasKecelakaan', name: 'vatalitasKecelakaan'},
-                {data: 'penyebabKecelakaan', name: 'penyebabKecelakaan'},
-                {data: 'jumlahKorban', name: 'jumlahKorban'},
+                {data: 'jumlahKorbanMeninggalDunia', name: 'jumlahKorbanMeninggalDunia'},
+                {data: 'jumlahKorbanLukaBerat', name: 'jumlahKorbanLukaBerat'},
+                {data: 'jumlahKorbanLukaRingan', name: 'jumlahKorbanLukaRingan'},
+                {data: 'totalKecelakaan', name: 'totalKecelakaan'},
                 {data: 'tahunKecelakaan', name: 'tahunKecelakaan'},
                 {
                     data: 'action', 
@@ -449,9 +463,11 @@
                 });
                 $('#lakaModal').modal('show');
                 $('#lakaId').val(data.id);
-                $('#vatalitasKecelakaan').val(data.vatalitasKecelakaan);
+                $('#jumlahKorbanMeninggalDunia').val(data.jumlahKorbanMeninggalDunia);
+                $('#jumlahKorbanLukaBerat').val(data.jumlahKorbanLukaBerat);
+                $('#jumlahKorbanLukaRingan').val(data.jumlahKorbanLukaRingan);
                 $('#penyebabKecelakaan').val(data.penyebabKecelakaan);
-                $('#jumlahKorban').val(data.jumlahKorban);
+                $('#totalKecelakaan').val(data.totalKecelakaan);
                 $('#tahunKecelakaan').val(data.tahunKecelakaan);
                 $('#jalanKecamatanId').val(data.jalanKecamatanId);
                 $('#kecamatanId').empty();
@@ -575,6 +591,35 @@
                 }
             });
         });
+
+        $('#btnHitung').click(function(){
+            var totalKecelakaan = 0;
+            var totalData = 0;
+            var simpanganBaku; 
+            var rata_rata;
+            var jumlahRataRata = 0;
+            var zscore = [0];
+            var i = 0;
+            
+            @foreach($perhitungan as $hasil)
+                totalKecelakaan = totalKecelakaan + <?= $hasil->jumlahKeseluruhan ?>;
+                totalData++;
+            @endforeach
+
+            rata_rata = totalKecelakaan / totalData;
+            @foreach($perhitungan as $hasil)
+                jumlahRataRata = jumlahRataRata + Math.pow(<?= $hasil->jumlahKeseluruhan ?> - rata_rata, 2);
+            @endforeach
+            simpanganBaku = Math.sqrt(jumlahRataRata / totalData);
+
+            @foreach($perhitungan as $hasil)
+                i++;
+                zscore[i] = (<?= $hasil->jumlahKeseluruhan ?> - rata_rata) / simpanganBaku;
+                console.log(zscore[i]);
+                $('.hitung_wrapper').append('<input type="hidden" name="zscore[]" value="' + zscore[i] + '">');
+                $('.hitung_wrapper').append('<input type="hidden" name="jalanKecamatanId[]" value="' + <?= $hasil->jalanKecamatanId ?>+ '">');
+            @endforeach
+        })
 
     });
     </script>

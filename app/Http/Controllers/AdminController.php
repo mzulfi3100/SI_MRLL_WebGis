@@ -37,9 +37,22 @@ class AdminController extends Controller
     }
 
     public function peta_kecelakaan(){
+        $perhitungan = DB::table('zscores')
+                        ->join('jalans_kecamatans', 'zscores.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                        ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                        ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                        ->select('zscores.nilai', 'zscores.jalanKecamatanId', 'jalans.*')
+                        ->get();
+        $totalKecelakaan = DB::table('kecelakaans')
+                            ->join(DB::raw('(select kecelakaans.jalanKecamatanId, max(kecelakaans.tahunKecelakaan) as MaxDate from kecelakaans group by kecelakaans.jalanKecamatanId) tm'), function($join){
+                                $join->on('kecelakaans.jalanKecamatanId', '=', 'tm.jalanKecamatanId')
+                                ->on('kecelakaans.tahunKecelakaan', '=', 'tm.MaxDate');
+                            })
+                            ->select('kecelakaans.*')
+                            ->get();
         $kecamatans = Kecamatan::get();
         $jalans = Jalan::get();
-        return view('admin/peta_kecelakaan', compact('kecamatans', 'jalans'));
+        return view('admin/peta_kecelakaan', compact('kecamatans', 'jalans', 'perhitungan', 'totalKecelakaan'));
     }
     
     public function peta_apill(){
