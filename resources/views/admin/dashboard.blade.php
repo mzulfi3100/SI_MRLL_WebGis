@@ -195,7 +195,7 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                     </div>
                   </div>
                   <div class="col-auto">
-                    <i class="fas fa-fw fa-car-crash fa-3x text-gray-300"></i>
+                    <i class="fas fa-fw fa-traffic-light fa-3x text-gray-300"></i>
                   </div>
                   </div>
                 </div>
