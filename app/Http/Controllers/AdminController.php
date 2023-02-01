@@ -17,9 +17,26 @@ class AdminController extends Controller
 {
     //
     public function index(){
+        $kemacetan = DB::table('lalulintas')
+                    ->join(DB::raw('(select lalulintas.jalanKecamatanId, max(lalulintas.tahun) as MaxDate from lalulintas group by lalulintas.jalanKecamatanId) tm'), function($join){
+                        $join->on('lalulintas.jalanKecamatanId', '=', 'tm.jalanKecamatanId')
+                        ->on('lalulintas.tahun', '=', 'tm.MaxDate');
+                    })
+                    ->join('jalans_kecamatans', 'lalulintas.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId')
+                    ->get(); 
+        $kecelakaan = DB::table('zscores')
+                    ->join('jalans_kecamatans', 'zscores.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('zscores.nilai', 'zscores.jalanKecamatanId', 'jalans.*')
+                    ->get(); 
+        $apill = Apill::get();        
         $kecamatans = Kecamatan::get();
         $jalans = Jalan::get();
-        return view('admin/dashboard', compact('kecamatans', 'jalans'));
+        return view('admin/dashboard', compact('kecamatans', 'jalans', 'kemacetan', 'kecelakaan', 'apill'));
     }
 
     public function peta_kemacetan(){

@@ -113,8 +113,18 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Jalan Rawan Kemacetan</div>
                       <div class="row no-gutters align-items-center">
+                        <?php
+                          $count = 0;
+                        ?>
+                        @foreach($kemacetan as $macet)
+                          <?php
+                            if($macet->volume/$macet->kapasitasJalan  >= 0 && $macet->volume/$macet->kapasitasJalan <= 0.69){
+                              $count++;
+                            }
+                          ?>
+                        @endforeach
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0 </div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $count ?> </div>
                         </div>
                       </div>
                     </div>
@@ -134,8 +144,18 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Jalan Rawan Kecelakaan</div>
                       <div class="row no-gutters align-items-center">
+                        <?php
+                          $count = 0;
+                        ?>
+                        @foreach($kecelakaan as $laka)
+                          <?php
+                            if($laka->nilai  > 0){
+                              $count++;
+                            }
+                          ?>
+                        @endforeach
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0 </div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $count ?> </div>
                         </div>
                       </div>
                     </div>
@@ -150,13 +170,43 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
           </div>
 
         <!-- /.row -->
+       <div class="row">
+          <!-- Menampilkan Jumlah Apill -->
+          <div class="col-xl-3 col-md-6 mb-4 ml-3">
+            <div class="card shadow h-100 py-2" style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
+              <div class="card-body" >
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Apill (ATCS) </div>
+                    <div class="row no-gutters align-items-center">
+                      <?php
+                        $count = 0;
+                      ?>
+                      @foreach($apill as $apil)
+                        <?php
+                          if($apill->terkoneksiATCS  = "Sudah"){
+                            $count++;
+                          }
+                        ?>
+                      @endforeach
+                      <div class="col-auto">
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $count ?> </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-fw fa-car-crash fa-3x text-gray-300"></i>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
       </div><!-- /.container-fluid -->
+      <!-- <div id="bca"></div> -->
     </div>
-    <!-- /.content -->
-    <div id="abc"></div>
-    <div id="bca"></div>
-    <div id="cba"></div>
-    <div id="bac"></div>
+    <!-- /.content -->\
     </div>
   <!-- /.content-wrapper -->
   <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -167,7 +217,7 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
         type: 'column'
     },
     title: {
-        text: 'Laporan Data Kecelakaan dan Kemacetan 2023'
+        text: 'Laporan Data Volume Lalu Lintas dan Kemacetan 2023'
     }, 
     xAxis: {
         categories: [
@@ -217,181 +267,7 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
             106.6, 92.3]
 
     },]
-});
-</script>
-<script>
-  Highcharts.chart('abc', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Laporan Data Kecelakaan dan Kemacetan 2023'
-    }, 
-    xAxis: {
-        categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Frekuensi Data'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Kecelakaan',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4,
-            194.1, 95.6, 54.4]
-
-    }, {
-        name: 'Kemacetan',
-        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5,
-            106.6, 92.3]
-
-    },]
-});
-</script>
-<script>
-  Highcharts.chart('cab', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Laporan Data Kecelakaan dan Kemacetan 2023'
-    }, 
-    xAxis: {
-        categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Frekuensi Data'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Kecelakaan',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4,
-            194.1, 95.6, 54.4]
-
-    }, {
-        name: 'Kemacetan',
-        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5,
-            106.6, 92.3]
-
-    },]
-});
-</script>
-<script>
-  Highcharts.chart('bac', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Laporan Data Kecelakaan dan Kemacetan 2023'
-    }, 
-    xAxis: {
-        categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Frekuensi Data'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Kecelakaan',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4,
-            194.1, 95.6, 54.4]
-
-    }, {
-        name: 'Kemacetan',
-        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5,
-            106.6, 92.3]
-
-    },]
-});
+  });
 </script>
 
   @include('admin/footer')
