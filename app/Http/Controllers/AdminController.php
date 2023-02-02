@@ -48,7 +48,7 @@ class AdminController extends Controller
                     ->join('jalans_kecamatans', 'lalulintas.jalanKecamatanId', '=', 'jalans_kecamatans.id')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                    ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId')
+                    ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId', 'jalans_kecamatans.id AS jalanKecamatanId')
                     ->get();  
         $titikMacet = TitikKemacetan::get();
         $kecamatans = Kecamatan::get();

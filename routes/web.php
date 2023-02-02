@@ -109,6 +109,8 @@ Route::post('/administrator/lalu_lintas/destroy', [LaluLintaController::class, '
 
 Route::post('/deleteSelectedKecelakaan', [KecelakaanController::class, 'deleteSelectedKecelakaan'])->name('delete.selected.kecelakaan');
 
+Route::get('/administrator/jalan/{id}/show', [JalanController::class, 'show']);
+
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/
