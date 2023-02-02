@@ -343,11 +343,11 @@
                     {width: 10, targets: 0},
                     {width: 20, targets: 1},
                     {width: 150, targets: 2},
-                    {width: 130, targets: 3},
+                    {width: 110, targets: 3},
                     {width: 25, targets: 4},
                     {width: 25, targets: 5},
                     {width: 25, targets: 6},
-                    {width: 40, targets: 7},
+                    {width: 60, targets: 7},
                 ],
                 columns: [
                     {data: 'checkbox', name: 'checkbox'},
