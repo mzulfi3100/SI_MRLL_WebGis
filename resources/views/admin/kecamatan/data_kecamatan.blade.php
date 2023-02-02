@@ -232,7 +232,7 @@
         });
         // untuk melihat id data yang dipilih/checked
         // alert(checkedKecamatan);
-        var url='#';
+        var url='{{ route("delete.selected.kecamatan")}}';
         if(checkedKecamatan.length > 0){
           var countKecamatan = [checkedKecamatan.length];
           swal.fire({
@@ -332,9 +332,6 @@
     });    
   </script>
   
-  <!-- js modal dan notif -->
-  <script src="{{ asset('Admin/sweetalert2/sweetalert2.min.js') }}"></script>
-  <script src="{{ asset('Admin/toastr/toastr.min.js') }}"></script>
   <!-- End DataTable -->
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
