@@ -78,8 +78,17 @@
                             {
                                 label: '<?= $titik->lokasiKecelakaan ?>',
                                 layer: L.geoJSON(<?= $titik->geoJsonKecelakaan ?>).addTo(map),
-                                name:   'Lokasi: ' + '<?= $titik->lokasiKecelakaan ?>' + '<br>' +
-                                        'Deskripsi: ' + '<?= $titik->deskripsiKecelakaan ?>' + '<br>' 
+                                name:   '<div style="max-height: 200px;  max-width: 400px; overflow-x: auto"' +
+                                            '<div class="card">' +
+                                                '<div class="card-header">' +
+                                                    '<h3 class="card-title" style="text-align: center" >' + '<?= $titik->lokasiKecelakaan ?>' +'</h3>' +
+                                                '</div>' +
+                                                '<div class="card-body">' +
+                                                    '<h8><b>Deskripsi Kecelakaan</b></h8><br><br>' +
+                                                    '<?= $titik->deskripsiKecelakaan ?>' + 
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' 
                                         
                             },
                             @endforeach
@@ -249,6 +258,10 @@
                 type: "polyline",
                 color: "#3CB043",
                 weight: 2,
+            },  {
+                label: "Titik Kecelakaan",
+                type: "image",
+                url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
             }]
         }).addTo(map);
 
@@ -272,6 +285,10 @@
                     type: "polyline",
                     color: "#3CB043",
                     weight: 2,
+                },  {
+                    label: "Titik Kecelakaan",
+                    type: "image",
+                    url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
                 }]
             }).addTo(e.printMap);
         });

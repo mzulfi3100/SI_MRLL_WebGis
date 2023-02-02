@@ -58,6 +58,15 @@
             "fillOpacity": 0 ,
         };
 
+        var blue = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
         L.geoJSON(kabupatenJson, {
             style: kabupatenStyle
         }).addTo(map);
@@ -75,10 +84,23 @@
                             @foreach($titikMacet as $titik)
                             {
                                 label: '<?= $titik->lokasiKemacetan ?>',
-                                layer: L.geoJSON(<?= $titik->geoJsonKemacetan ?>).addTo(map),
-                                name:   'Lokasi: ' + '<?= $titik->lokasiKemacetan ?>' + '<br>' +
-                                        'Deskripis: ' + '<?= $titik->deskripsiKemacetan ?>' + '<br>' 
-                                        
+                                layer: L.geoJSON(<?= $titik->geoJsonKemacetan ?>, {
+                                    onEachFeature: function(feature, layer){
+                                        layer.bindTooltip('<?= $titik->lokasiKemacetan ?>');
+                                        layer.setIcon(blue);
+                                    }
+                                }).addTo(map),
+                                name:   '<div style="max-height: 200px;  max-width: 400px; overflow-x: auto"' +
+                                            '<div class="card">' +
+                                                '<div class="card-header">' +
+                                                    '<h3 class="card-title" style="text-align: center" >' + '<?= $titik->lokasiKemacetan ?>' +'</h3>' +
+                                                '</div>' +
+                                                '<div class="card-body">' +
+                                                    '<h8><b>Deskripsi Kemacetan</b></h8><br><br>' +
+                                                    '<?= $titik->deskripsiKemacetan ?>' + 
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' 
                             },
                             @endforeach
                         ]
@@ -233,6 +255,10 @@
                 type: "polyline",
                 color: "#3CB043",
                 weight: 2,
+            },  {
+                label: "Titik Kemacetan",
+                type: "image",
+                url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
             }]
         }).addTo(map);
 
@@ -260,6 +286,10 @@
                 type: "polyline",
                 color: "#3CB043",
                 weight: 2,
+            },  {
+                label: "Titik Kemacetan",
+                type: "img",
+                url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
             }]}).addTo(e.printMap);
         });
 

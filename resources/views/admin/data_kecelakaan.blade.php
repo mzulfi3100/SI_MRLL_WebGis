@@ -90,7 +90,7 @@
                                 <select class="form-control" id="kecamatanId" name="kecamatanId">
                                     <option value=""> - Pilih Kecamatan - </option>
                                     @foreach($dataKec as $kec)
-x                                        <option value="<?= $kec->kecamatanId ?>"> <?= $kec->namaKecamatan ?> </option>
+                                        <option value="<?= $kec->kecamatanId ?>"> <?= $kec->namaKecamatan ?> </option>
                                     @endforeach
                                 </select>
                             </div>
