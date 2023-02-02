@@ -44,7 +44,7 @@
         <!-- Trigger selected delete data with a button -->
         <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
         
-        <table class="table table-striped yajra-datatable p-3">
+        <table class="table table-striped yajra-datatable p-0">
             <thead class="table-dark">
                 <tr>
                     <th><input type="checkbox" name="main_checkbox"><label></label></th>
@@ -367,25 +367,30 @@
             });
 
             var table = $('.yajra-datatable').DataTable({
-                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 processing: false,
                 serverSide: true,
-                ajax: "{{ route('titik_kecelakaan.index') }}",
+                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
+                'order': [[2, 'asc']],
+                columnDefs: [
+                    {orderable: false, searchable: false, targets: [0, 1, 6]},
+                    {width: 10, targets: 0},
+                    {width: 20, targets: 1},
+                    {width: 155, targets: 2},
+                    {width: 100, targets: 3},
+                    {width: 100, targets: 4},
+                    {width: 100, targets: 5},
+                    {width: 40, targets: 6},
+                ],
                 columns: [
-                    {data: 'checkbox', name: 'checkbox', orderable: false,
-                        searchable: false,},
+                    {data: 'checkbox', name: 'checkbox'},
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'namaJalan', name: 'namaJalan'},
                     {data: 'namaKecamatan', name: 'namaKecamatan'},
                     {data: 'lokasiKecelakaan', name: 'lokasiKecelakaan'},
                     {data: 'deskripsiKecelakaan', name: 'deskripsiKecelakaan'},
-                    {
-                        data: 'action', 
-                        name: 'action', 
-                        orderable: false, 
-                        searchable: false
-                    },
-                ]
+                    {data: 'action', name: 'action'},
+                ],
+                ajax: "{{ route('titik_kecelakaan.index') }}",
             }).on('draw', function(){
                 $('input[name="titikKecelakaan_checkbox"]').each(function(){
                     this.checked = false;
@@ -459,6 +464,79 @@
                             $.post(url, {titikKecelakaan_id:checkedTitikKecelakaan, countingTitikKecelakaan:countTitikKecelakaan}, function(data){
                                 if(data.code == 1){
                                     $('#counties-table').DataTable().ajax.reload(null, true);
+                                    toastr.success(data.msg);
+                                    table.draw();
+                                }
+                            },'json');
+                        }
+                    })
+                }
+            });
+
+            // bagian listing checkbox
+            $(document).on('click', 'input[name="main_checkbox"]', function(){
+                if(this.checked){
+                    $('input[name="titikKecelakaan_checkbox"]').each(function(){
+                        this.checked = true;
+                    });
+                }else{
+                    $('input[name="titikKecelakaan_checkbox"]').each(function(){
+                        this.checked = false;
+                    });
+                }
+                toggledeleteAllBtn();
+            });
+
+            //bagian listing 2 checkbox
+            $(document).on('change', 'input[name="titikKecelakaan_checkbox"]', function(){
+                if($('input[name="titikKecelakaan_checkbox"]').length == $('input[name="titikKecelakaan_checkbox"]:checked').length){
+                    $('input[name="main_checkbox"]').prop('checked', true);
+                }else{
+                    $('input[name="main_checkbox"]').prop('checked', false);
+                }
+                toggledeleteAllBtn(); 
+            });
+            
+            //bagian tampilan delete btn
+            function toggledeleteAllBtn(){
+                if($('input[name="titikKecelakaan_checkbox"]:checked').length > 0){
+                    $('button#deleteAllBtn').text('Hapus Data ('+$('input[name="titikKecelakaan_checkbox"]:checked').length+')').removeClass('d-none');
+                }else{
+                    $('button#deleteAllBtn').addClass('d-none');
+                }
+            }
+            
+            //bagian utama selected delete
+            $(document).on('click', 'button#deleteAllBtn', function(){
+                var checkedTitikKecelakaan = [];
+                var url = '{{ route("delete.selected.titikKecelakaan")}}';
+                $('input[name="titikKecelakaan_checkbox"]:checked').each(function(){
+                    checkedTitikKecelakaan.push($(this).data('id'))
+                });
+                
+                // untuk melihat id data yang dipilih/checked
+                // alert(checkedTitikKecelakaan);
+                if(checkedTitikKecelakaan.length > 0){
+                    var countTitikKecelakaan= [checkedTitikKecelakaan.length];
+                    swal.fire({
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        title:'<h3 style ="color:red">Peringatan!</h3>',
+                        icon: 'warning',
+                        html:'Apakah anda yakin ingin menghapus <b>'+checkedTitikKecelakaan.length+'</b> data titik kecelakaan yang dipilih?',
+                        showCancelButton:true,
+                        showCloseButton:true,
+                        confirmButtonText:'Lanjutkan',
+                        cancelButtonText:'Kembali',
+                        confirmButtonColor:'#28a745',
+                        cancelButtonColor:'#d33',
+                        width:500,
+                        allowOutsideClick:false
+                    }).then(function(result){
+                        if(result.value){
+                            $.post(url, {titikKecelakaan_id:checkedTitikKecelakaan, countingTitikKecelakaan:countTitikKecelakaan}, function(data){
+                                if(data.code == 1){
                                     toastr.success(data.msg);
                                     table.draw();
                                 }

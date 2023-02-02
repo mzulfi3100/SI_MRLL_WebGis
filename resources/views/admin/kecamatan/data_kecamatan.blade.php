@@ -129,7 +129,7 @@
     </div>
     
     <!-- table -->
-    <table class="table table-striped yajra-datatable p-3" id="counties-table">
+    <table class="table table-striped yajra-datatable p-0">
         <thead class="table-dark"> 
             <tr>
               <th><input type="checkbox" name="main_checkbox"><label></label></th>
@@ -163,18 +163,18 @@
       });
 
       var table = $('.yajra-datatable').DataTable({
-        "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
         processing: false,
         serverSide: true,
+        "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
+        'order': [[2, 'asc']],
         columnDefs: [
             {orderable: false, searchable: false, targets: [0, 1, 3, 4]},
             {width: 10, targets: 0},
-            {width: 50, targets: 1},
-            {width: 260, targets: 2},
-            {width: 200, targets: 3},
-            {width: 250, targets: 4},
+            {width: 40, targets: 1},
+            {width: 330, targets: 2},
+            {width: 220, targets: 3},
+            {width: 220, targets: 4},
         ],
-        ajax: "{{ route('kecamatan.index') }}",
         columns: [
             {data: 'checkbox', name: 'checkbox'},
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -182,6 +182,7 @@
             {data: 'warna', name: 'warna',},
             {data: 'action', name: 'action',},
         ],
+        ajax: "{{ route('kecamatan.index') }}",
       }).on('draw', function(){
         $('input[name="kecamatan_checkbox"]').each(function(){
           this.checked = false;
@@ -254,8 +255,8 @@
             if(result.value){
               $.post(url, {kecamatan_id:checkedKecamatan, countingKecamatan:countKecamatan}, function(data){
                 if(data.code == 1){
-                  $('#counties-table').DataTable().ajax.reload(null, true);
                   toastr.success(data.msg);
+                  table.draw();
                 }
               },'json');
             }
