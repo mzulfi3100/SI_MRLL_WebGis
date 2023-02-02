@@ -58,6 +58,15 @@
             "fillOpacity": 0 ,
         };
 
+        var blue = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
         L.geoJSON(kabupatenJson, {
             style: kabupatenStyle
         }).addTo(map);
@@ -75,10 +84,23 @@
                             @foreach($titikMacet as $titik)
                             {
                                 label: '<?= $titik->lokasiKemacetan ?>',
-                                layer: L.geoJSON(<?= $titik->geoJsonKemacetan ?>).addTo(map),
-                                name:   'Lokasi: ' + '<?= $titik->lokasiKemacetan ?>' + '<br>' +
-                                        'Deskripis: ' + '<?= $titik->deskripsiKemacetan ?>' + '<br>' 
-                                        
+                                layer: L.geoJSON(<?= $titik->geoJsonKemacetan ?>, {
+                                    onEachFeature: function(feature, layer){
+                                        layer.bindTooltip('<?= $titik->lokasiKemacetan ?>');
+                                        layer.setIcon(blue);
+                                    }
+                                }).addTo(map),
+                                name:   '<div style="max-height: 200px;  max-width: 400px; overflow-x: auto"' +
+                                            '<div class="card">' +
+                                                '<div class="card-header">' +
+                                                    '<h3 class="card-title" style="text-align: center" >' + '<?= $titik->lokasiKemacetan ?>' +'</h3>' +
+                                                '</div>' +
+                                                '<div class="card-body">' +
+                                                    '<h8><b>Deskripsi Kemacetan</b></h8><br><br>' +
+                                                    '<?= $titik->deskripsiKemacetan ?>' + 
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' 
                             },
                             @endforeach
                         ]
@@ -107,16 +129,60 @@
                                         }
                                     }
                                 }).addTo(map),
-                                name:   'Nama Jalan: ' + '<?= $jln->namaJalan ?>' + '<br>' +
-                                        'Tipe Jalan: ' + '<?= $jln->tipeJalan ?>' + '<br>' +
-                                        'Panjang Jalan: ' + '<?= $jln->panjangJalan ?>' + '<br>' +
-                                        'Lebar Jalan: ' + '<?= $jln->lebarJalan ?>' + '<br>' +
-                                        'Kapasitas Jalan: ' + '<?= $jln->kapasitasJalan ?>' + '<br>' +
-                                        'Hambatan Samping: ' + '<?= $jln->hambatanSamping ?>' + '<br>' +
-                                        'Kondisi Jalan :' + '<?= $jln->kondisiJalan ?>' + '<br>' +
-                                        'Volume Lalu Lintas :' + '<?= $jln->volume ?>' + '<br>' +
-                                        'Kecepatan Tempuh :' + '<?= $jln->kecepatan ?>' + '<br>'
-                                        
+                                name:   '<div style="max-height: 200px; overflow-y: auto"' +
+                                            '<div class="card">' +
+                                                '<div class="card-header">' +
+                                                    '<h3 class="card-title">' + '<?= $jln->namaJalan ?>' +'</h3>' +
+                                                '</div>' +
+                                                '<div class="card-body">' +
+                                                    '<table class="table">' +
+                                                        '<tbody>' +
+                                                            '<th>Data Jalan</th>' +
+                                                            '<tr>' +
+                                                                '<td>Nama Jalan</td>' +
+                                                                '<td>:' + '<?= $jln->namaJalan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Tipe Jalan</td>' +
+                                                                '<td>:' + '<?= $jln->tipeJalan ?>' + '</td>'+
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Panjang Jalan</td>' +
+                                                                '<td>:' + '<?= $jln->panjangJalan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Lebar Jalan:</td>' +
+                                                                '<td>:' + '<?= $jln->lebarJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kapasitas Jalan:</td>' +
+                                                                '<td>:' + '<?= $jln->kapasitasJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Hambatan Samping</td>' +
+                                                                '<td>:' + '<?= $jln->hambatanSamping ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kondisi Jalan</td>' +
+                                                                '<td>:' + '<?= $jln->kondisiJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<th>Data Lalu Lintas</th>' +
+                                                            '<tr>' +
+                                                                '<td>Volume Lalu Lintas</td>' +
+                                                                '<td>:' + '<?= $jln->volume ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kecepatan Tempuh</td>' +
+                                                                '<td>:' + '<?= $jln->kecepatan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>' + '<a href="/administrator/jalan/<?= $jln->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                            '</tr>' +
+                                                        '</tbody>' +
+                                                    '</table>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>'             
                             },
                             @endforeach
                         ]
@@ -189,6 +255,10 @@
                 type: "polyline",
                 color: "#3CB043",
                 weight: 2,
+            },  {
+                label: "Titik Kemacetan",
+                type: "image",
+                url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
             }]
         }).addTo(map);
 
@@ -216,6 +286,10 @@
                 type: "polyline",
                 color: "#3CB043",
                 weight: 2,
+            },  {
+                label: "Titik Kemacetan",
+                type: "img",
+                url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
             }]}).addTo(e.printMap);
         });
 
