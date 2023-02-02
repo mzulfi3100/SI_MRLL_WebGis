@@ -59,13 +59,21 @@
         };
 
         var green = L.icon({
-            iconUrl: '/marker-green.png',
-            iconSize: [38, 30],
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
         });
 
         var red = L.icon({
-            iconUrl: '/marker-red.png',
-            iconSize: [38, 30],
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41] 
         });
 
         L.geoJSON(kabupatenJson, {
@@ -95,8 +103,23 @@
                                             }
                                         }
                                     }).addTo(map),
-                                    name:   'Nama Simpang: ' + '<?= $apill->namaSimpang ?>' + '<br>' +
-                                            'Terkoneksi ATCS: ' + '<?= $apill->terkoneksiATCS ?>' + '<br>', 
+                                    name:   '<div style="max-height: 200px; overflow-y: auto"' +
+                                                '<div class="card">' +
+                                                    '<div class="card-header">' +
+                                                        '<h3 class="card-title" style="text-align: center" >' + '<?= $apill->namaSimpang ?>' +'</h3>' +
+                                                    '</div>' +
+                                                    '<div class="card-body">' +
+                                                        '<table class="table">' +
+                                                            '<tbody>' +
+                                                                '<tr>' +
+                                                                    '<td>Terkoneksi ATCS</td>' +
+                                                                    '<td>: ' + '<?= $apill->terkoneksiATCS ?>' + '</td>' +
+                                                                '</tr>' +
+                                                            '</tbody>' +
+                                                        '</table>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' 
                                 },
                             @endforeach
                         ]
@@ -158,11 +181,11 @@
             legends: [{
                 label: "Terkoneksi ATCS",
                 type: "image",
-                url: "/marker-green.png"
+                url: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png"
             },  {
                 label: "Tidak Terkoneksi ATCS",
                 type: "image",
-                url: "/marker-red.png"
+                url: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png"
             }]
         }).addTo(map);
 
@@ -179,11 +202,11 @@
                 legends: [{
                     label: "Terkoneksi ATCS",
                     type: "image",
-                    url: "/marker-green.png"
+                    url: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png"
                 },  {
                     label: "Tidak Terkoneksi ATCS",
                     type: "image",
-                    url: "/marker-red.png"
+                    url: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png"
                 }]
             }).addTo(e.printMap);
         });

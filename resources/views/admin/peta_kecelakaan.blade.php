@@ -62,6 +62,8 @@
             style: kabupatenStyle
         }).addTo(map);
 
+        var totalKec;
+
         var overlaysTree = 
             {
                 label: 'Layers',
@@ -76,8 +78,17 @@
                             {
                                 label: '<?= $titik->lokasiKecelakaan ?>',
                                 layer: L.geoJSON(<?= $titik->geoJsonKecelakaan ?>).addTo(map),
-                                name:   'Lokasi: ' + '<?= $titik->lokasiKecelakaan ?>' + '<br>' +
-                                        'Deskripsi: ' + '<?= $titik->deskripsiKecelakaan ?>' + '<br>' 
+                                name:   '<div style="max-height: 200px;  max-width: 400px; overflow-x: auto"' +
+                                            '<div class="card">' +
+                                                '<div class="card-header">' +
+                                                    '<h3 class="card-title" style="text-align: center" >' + '<?= $titik->lokasiKecelakaan ?>' +'</h3>' +
+                                                '</div>' +
+                                                '<div class="card-body">' +
+                                                    '<h8><b>Deskripsi Kecelakaan</b></h8><br><br>' +
+                                                    '<?= $titik->deskripsiKecelakaan ?>' + 
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' 
                                         
                             },
                             @endforeach
@@ -99,18 +110,87 @@
                                         }
                                     }
                                 }).addTo(map),
-                                name:   'Nama Jalan: ' + '<?= $htg->namaJalan ?>' + '<br>' +
-                                        'Tipe Jalan: ' + '<?= $htg->tipeJalan ?>' + '<br>' +
-                                        'Panjang Jalan: ' + '<?= $htg->panjangJalan ?>' + '<br>' +
-                                        'Lebar Jalan: ' + '<?= $htg->lebarJalan ?>' + '<br>' +
-                                        'Kapasitas Jalan: ' + '<?= $htg->kapasitasJalan ?>' + '<br>' +
-                                        'Hambatan Samping: ' + '<?= $htg->hambatanSamping ?>' + '<br>' +
-                                        'Kondisi Jalan :' + '<?= $htg->kondisiJalan ?>' + '<br>' +
-                                        @foreach($totalKecelakaan as $total)
-                                            <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
-                                                'Total Kecelakaan :' + '<?= $total->totalKecelakaan ?>' + '<br>'
-                                            <?php } ?>
-                                        @endforeach
+                                name:   '<div style="max-height: 200px; overflow-y: auto"' +
+                                            '<div class="card">' +
+                                                '<div class="card-header">' +
+                                                    '<h3 class="card-title">' + '<?= $htg->namaJalan ?>' +'</h3>' +
+                                                '</div>' +
+                                                '<div class="card-body">' +
+                                                    '<table class="table">' +
+                                                        '<tbody>' +
+                                                            '<th>Data Jalan</th>' +
+                                                            '<tr>' +
+                                                                '<td>Nama Jalan</td>' +
+                                                                '<td>:' + '<?= $htg->namaJalan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Tipe Jalan</td>' +
+                                                                '<td>:' + '<?= $htg->tipeJalan ?>' + '</td>'+
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Panjang Jalan</td>' +
+                                                                '<td>:' + '<?= $htg->panjangJalan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Lebar Jalan:</td>' +
+                                                                '<td>:' + '<?= $htg->lebarJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kapasitas Jalan:</td>' +
+                                                                '<td>:' + '<?= $htg->kapasitasJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Hambatan Samping</td>' +
+                                                                '<td>:' + '<?= $htg->hambatanSamping ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kondisi Jalan</td>' +
+                                                                '<td>:' + '<?= $htg->kondisiJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<th>Data Kecelakaan</th>' +
+                                                            '<tr>' +
+                                                                '<td>Korban Luka Ringan</td>' +
+                                                                @foreach($totalKecelakaan as $total)
+                                                                    <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
+                                                                        '<td>:' +" <?= $total->jumlahKorbanLukaRingan ?>" +'</td>' + 
+                                                                    <?php } ?>
+                                                                @endforeach
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Korban Luka Berat</td>' +
+                                                                @foreach($totalKecelakaan as $total)
+                                                                    <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
+                                                                        '<td>:' +" <?= $total->jumlahKorbanLukaBerat ?>" +'</td>' + 
+                                                                    <?php } ?>
+                                                                @endforeach
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Korban Meninggal Dunia</td>' +
+                                                                @foreach($totalKecelakaan as $total)
+                                                                    <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
+                                                                        '<td>:' +" <?= $total->jumlahKorbanMeninggalDunia ?>" +'</td>' + 
+                                                                    <?php } ?>
+                                                                @endforeach
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Total Kecelakaan</td>' +
+                                                                @foreach($totalKecelakaan as $total)
+                                                                    <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
+                                                                        '<td>:' +" <?= $total->totalKecelakaan ?>" +'</td>' + 
+                                                                    <?php } ?>
+                                                                @endforeach
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>' + '<a href="/administrator/jalan/<?= $htg->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                            '</tr>' +
+                                                        '</tbody>' +
+                                                    '</table>' +
+                                                '</div>' +
+                                                '<div class="card-footer">' +
+                                                    
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>'
                             },
                             @endforeach
                         ]
@@ -178,6 +258,10 @@
                 type: "polyline",
                 color: "#3CB043",
                 weight: 2,
+            },  {
+                label: "Titik Kecelakaan",
+                type: "image",
+                url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
             }]
         }).addTo(map);
 
@@ -201,6 +285,10 @@
                     type: "polyline",
                     color: "#3CB043",
                     weight: 2,
+                },  {
+                    label: "Titik Kecelakaan",
+                    type: "image",
+                    url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
                 }]
             }).addTo(e.printMap);
         });

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Jalan;
 use App\Models\Kecamatan;
 use App\Models\JalanKecamatan;
+use App\Models\Lalulinta;
+use App\Models\Kecelakaan;
 use Illuminate\Support\Facades\DB;
 use DataTables;
 
@@ -24,15 +26,15 @@ class JalanController extends Controller
             $data = DB::table('jalans_kecamatans')
                         ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                         ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan')
+                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
                         ->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     // btn show
-                    $actionBtn = '<a href="/administrator/jalan/'.$row->id.'/show" class="show btn btn-primary btn-sm">Show</a>';
+                    $actionBtn = '<a href="/administrator/jalan/'.$row->jalanKecamatanId.'/show" class="show btn btn-primary btn-sm">Show</a>';
                     // btn edit
-                    $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Edit" class="edit btn btn-success btn-sm editJalan" id="editJalan">Edit</a>';
+                    $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Edit" class="edit btn btn-success btn-sm editJalan" id="editJalan">Edit</a>';
                     // btn delete
                     $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteJalan" id="deleteJalan">Delete</a>';
                     return $actionBtn;
@@ -106,7 +108,24 @@ class JalanController extends Controller
      */
     public function show($id)
     {
-        //
+        $jalan = DB::table('jalans_kecamatans')
+                        ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                        ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                        ->where('jalans_kecamatans.id', '=', $id)
+                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan')
+                        ->first();
+
+        $lalulintas = DB::table('lalulintas')
+                        ->where('lalulintas.tahun', '>', DB::raw('year(NOW()) - 3'))
+                        ->where('lalulintas.jalanKecamatanId', '=', $id)
+                        ->orderBy('lalulintas.tahun', 'desc')
+                        ->get();
+        $kecelakaan = DB::table('kecelakaans')
+                        ->where('kecelakaans.tahunKecelakaan', '>', DB::raw('year(NOW()) - 3'))
+                        ->where('kecelakaans.jalanKecamatanId', '=', $id)
+                        ->orderBy('kecelakaans.tahunKecelakaan', 'desc')
+                        ->get();
+        return view('admin/detail_jalan', compact('jalan', 'lalulintas', 'kecelakaan'));
     }
 
     /**
