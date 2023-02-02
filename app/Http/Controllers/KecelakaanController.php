@@ -30,11 +30,14 @@ class KecelakaanController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editLaka">Edit</a> ';
-                    $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteLaka">Delete</a>';
+                    $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editLaka"><i class="fas fa-pen" style="color:white"></i></a>&nbsp;';
+                    $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteLaka"><i class="fa fa-trash" style="color:white"></i></a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('checkbox', function($row){
+                    return '<input type="checkbox" name="kecelakaan_checkbox" data-id="'.$row->id.'"><label></label>';
+                })
+                ->rawColumns(['action', 'checkbox'])
                 ->make(true);
         }
         $perhitungan = DB::table('perhitungan_data_kecelakaans')
@@ -176,5 +179,13 @@ class KecelakaanController extends Controller
         }
 
         return redirect()->route('kecelakaan.index');
+    }
+    public function deleteSelectedKecelakaan(Request $request){
+        $kecelakaan_ids = $request->kecelakaan_id;
+        $countKecelakaans = $request->countingKecelakaan;
+
+        //menghapus data di tabel Lalu lintas berdasarkan id lalin
+        Kecelakaan::whereIn('id', $kecelakaan_ids)->delete();
+        return response()->json(['code'=>1, 'msg'=> [$countKecelakaans, ' Data Kecelakaan Berhasil Dihapus']]);
     }
 }

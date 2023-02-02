@@ -34,9 +34,11 @@ class JalanController extends Controller
                     // btn show
                     $actionBtn = '<a href="/administrator/jalan/'.$row->jalanKecamatanId.'/show" class="show btn btn-primary btn-sm">Show</a>';
                     // btn edit
+
                     $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Edit" class="edit btn btn-success btn-sm editJalan" id="editJalan">Edit</a>';
+
                     // btn delete
-                    $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteJalan" id="deleteJalan">Delete</a>';
+                    $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteJalan" id="deleteJalan"><i class="fa fa-trash" style="color:white"></i></a>';
                     return $actionBtn;
                 })
                 ->addColumn('checkbox', function($row){

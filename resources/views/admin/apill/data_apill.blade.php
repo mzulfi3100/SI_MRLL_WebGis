@@ -44,7 +44,7 @@
         <!-- Trigger selected delete data with a button -->
         <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
         
-        <table class="table table-striped yajra-datatable p-3">
+        <table class="table table-striped yajra-datatable p-0">
             <thead class="table-dark">
                 <tr>
                     <th><input type="checkbox" name="main_checkbox"><label></label></th>
@@ -287,29 +287,26 @@
 
             // render data
             var table = $('.yajra-datatable').DataTable({
-                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 processing: false,
                 serverSide: true,
-                ajax: "{{ route('apill.index') }}",
+                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
+                'order': [[2, 'asc']],
+                columnDefs: [
+                    {orderable: false, searchable: false, targets: [0, 1, 3, 4]},
+                    {width: 10, targets: 0},
+                    {width: 40, targets: 1},
+                    {width: 270, targets: 2},
+                    {width: 220, targets: 3},
+                    {width: 270, targets: 4},
+                ],
                 columns: [
-                    {data: 'checkbox', name: 'checkbox', 
-                        orderable: false, 
-                        searchable: false},
+                    {data: 'checkbox', name: 'checkbox'},
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'namaSimpang', name: 'namaSimpang'},
-                    {
-                        data: 'terkoneksiATCS', 
-                        name: 'terkoneksiATCS', 
-                        orderable: false, 
-                        searchable: false
-                    },
-                    {
-                        data: 'action', 
-                        name: 'action', 
-                        orderable: false, 
-                        searchable: false
-                    },
-                ]
+                    {data: 'terkoneksiATCS', name: 'terkoneksiATCS'},
+                    {data: 'action', name: 'action'},
+                ],
+                ajax: "{{ route('apill.index') }}",
             }).on('draw', function(){
                 $('input[name="apill_checkbox"]').each(function(){
                     this.checked = false;
@@ -382,7 +379,6 @@
                         if(result.value){
                             $.post(url, {apill_id:checkedApill, countingApill:countApill}, function(data){
                                 if(data.code == 1){
-                                    $('#counties-table').DataTable().ajax.reload(null, true);
                                     toastr.success(data.msg);
                                     table.draw();
                                 }

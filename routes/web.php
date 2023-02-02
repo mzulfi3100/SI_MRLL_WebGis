@@ -99,6 +99,8 @@ Route::post('/deleteSelectedJalan', [JalanController::class, 'deleteSelectedJala
 
 Route::post('/deleteSelectedLalin', [LaluLintaController::class, 'deleteSelectedLalin'])->name('delete.selected.lalin');
 
+Route::post('/deleteSelectedKecelakaan', [KecelakaanController::class, 'deleteSelectedKecelakaan'])->name('delete.selected.kecelakaan');
+
 Route::post('/deleteSelectedTitikKemacetan', [TitikKemacetanController::class, 'deleteSelectedTitikKemacetan'])->name('delete.selected.titikKemacetan');
 
 Route::post('/deleteSelectedTitikKecelakaan', [TitikKecelakaanController::class, 'deleteSelectedTitikKecelakaan'])->name('delete.selected.titikKecelakaan');

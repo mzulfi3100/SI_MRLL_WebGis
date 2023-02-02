@@ -99,15 +99,15 @@
         </div>
         <div> &nbsp; </div>
         <!-- DataTable -->
-        <table class="table table-striped yajra-datatable p-3">
+        <table class="table table-striped yajra-datatable p-0">
             <thead class="table-dark"> 
                 <tr>
                     <th><input type="checkbox" name="main_checkbox"><label></label></th>
                     <th>No</th>
                     <th>Nama Jalan</th>
                     <th>Kecamatan</th>
-                    <th>Volume Lalu Lintas</th>
-                    <th>Kecepatan Tempuh</th>
+                    <th>Volume</th>
+                    <th>Kecepatan</th>
                     <th>Tahun</th>
                     <th>Aksi</th>
                 </tr>
@@ -333,10 +333,21 @@
 
             // render data
             var table = $('.yajra-datatable').DataTable({
-                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 processing: false,
                 serverSide: true,
-                ajax: "{{ route('lalulinta.index') }}",
+                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
+                'order': [[2, 'asc']],
+                columnDefs: [
+                    {orderable: false, searchable: false, targets: [0, 1, 7]},
+                    {width: 10, targets: 0},
+                    {width: 20, targets: 1},
+                    {width: 155, targets: 2},
+                    {width: 130, targets: 3},
+                    {width: 25, targets: 4},
+                    {width: 25, targets: 5},
+                    {width: 25, targets: 6},
+                    {width: 40, targets: 7},
+                ],
                 columns: [
                     {data: 'checkbox', name: 'checkbox', orderable: false,
                         searchable: false,},
@@ -352,7 +363,8 @@
                         orderable: false, 
                         searchable: false
                     },
-                ]
+                ],
+                ajax: "{{ route('lalulinta.index') }}",
             }).on('draw', function(){
                 $('input[name="lalin_checkbox"]').each(function(){
                     this.checked = false;
@@ -425,7 +437,6 @@
                         if(result.value){
                             $.post(url, {lalin_id:checkedLalin, countingLalin:countLalin}, function(data){
                                 if(data.code == 1){
-                                    $('#counties-table').DataTable().ajax.reload(null, true);
                                     toastr.success(data.msg);
                                     table.draw();
                                 }

@@ -27,8 +27,8 @@ class KecamatanController extends Controller
                     return '<input type="checkbox" name="kecamatan_checkbox" data-id="'.$row->id.'"><label></label>';
                 })
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editKecamatan">Edit</a> ';
-                    $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKecamatan">Delete</a>';
+                    $actionBtn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-success btn-sm editKecamatan" id="editKecamatan"><i class="fas fa-pen" style="color:white"></i></a>&nbsp;';
+                    $actionBtn = $actionBtn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKecamatan" id="deleteKecamatan"><i class="fa fa-trash" style="color:white"></i></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action', 'checkbox', 'warna'])

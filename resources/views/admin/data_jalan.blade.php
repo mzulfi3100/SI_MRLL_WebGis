@@ -1,60 +1,60 @@
 @extends('admin/template')
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
+<div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">Data Jalan</h1>
-                </div><!-- /.row -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a id="clock"></a></li>
-                    </ol>
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">
-                            <a>
-                                <?php 
-                                $hari=date('l');
-                                $bulan=date('m');
-                                switch ($hari) {
-                                    case"Sunday":$hari="Minggu";break;
-                                    case"Monday":$hari="Senin";break;
-                                    case"Tuesday":$hari="Selasa";break;
-                                    case"Wednesday":$hari="Rabu";break;
-                                    case"Thursday":$hari="Kamis";break;
-                                    case"Friday":$hari="Jumat";break;
-                                    case"Saturday":$hari="Sabtu";break;
-                                }
-                                //menampilkan translate hari ke bahasa indonesia
-                                $tanggal=date('d');
-                                $tahun=date('y');
-                                //menampilkan hari tanggal bulan dan tahun
-                                echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;"; 
-                                ?>
-                            </a>
-                        </li>
-                    </ol>
-                </div>
             </div>
+            <!-- Tampil Tanggal dan Jam -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a id="clock"></a></li>
+                </ol>
+                <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a >
+                <?php 
+                $hari=date('l');
+                $bulan=date('m');
+                switch ($hari) {
+                    case"Sunday":$hari="Minggu";break;
+                    case"Monday":$hari="Senin";break;
+                    case"Tuesday":$hari="Selasa";break;
+                    case"Wednesday":$hari="Rabu";break;
+                    case"Thursday":$hari="Kamis";break;
+                    case"Friday":$hari="Jumat";break;
+                    case"Saturday":$hari="Sabtu";break;
+                }
+                //menampilkan translate hari ke bahasa indonesia
+                $tanggal=date('d');
+                $tahun=date('y');
+                //menampilkan hari tanggal bulan dan tahun
+                echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;"; 
+                ?></a></li>
+                </ol>
+            </div>
+            <!-- End Tampil Tanggal dan Jam -->
         </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
+    <!-- End Content Header -->  
 
+    <!-- Tabel Jalan -->
     <div class="p-4">
-        <button href="javascript:void(0)" class="btn btn-primary mb-3" id="tambahJalanBaru">Tambah Data</button>
-        <!-- Trigger modal hapus all data with a button -->
-        <a href="#" type="button" class="btn btn-danger" >Hapus Semua</a>
+        <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahJalanBaru">Tambah Data</button>
+        <!-- Trigger selected delete data with a button -->
+        <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
+        
         <!-- Table Yajra -->
-        <table class="table table-striped yajra-datatable p-3">
+        <table class="table table-striped yajra-datatable p-0">
             <thead class="table-dark"> 
                 <tr>
+                    <th><input type="checkbox" name="main_checkbox"><label></label></th>
                     <th>No</th>
                     <th>Nama Jalan</th>
-                    <th>Nama Kecamatan</th>
-                    <th>Panjang Jalan </th>
-                    <th>Lebar Jalan </th>
-                    <th>Kapasitas Jalan </th>
+                    <th>Kecamatan</th>
+                    <th>Panjang</th>
+                    <th>Lebar</th>
+                    <th>Kapasitas</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -336,23 +336,114 @@
             var table = $('.yajra-datatable').DataTable({
                 processing: false,
                 serverSide: true,
-                ajax: "{{ route('jalan.index') }}",
+                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
+                'order': [[2, 'asc']],
+                columnDefs: [
+                    {orderable: false, searchable: false, targets: [0, 1, 7]},
+                    {width: 10, targets: 0},
+                    {width: 20, targets: 1},
+                    {width: 150, targets: 2},
+                    {width: 130, targets: 3},
+                    {width: 25, targets: 4},
+                    {width: 25, targets: 5},
+                    {width: 25, targets: 6},
+                    {width: 40, targets: 7},
+                ],
                 columns: [
+                    {data: 'checkbox', name: 'checkbox'},
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'namaJalan', name: 'namaJalan'},
                     {data: 'namaKecamatan', name: 'namaKecamatan'},
                     {data: 'panjangJalan', name: 'panjangJalan'},
                     {data: 'lebarJalan', name: 'lebarJalan'},
                     {data: 'kapasitasJalan', name: 'kapasitasJalan'},
-                    {
-                        data: 'action', 
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                    },
-                ]
+                    {data: 'action', name: 'action'},
+                ],
+                ajax: "{{ route('jalan.index') }}",
+            }).on('draw', function(){
+                $('input[name="jalan_checkbox"]').each(function(){
+                    this.checked = false;
+                });
+                $('input[name="main_checkbox"]').prop('checked', false);
+                $('button#deleteAllBtn').addClass('d-none');
             });
             // End Render Data
+
+            // bagian listing checkbox
+            $(document).on('click', 'input[name="main_checkbox"]', function(){
+                if(this.checked){
+                    $('input[name="jalan_checkbox"]').each(function(){
+                        this.checked = true;
+                    });
+                }else{
+                    $('input[name="jalan_checkbox"]').each(function(){
+                        this.checked = false;
+                    });
+                }
+                toggledeleteAllBtn();
+            });
+
+            //bagian listing 2 checkbox
+            $(document).on('change', 'input[name="jalan_checkbox"]', function(){
+                if($('input[name="jalan_checkbox"]').length == $('input[name="jalan_checkbox"]:checked').length){
+                    $('input[name="main_checkbox"]').prop('checked', true);
+                }else{
+                    $('input[name="main_checkbox"]').prop('checked', false);
+                }
+                toggledeleteAllBtn(); 
+            });
+            
+            //bagian tampilan delete btn
+            function toggledeleteAllBtn(){
+                if($('input[name="jalan_checkbox"]:checked').length > 0){
+                    $('button#deleteAllBtn').text('Hapus Data ('+$('input[name="jalan_checkbox"]:checked').length+')').removeClass('d-none');
+                }else{
+                    $('button#deleteAllBtn').addClass('d-none');
+                }
+            }
+            
+            //bagian utama selected delete
+            $(document).on('click', 'button#deleteAllBtn', function(){
+                var checkedJalan = [];
+                var checkedKecamatan = [];
+                var url = '{{ route("delete.selected.jalan")}}';
+                $('input[name="jalan_checkbox"]:checked').each(function(){
+                    checkedJalan.push($(this).data('id')),
+                    checkedKecamatan.push($(this).data('kec'))
+                });
+                
+                // untuk melihat id data yang dipilih/checked
+                // alert([checkedJalan,checkedKecamatan]);
+                if(checkedJalan.length > 0){
+                    var countJalan = [checkedJalan.length];
+                    swal.fire({
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        title:'<h3 style ="color:red">Peringatan!</h3>',
+                        icon: 'warning',
+                        html:'Apakah anda yakin ingin menghapus <b>'+checkedJalan.length+'</b> data jalan yang dipilih?',
+                        showCancelButton:true,
+                        showCloseButton:true,
+                        confirmButtonText:'Lanjutkan',
+                        cancelButtonText:'Kembali',
+                        confirmButtonColor:'#28a745',
+                        cancelButtonColor:'#d33',
+                        width:500,
+                        allowOutsideClick:false
+                    }).then(function(result){
+                        if(result.value){
+                            $.post(url, {jalan_id:checkedJalan, jalan_kec:checkedKecamatan, countingJalan:countJalan}, function(data){
+                                if(data.code == 1){
+                                    $('#counties-table').DataTable().ajax.reload(null, true);
+                                    toastr.success(data.msg);
+                                    table.draw();
+                                }
+                            },'json');
+                        }
+                    })
+                }
+            });
 
             // Tampilkan modal jika klik tambah data baru
             $('#tambahJalanBaru').click(function(){

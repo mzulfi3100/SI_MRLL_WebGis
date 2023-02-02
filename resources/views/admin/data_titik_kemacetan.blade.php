@@ -44,7 +44,7 @@
         <!-- Trigger selected delete data with a button -->
         <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
         
-        <table class="table table-striped yajra-datatable p-3">
+        <table class="table table-striped yajra-datatable p-0">
             <thead class="table-dark">
                 <tr>
                     <th><input type="checkbox" name="main_checkbox"><label></label></th>
@@ -367,25 +367,30 @@
             });
 
             var table = $('.yajra-datatable').DataTable({
-                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 processing: false,
                 serverSide: true,
-                ajax: "{{ route('titik_kemacetan.index') }}",
+                "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
+                'order': [[2, 'asc']],
+                columnDefs: [
+                    {orderable: false, searchable: false, targets: [0, 1, 6]},
+                    {width: 10, targets: 0},
+                    {width: 20, targets: 1},
+                    {width: 155, targets: 2},
+                    {width: 100, targets: 3},
+                    {width: 100, targets: 4},
+                    {width: 100, targets: 5},
+                    {width: 40, targets: 6},
+                ],
                 columns: [
-                    {data: 'checkbox', name: 'checkbox', orderable: false,
-                        searchable: false,},
+                    {data: 'checkbox', name: 'checkbox'},
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'namaJalan', name: 'namaJalan'},
                     {data: 'namaKecamatan', name: 'namaKecamatan'},
                     {data: 'lokasiKemacetan', name: 'lokasiKemacetan'},
                     {data: 'deskripsiKemacetan', name: 'deskripsiKemacetan'},
-                    {
-                        data: 'action', 
-                        name: 'action', 
-                        orderable: false, 
-                        searchable: false
-                    },
-                ]
+                    {data: 'action', name: 'action'},
+                ],
+                ajax: "{{ route('titik_kemacetan.index') }}",
             }).on('draw', function(){
                 $('input[name="titikKemacetan_checkbox"]').each(function(){
                     this.checked = false;
@@ -458,7 +463,6 @@
                         if(result.value){
                             $.post(url, {titikKemacetan_id:checkedTitikKemacetan, countingTitikKemacetan:countTitikKemacetan}, function(data){
                                 if(data.code == 1){
-                                    $('#counties-table').DataTable().ajax.reload(null, true);
                                     toastr.success(data.msg);
                                     table.draw();
                                 }
