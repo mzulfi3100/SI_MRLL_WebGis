@@ -12,6 +12,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <link rel="stylesheet" href="{{'/Assets/css/style4.css'}}" type="text/css">
 
+  <!-- datatable dan export -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('Admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('Admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('Admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
   <!-- multiple delete -->
   <link rel="stylesheet" href="{{ asset('Admin/sweetalert2/sweetalert2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('Admin/toastr/toastr.min.css') }}">

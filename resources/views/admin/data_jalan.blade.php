@@ -39,7 +39,12 @@
     <!-- End Content Header -->  
 
     <!-- Tabel Jalan -->
-    <div class="p-4">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="p-3">
         <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahJalanBaru">Tambah Data</button>
         <!-- Trigger selected delete data with a button -->
         <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
@@ -48,7 +53,7 @@
         <table class="table table-striped yajra-datatable p-0">
             <thead class="table-dark"> 
                 <tr>
-                    <th><input type="checkbox" name="main_checkbox"><label></label></th>
+                <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox"><label></label></th>
                     <th>No</th>
                     <th>Nama Jalan</th>
                     <th>Kecamatan</th>
@@ -63,6 +68,11 @@
         </table>
         <!-- End Table Yajra -->
     </div>
+    </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- Modal Tambah dan Update -->
     <div id="jalanModal" class="modal fade" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -350,15 +360,8 @@
                 "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 'order': [[2, 'asc']],
                 columnDefs: [
+                    {"className": "dt-center", "targets": [0, 1, 4, 5, 6, 7]},
                     {orderable: false, searchable: false, targets: [0, 1, 7]},
-                    {width: 10, targets: 0},
-                    {width: 20, targets: 1},
-                    {width: 150, targets: 2},
-                    {width: 110, targets: 3},
-                    {width: 25, targets: 4},
-                    {width: 25, targets: 5},
-                    {width: 25, targets: 6},
-                    {width: 60, targets: 7},
                 ],
                 columns: [
                     {data: 'checkbox', name: 'checkbox'},
@@ -369,6 +372,13 @@
                     {data: 'lebarJalan', name: 'lebarJalan'},
                     {data: 'kapasitasJalan', name: 'kapasitasJalan'},
                     {data: 'action', name: 'action'},
+                ],
+                dom: 'lBfrtip',
+                buttons: [
+                    {extend: 'spacer'},
+                    {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-success'},
+                    {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-info'},
+                    {extend: 'colvis', columnText: function ( dt, idx, title) {return (idx+1)+'. '+title;}, className: 'btn btn-warning'},
                 ],
                 ajax: "{{ route('jalan.index') }}",
             }).on('draw', function(){

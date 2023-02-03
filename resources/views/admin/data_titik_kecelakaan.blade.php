@@ -420,6 +420,13 @@
                     {data: 'lokasiKecelakaan', name: 'lokasiKecelakaan'},
                     {data: 'action', name: 'action'},
                 ],
+                dom: 'lBfrtip',
+                buttons: [
+                    {extend: 'spacer'},
+                    {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-success'},
+                    {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-info'},
+                    {extend: 'colvis', columnText: function ( dt, idx, title) {return (idx+1)+'. '+title;}, className: 'btn btn-warning'},
+                ],
                 ajax: "{{ route('titik_kecelakaan.index') }}",
             }).on('draw', function(){
                 $('input[name="titikKecelakaan_checkbox"]').each(function(){

@@ -39,13 +39,21 @@
   </div>
   <!-- /.content-header -->
   <!-- Tabel Data Kecamatan -->
-  <div class="p-4">
+  <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-auto">
+            <div class="card">
+              <div class="p-3">
+              <!-- </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
     <!-- Trigger modal tambah data with a button -->
     <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahKecamatanBaru">Tambah Data</button>
-    <!-- Trigger modal hapus all data with a button -->
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapusSemuaKecamatan">Hapus Semua</button>
-    <!-- Trigger export data to excel with a button -->
-    <a download class="btn btn-warning" >Ekspor Excel</a>
+    
     <!-- Trigger selected delete data with a button -->
     <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
     
@@ -68,6 +76,7 @@
         </div>
       </div>
     </div>
+
     <!-- Modal -->
     <div id="modalKecamatan" class="modal fade" aria-hidden="true">
       <div class="modal-dialog ">
@@ -129,10 +138,10 @@
     </div>
     
     <!-- table -->
-    <table class="table table-striped yajra-datatable p-0">
+    <table id="myTable" class="table table-striped yajra-datatable ">
         <thead class="table-dark"> 
             <tr>
-              <th><input type="checkbox" name="main_checkbox"><label></label></th>
+              <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox" cellpadding="2" cellspacing="2" border="2"><label></label></th>
               <th>No</th>
               <th>Nama Kecamatan</th>
               <th>Warna Kecamatan</th>
@@ -143,6 +152,11 @@
         </tbody>
     </table>
   </div>
+    </div>
+          </div>
+        </div>
+      </div>
+    </section>
   <!-- End Tabel Data Kecamatan -->
 @stop
 @section('script_tabel')
@@ -165,9 +179,11 @@
       var table = $('.yajra-datatable').DataTable({
         processing: false,
         serverSide: true,
+        "lengthChange": true,
         "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
         'order': [[2, 'asc']],
         columnDefs: [
+            {"className": "dt-center", "targets": [0, 1, ,4]},
             {orderable: false, searchable: false, targets: [0, 1, 3, 4]},
             {width: 10, targets: 0},
             {width: 40, targets: 1},
@@ -176,17 +192,26 @@
             {width: 220, targets: 4},
         ],
         columns: [
-            {data: 'checkbox', name: 'checkbox'},
+            {data: 'checkbox', name: 'checkbox', value: 'checkbox'},
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'namaKecamatan', name: 'namaKecamatan'},
             {data: 'warna', name: 'warna',},
             {data: 'action', name: 'action',},
+        ],
+        dom: 'lBfrtip',
+        buttons: [
+            {extend: 'spacer'},
+            {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-success'},
+            {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-info'},
+            {extend: 'colvis', columnText: function ( dt, idx, title) {return (idx+1)+'. '+title;}, className: 'btn btn-warning'},
         ],
         ajax: "{{ route('kecamatan.index') }}",
       }).on('draw', function(){
         $('input[name="kecamatan_checkbox"]').each(function(){
           this.checked = false;
         });
+        // $(".buttons-html5").addClass("btn-success");
+        // $(".buttons-html5").addClass("btn");
         $('input[name="main_checkbox"]').prop('checked', false);
         $('button#deleteAllBtn').addClass('d-none');
       });

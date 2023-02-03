@@ -39,7 +39,12 @@
     </div>
     <!-- End Content Header -->           
     <!-- Tabel Apill -->
-    <div class="p-4">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-auto">
+            <div class="card">
+              <div class="p-4">
         <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahApillBaru">Tambah Data</button>
         <!-- Trigger selected delete data with a button -->
         <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
@@ -47,7 +52,7 @@
         <table class="table table-striped yajra-datatable p-0">
             <thead class="table-dark">
                 <tr>
-                    <th><input type="checkbox" name="main_checkbox"><label></label></th>
+                <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox"><label></label></th>
                     <th>No</th>
                     <th>Nama Simpang</th>
                     <th>Terkoneksi ATCS</th>
@@ -58,6 +63,11 @@
             </tbody>
         </table>
     </div>
+    </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- End Tabel Apill -->
     <!-- Modal -->
     <div id="apillModal" class="modal fade" aria-hidden="true">
@@ -302,6 +312,7 @@
                 "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 'order': [[2, 'asc']],
                 columnDefs: [
+                    {"className": "dt-center", "targets": [0, 1, 4]},
                     {orderable: false, searchable: false, targets: [0, 1, 3, 4]},
                     {width: 10, targets: 0},
                     {width: 40, targets: 1},
@@ -315,6 +326,13 @@
                     {data: 'namaSimpang', name: 'namaSimpang'},
                     {data: 'terkoneksiATCS', name: 'terkoneksiATCS'},
                     {data: 'action', name: 'action'},
+                ],
+                dom: 'lBfrtip',
+                buttons: [
+                    {extend: 'spacer'},
+                    {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-success'},
+                    {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-info'},
+                    {extend: 'colvis', columnText: function ( dt, idx, title) {return (idx+1)+'. '+title;}, className: 'btn btn-warning'},
                 ],
                 ajax: "{{ route('apill.index') }}",
             }).on('draw', function(){

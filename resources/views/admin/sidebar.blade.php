@@ -17,6 +17,15 @@
         <div class="sidebar-heading" style="font-size:14px;color:black;"><b>
             ADMIN</b>
         </div>
+        <!-- Menu Dashboard Admin -->
+        <li class="nav-item">
+            <a href="/" class="nav-link">
+            <i class="fas fa-tachometer-alt" style="color:black"></i>
+              <p style="color:white;">
+              &nbsp;&nbsp;Dashboard
+              </p>
+            </a>
+        </li>
         <!-- Menu Kelola Data Kecamatan -->
         <li class="nav-item">
             <a href="/kecamatan" class="nav-link">

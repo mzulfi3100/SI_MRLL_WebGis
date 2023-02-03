@@ -37,7 +37,12 @@
     </div>
 
     <!-- /.content-header -->
-    <div class="p-4">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="p-4">
         <!-- <a href="{{ route('lalulinta.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Lalu Lintas</a> -->
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahLalinBaru">Tambah Data</button>
@@ -135,7 +140,7 @@
         <table class="table table-striped yajra-datatable p-0">
             <thead class="table-dark"> 
                 <tr>
-                    <th><input type="checkbox" name="main_checkbox"><label></label></th>
+                <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox"><label></label></th>
                     <th>No</th>
                     <th>Nama Jalan</th>
                     <th>Kecamatan</th>
@@ -148,7 +153,12 @@
             <tbody>
             </tbody>
         </table>
-    </div>
+        </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 @stop
 @section('script_peta')
     <!-- Tampil Map -->
@@ -376,15 +386,8 @@
                 "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 'order': [[2, 'asc']],
                 columnDefs: [
+                    {"className": "dt-center", "targets": [0, 1, 4, 5, 6, 7]},
                     {orderable: false, searchable: false, targets: [0, 1, 7]},
-                    {width: 10, targets: 0},
-                    {width: 20, targets: 1},
-                    {width: 155, targets: 2},
-                    {width: 130, targets: 3},
-                    {width: 25, targets: 4},
-                    {width: 25, targets: 5},
-                    {width: 25, targets: 6},
-                    {width: 40, targets: 7},
                 ],
                 columns: [
                     {data: 'checkbox', name: 'checkbox', orderable: false,
@@ -401,6 +404,13 @@
                         orderable: false, 
                         searchable: false
                     },
+                ],
+                dom: 'lBfrtip',
+                buttons: [
+                    {extend: 'spacer'},
+                    {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-success'},
+                    {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-info'},
+                    {extend: 'colvis', columnText: function ( dt, idx, title) {return (idx+1)+'. '+title;}, className: 'btn btn-warning'},
                 ],
                 ajax: "{{ route('lalulinta.index') }}",
             }).on('draw', function(){
