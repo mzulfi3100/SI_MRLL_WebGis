@@ -108,7 +108,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Geo Json Titik Kemacetan</label>
-                        <textarea type="text" class="form-control" name="geoJsonKemacetan" id="geoJsonKemacetan" disabled></textarea>
+                        <textarea type="text" class="form-control" name="geoJsonKemacetan" id="geoJsonKemacetan" readonly></textarea>
                     </div>
                 </div>
             </div>

@@ -127,7 +127,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Geo JSON Jalan</label>
-                                <textarea type="text" class="form-control" id="geoJsonJalan" name="geoJsonJalan" disabled></textarea>
+                                <textarea type="text" class="form-control" id="geoJsonJalan" name="geoJsonJalan" readonly></textarea>
                             </div>
                         </div>
                     </div>
