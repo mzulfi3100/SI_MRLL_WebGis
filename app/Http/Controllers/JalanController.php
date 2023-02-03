@@ -121,10 +121,12 @@ class JalanController extends Controller
                         ->where('lalulintas.jalanKecamatanId', '=', $id)
                         ->orderBy('lalulintas.tahun', 'desc')
                         ->get();
-        $kecelakaan = DB::table('kecelakaans')
-                        ->where('kecelakaans.tahunKecelakaan', '>', DB::raw('year(NOW()) - 3'))
-                        ->where('kecelakaans.jalanKecamatanId', '=', $id)
-                        ->orderBy('kecelakaans.tahunKecelakaan', 'desc')
+        $kecelakaan = DB::table('titik_kecelakaans')
+                        ->where(DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan)'), '>', DB::raw('year(NOW()) - 3'))
+                        ->where('titik_kecelakaans.jalanKecamatanId', '=', $id)
+                        ->orderBy(DB::raw('titik_kecelakaans.tanggalKecelakaan'), 'desc')
+                        ->select(DB::raw('sum(titik_kecelakaans.korbanMD) as korbanMD'), DB::raw('sum(titik_kecelakaans.korbanLB) as korbanLB'), DB::raw('sum(titik_kecelakaans.korbanLR) as korbanLR'), DB::raw('count(*) as jumlahKecelakaan'), DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan) as tahunKecelakaan'))
+                        ->groupBy(DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan)'))
                         ->get();
         return view('admin/detail_jalan', compact('jalan', 'lalulintas', 'kecelakaan'));
     }

@@ -42,7 +42,7 @@ class LalulintaController extends Controller
         $data = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId', 'jalans_kecamatans.id')
+                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'jalans.kapasitasJalan' ,'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId', 'jalans_kecamatans.id')
                     ->get();
         $dataKec = DB::table('jalans_kecamatans')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
@@ -86,6 +86,8 @@ class LalulintaController extends Controller
             'volume' => $request->volume,
             'kecepatan' => $request->kecepatan,
             'tahun' => $request->tahun,
+            'tingkatPelayanan' => $request->tingkatPelayanan,
+            'tingkatKemacetan' => $request->tingkatKemacetan,
             'jalanKecamatanId' => $request->jalanKecamatanId,
         ]);
 
@@ -116,7 +118,7 @@ class LalulintaController extends Controller
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
                     ->where('lalulintas.id', '=', $id)
-                    ->select('lalulintas.*', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId',)
+                    ->select('lalulintas.*', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId', 'jalans.kapasitasJalan')
                     ->first();
         return response()->json($data);
     }

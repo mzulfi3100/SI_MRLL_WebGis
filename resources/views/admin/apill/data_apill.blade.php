@@ -61,7 +61,7 @@
     <!-- End Tabel Apill -->
     <!-- Modal -->
     <div id="apillModal" class="modal fade" aria-hidden="true">
-      <div class="modal-dialog modal-xl" s>
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <form id="apillForm" name="apillForm">
             <div class="modal-header">
@@ -70,24 +70,32 @@
                 <span aria-hidden="true">&times;</span>
               </button>   
             </div>
-            <div class="modal-body">
+            <div class="modal-body row">
+                <div class="col-12">
+                    <div id="map" style="width:750px; height:450px;" class="mb-4 ml-2"></div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label for="">Nama Simpang</label>
+                        <input type="text" class="form-control" name="namaSimpang" id="namaSimpang">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label for="">Terkoneksi ATCS</label>
+                        <select class="form-control" name="terkoneksiATCS" id="terkoneksiATCS">
+                            <option value="">- Pilih -</option>
+                            <option value="Belum">Belum</option>
+                            <option value="Sudah">Sudah</option>
+                        </select>
+                    </div>
+                </div>
                 <input type="hidden" name="apillId" id="apillId">
-                <div class="form-group">
-                    <label for="">Nama Simpang</label>
-                    <input type="text" class="form-control" name="namaSimpang" id="namaSimpang">
-                </div>
-                <div class="form-group">
-                    <label for="">Terkoneksi ATCS</label>
-                    <select class="form-control" name="terkoneksiATCS" id="terkoneksiATCS">
-                        <option value="">- Pilih -</option>
-                        <option value="Belum">Belum</option>
-                        <option value="Sudah">Sudah</option>
-                    </select>
-                </div>
-                <div id="map" style="width:900px; height:500px" class="mb-4"></div>
-                <div class="form-group">
-                    <label for="">Geo Json Apill</label>
-                    <textarea type="text" class="form-control" name="geoJsonApill" id="geoJsonApill"></textarea>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="">Geo Json Apill</label>
+                        <textarea type="text" class="form-control" name="geoJsonApill" id="geoJsonApill" disabled></textarea>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -271,6 +279,8 @@
         map.on('pm:remove', (e)=> {
             $('#geoJsonApill').val('');
         })
+
+        map.addControl(L.control.search({position: 'topleft'}));
     </script>
     <!-- End Tampil Map -->
 @stop

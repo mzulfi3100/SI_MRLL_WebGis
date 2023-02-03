@@ -78,14 +78,65 @@
                             {
                                 label: '<?= $titik->lokasiKecelakaan ?>',
                                 layer: L.geoJSON(<?= $titik->geoJsonKecelakaan ?>).addTo(map),
-                                name:   '<div style="max-height: 200px;  max-width: 400px; overflow-x: auto"' +
+                                name:   '<div style="max-height: 200px;  max-width: 400px; overflow-y: auto"' +
                                             '<div class="card">' +
                                                 '<div class="card-header">' +
                                                     '<h3 class="card-title" style="text-align: center" >' + '<?= $titik->lokasiKecelakaan ?>' +'</h3>' +
                                                 '</div>' +
                                                 '<div class="card-body">' +
-                                                    '<h8><b>Deskripsi Kecelakaan</b></h8><br><br>' +
-                                                    '<?= $titik->deskripsiKecelakaan ?>' + 
+                                                    '<table class="table">' +
+                                                        '<tbody>' +
+                                                            '<th>Data Jalan</th>' +
+                                                            '<tr>' +
+                                                                '<td>Nama Jalan</td>' +
+                                                                '<td>:' + '<?= $titik->namaJalan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Tipe Jalan</td>' +
+                                                                '<td>:' + '<?= $titik->tipeJalan ?>' + '</td>'+
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Panjang Jalan</td>' +
+                                                                '<td>:' + '<?= $titik->panjangJalan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Lebar Jalan:</td>' +
+                                                                '<td>:' + '<?= $titik->lebarJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kapasitas Jalan:</td>' +
+                                                                '<td>:' + '<?= $titik->kapasitasJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Hambatan Samping</td>' +
+                                                                '<td>:' + '<?= $titik->hambatanSamping ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kondisi Jalan</td>' +
+                                                                '<td>:' + '<?= $titik->kondisiJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<th>Data Kecelakaan</th>' +
+                                                            '<tr>' +
+                                                                '<td>Penyebab Kecelakaan</td>' +
+                                                                '<td>:' +" <?= $titik->penyebabKecelakaan ?>" +'</td>' + 
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Korban Luka Ringan</td>' +
+                                                                '<td>:' +" <?= $titik->korbanLR ?>" +'</td>' + 
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Korban Luka Berat</td>' +
+                                                                '<td>:' +" <?= $titik->korbanLB ?>" +'</td>' + 
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Korban Meninggal Dunia</td>' +
+                                                                '<td>:' +" <?= $titik->korbanMD ?>" +'</td>' + 
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>' + '<a href="/administrator/jalan/<?= $titik->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                            '</tr>' +
+                                                        '</tbody>' +
+                                                    '</table>' +
                                                 '</div>' +
                                             '</div>' +
                                         '</div>' 
@@ -109,7 +160,7 @@
                                             layer.setStyle({color :'#3CB043'});
                                         }
                                     }
-                                }).addTo(map),
+                                }),
                                 name:   '<div style="max-height: 200px; overflow-y: auto"' +
                                             '<div class="card">' +
                                                 '<div class="card-header">' +

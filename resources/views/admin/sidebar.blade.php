@@ -87,14 +87,6 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/administrator/kecelakaan" class="nav-link">
-                <i class="far fa-circle" style="color:black"></i>
-                  <p style="color:white">
-                  &nbsp;&nbsp;Data Kecelakaan
-                </p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="/administrator/titik_kecelakaan" class="nav-link">
                   <i class="far fa-circle" style="color:black"></i>
                   <p style="color:white">

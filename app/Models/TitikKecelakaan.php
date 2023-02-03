@@ -10,6 +10,6 @@ class TitikKecelakaan extends Model
     use HasFactory;
     protected $table = 'titik_kecelakaans';
     protected $fillable = [
-        'id', 'lokasiKecelakaan', 'geoJsonKecelakaan', 'deskripsiKecelakaan', 'jalanKecamatanId'
+        'id', 'tanggalKecelakaan', 'penyebabKecelakaan', 'korbanMD', 'korbanLB', 'korbanLR', 'lokasiKecelakaan', 'geoJsonKecelakaan', 'deskripsiKecelakaan', 'jalanKecamatanId'
     ];
 }

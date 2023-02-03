@@ -114,17 +114,11 @@
                                 layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
                                     onEachFeature: function (feature, layer) {
                                         layer.bindTooltip('<?= $jln->namaJalan ?>');
-                                        if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 0.19){
+                                        if('<?= $jln->tingkatKemacetan ?>' == "Rendah"){
                                             layer.setStyle({color :'#3CB043'});
-                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0.20 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 0.44){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0.45 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 0.69){
-                                                layer.setStyle({color :'#3CB043'});
-                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0.70 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 0.84){
+                                        }else if('<?= $jln->tingkatKemacetan ?>' == "Sedang"){
                                                 layer.setStyle({color :'#FFF200'});
-                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> >= 0.85 && <?= $jln->volume/$jln->kapasitasJalan ?> <= 1.00){
-                                                layer.setStyle({color :'#FFF200'});
-                                        }else if(<?= $jln->volume/$jln->kapasitasJalan ?> > 1.00){
+                                        }else if('<?= $jln->tingkatKemacetan ?>' == "Tinggi"){
                                                 layer.setStyle({color :'#FF0000'});
                                         }
                                     }

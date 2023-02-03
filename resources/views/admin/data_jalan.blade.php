@@ -65,7 +65,7 @@
     </div>
     <!-- Modal Tambah dan Update -->
     <div id="jalanModal" class="modal fade" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- Form Jalan -->
                 <form id="jalanForm" name="jalanForm" >
@@ -75,49 +75,60 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body row">
                         <input type="hidden" name="jalanId" id="jalanId">
-                        <div class="form-group">
-                            <label>Kecamatan</label>
-                            <select class="form-control" name="kecamatanId" id="kecamatanId">
-                                <option value="">- Pilih Kecamatan -</option>
-                                @foreach($kecamatans as $kec)
-                                    <option value="<?= $kec->id ?>"><?= $kec->namaKecamatan ?></option>
-                                @endforeach
-                            </select>
+                        <div class="col-12">
+                            <div id="map" style="width:750px; height:450px;" class="mb-4 ml-2"></div>
                         </div>
-                        <div class="form-group">
-                            <label>Nama Jalan</label>
-                            <input type="text" class="form-control" id="namaJalan" name="namaJalan">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Kecamatan</label>
+                                <select class="form-control" name="kecamatanId" id="kecamatanId">
+                                    <option value="">- Pilih Kecamatan -</option>
+                                    @foreach($kecamatans as $kec)
+                                        <option value="<?= $kec->id ?>"><?= $kec->namaKecamatan ?></option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Tipe Jalan</label>
-                            <input type="text" class="form-control" id="tipeJalan" name="tipeJalan">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Nama Jalan</label>
+                                <input type="text" class="form-control" id="namaJalan" name="namaJalan">
+                            </div>
+                            <div class="form-group">
+                                <label>Panjang Jalan</label>
+                                <input type="text" class="form-control" id="panjangJalan" name="panjangJalan">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Panjang Jalan</label>
-                            <input type="text" class="form-control" id="panjangJalan" name="panjangJalan">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Tipe Jalan</label>
+                                <input type="text" class="form-control" id="tipeJalan" name="tipeJalan">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Lebar Jalan</label>
+                                <input type="text" class="form-control" id="lebarJalan" name="lebarJalan">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Lebar Jalan</label>
-                            <input type="text" class="form-control" id="lebarJalan" name="lebarJalan">
-                        </div>
-                        <div class="form-group">
-                            <label>Kapasitas Jalan</label>
-                            <input type="text" class="form-control" id="kapasitasJalan" name="kapasitasJalan">
-                        </div>
-                        <div class="form-group">
-                            <label>Hambatan Samping</label>
-                            <input type="text" class="form-control" id="hambatanSamping" name="hambatanSamping">
-                        </div>
-                        <div class="form-group">
-                            <label>Kondisi Jalan</label>
-                            <input type="text" class="form-control" id="kondisiJalan" name="kondisiJalan">
-                        </div>
-                        <div id="map" style="height:500px; width: 900px;" class="mb-4"></div>
-                        <div class="form-group">
-                            <label>Geo JSON Jalan</label>
-                            <textarea type="text" class="form-control" id="geoJsonJalan" name="geoJsonJalan"></textarea>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Kapasitas Jalan</label>
+                                <input type="text" class="form-control" id="kapasitasJalan" name="kapasitasJalan">
+                            </div>
+                            <div class="form-group">
+                                <label>Hambatan Samping</label>
+                                <input type="text" class="form-control" id="hambatanSamping" name="hambatanSamping">
+                            </div>
+                            <div class="form-group">
+                                <label>Kondisi Jalan</label>
+                                <input type="text" class="form-control" id="kondisiJalan" name="kondisiJalan">
+                            </div>
+                            <div class="form-group">
+                                <label>Geo JSON Jalan</label>
+                                <textarea type="text" class="form-control" id="geoJsonJalan" name="geoJsonJalan" disabled></textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -253,8 +264,6 @@
         //menambahkan layer control tree ke map
         lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
 
-        map.addControl(L.control.search({position: 'topright'}));
-
         // Geomann drawing geoJson Control
         map.pm.addControls({
             position: 'topleft',
@@ -289,6 +298,8 @@
         map.on('pm:remove', (e)=> {
             $('#geoJsonJalan').val('');
         })
+
+        map.addControl(L.control.search({position: 'topleft'}));
 
         // menampilkan batas kecamatan yang dipilih
 

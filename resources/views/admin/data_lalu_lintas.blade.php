@@ -48,7 +48,7 @@
 
         <!-- Modal -->
         <div id="lalinModal" class="modal fade" aria-hidden="true">
-            <div class="modal-dialog modal-xl" s>
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <form id="lalinForm" name="lalinForm">
                         <div class="modal-header">
@@ -57,36 +57,69 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>   
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body row">
+                            <div class="col-12">
+                                <div id="map" style="width:750px; height:450px;" class="mb-4 ml-2"></div>
+                            </div>
                             <input type="hidden" name="lalinId" id="lalinId">
                             <input type="hidden" name="jalanKecamatanId" id="jalanKecamatanId">
-                            <div class="form-group">
-                                <label>Nama Kecamatan</label>
-                                <select class="form-control" id="kecamatanId" name="kecamatanId">
-                                    <option value=""> - Pilih Kecamatan - </option>
-                                    @foreach($dataKec as $kec)
-                                        <option value="<?= $kec->kecamatanId ?>"> <?= $kec->namaKecamatan ?> </option>
-                                    @endforeach
-                                </select>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Nama Kecamatan</label>
+                                    <select class="form-control" id="kecamatanId" name="kecamatanId">
+                                        <option value=""> - Pilih Kecamatan - </option>
+                                        @foreach($dataKec as $kec)
+                                            <option value="<?= $kec->kecamatanId ?>"> <?= $kec->namaKecamatan ?> </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Volume Lalu lintas</label>
+                                    <input type="text" class="form-control" name="volume" id="volume">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Nama Jalan</label>
-                                <select class="form-control" id="jalanId" name="jalanId">
-                                    <option value=""> - Pilih Jalan - </option>
-                                </select>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Nama Jalan</label>
+                                    <select class="form-control" id="jalanId" name="jalanId">
+                                        <option value=""> - Pilih Jalan - </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Kapasitas Jalan</label>
+                                    <input type="text" class="form-control" name="kapasitasJalan" id="kapasitasJalan" disabled>
+                                </div>
                             </div>
-                            <div id="map" style="width:900px; height:500px" class="mb-4"></div>
-                            <div class="form-group">
-                                <label for="">Volume Lalu lintas</label>
-                                <input type="text" class="form-control" name="volume" id="volume">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Kecepatan Tempuh</label>
-                                <input type="text" class="form-control" name="kecepatan" id="kecepatan">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tahun</label>
-                                <input type="text" class="form-control" name="tahun" id="tahun">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">Tingkat Pelayanan</label>
+                                    <select class="form-control" id="tingkatPelayanan" name="tingkatPelayanan">
+                                        <option value="">- Pilih Tingkat Pelayanan -</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                        <option value="F">F</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Tingkat Kemacetan</label>
+                                    <select class="form-control" id="tingkatKemacetan" name="tingkatKemacetan">
+                                        <option value="">- Pilih Tingkat Kemacetan -</option>
+                                        <option value="Rendah">Rendah</option>
+                                        <option value="Sedang">Sedang</option>
+                                        <option value="Tinggi">Tinggi</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Kecepatan Tempuh</label>
+                                    <input type="text" class="form-control" name="kecepatan" id="kecepatan">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Tahun</label>
+                                    <input type="text" class="form-control" name="tahun" id="tahun">
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -311,6 +344,11 @@
                 var jalannId = this.value;
                 console.log(kecamatanId);
                 console.log(jalanId);
+                @foreach($data as $kap)
+                    if('<?= $kap->kecamatanId ?>' ==  kecamatanId && '<?= $kap->jalanId ?>' ==  jalanId){
+                        $('#kapasitasJalan').val('<?= $kap->kapasitasJalan ?>')
+                    }
+                @endforeach
                 @foreach($data as $d)
                     if('<?= $d->kecamatanId ?>' ==  kecamatanId && '<?= $d->jalanId ?>' ==  jalanId){
                         $('#jalanKecamatanId').val('<?= $d->id ?>')
@@ -461,6 +499,8 @@
                 $('#lalinModal').modal('show');
                 $('#kecamatanId').empty();
                 $('#jalanId').empty();
+                $('#tingkatPelayanan').empty();
+                $('#tingkatKemacetan').empty();
 
                 //hapus layer geoJSON
                 map.eachLayer(function(layer) {
@@ -507,6 +547,32 @@
                         text: "<?= $jln->namaJalan ?>",
                     }));
                 @endforeach
+
+                $('#tingkatPelayanan').append($('<option>', {
+                    text: "- Pilih Tingkat Pelayanan -",
+                }));
+
+                var tingPelayan = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+                for(var i = 0; i < 6; i++){
+                    $('#tingkatPelayanan').append($('<option>', {
+                        value: tingPelayan[i],
+                        text: tingPelayan[i],
+                    }));
+                }
+
+                $('#tingkatKemacetan').append($('<option>', {
+                    text: "- Pilih Tingkat Kemacetan -",
+                }));
+
+                var tingKec = ['Rendah', 'Sedang', 'Tinggi'];
+
+                for(var i = 0; i < 3; i++){
+                    $('#tingkatKemacetan').append($('<option>', {
+                        value: tingKec[i],
+                        text: tingKec[i],
+                    }));
+                }
             });
 
             // edit data
@@ -526,10 +592,15 @@
                     $('#lalinId').val(data.id);
                     $('#volume').val(data.volume);
                     $('#kecepatan').val(data.kecepatan);
+                    $('#kapasitasJalan').val(data.kapasitasJalan);
+                    $('#tingkatPelayanan').val(data.tingkatPelayanan);
+                    $('#tingkatKemacetan').val(data.tingkatKemacetan);
                     $('#tahun').val(data.tahun);
                     $('#jalanKecamatanId').val(data.jalanKecamatanId);
                     $('#kecamatanId').empty();
                     $('#jalanId').empty();
+                    $('#tingkatPelayanan').empty();
+                    $('#tingkatKemacetan').empty();
 
                     //hapus kecamatan dan jalan layer yang tersimpan
                     if(getKecamatanLayer != null && getJalanLayer != null){
@@ -609,6 +680,49 @@
                             }).addTo(getJalanGroup);
                         }
                     @endforeach
+
+
+                    var tingPelayan = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+                    for(var i = 0; i < 6; i++){
+                        if(tingPelayan[i] == data.tingkatPelayanan){
+                            $('#tingkatPelayanan').append($('<option>', {
+                                value: tingPelayan[i],
+                                text: '- ' + tingPelayan[i] + ' -',
+                            }));
+                        }
+                    }
+
+                    for(var i = 0; i < 6; i++){
+                        if(tingPelayan[i] == data.tingkatPelayanan){
+                        }else{
+                            $('#tingkatPelayanan').append($('<option>', {
+                                value: tingPelayan[i],
+                                text: tingPelayan[i],
+                            }));
+                        }
+                    }
+
+                    var tingKec = ['Rendah', 'Sedang', 'Tinggi'];
+
+                    for(var i = 0; i < 3; i++){
+                        if(tingKec[i] == data.tingkatKemacetan){
+                            $('#tingkatKemacetan').append($('<option>', {
+                                value: tingKec[i],
+                                text: '- ' + tingKec[i] + ' -',
+                            }));
+                        }
+                    }
+
+                    for(var i = 0; i < 3; i++){
+                        if(tingKec[i] == data.tingkatKemacetan){
+                        }else{
+                            $('#tingkatKemacetan').append($('<option>', {
+                                value: tingKec[i],
+                                text: tingKec[i],
+                            }));
+                        }
+                    }
                 });
             });
 

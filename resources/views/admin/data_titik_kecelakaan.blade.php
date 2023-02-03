@@ -52,7 +52,6 @@
                     <th>Nama Jalan</th>
                     <th>Kecamatan</th>
                     <th>Lokasi</th>
-                    <th>Deskripsi</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -63,7 +62,7 @@
     <!-- End Tabel Apill -->
     <!-- Modal -->
     <div id="titikLakaModal" class="modal fade" aria-hidden="true">
-      <div class="modal-dialog modal-xl" s>
+      <div class="modal-dialog modal-lg" s>
         <div class="modal-content">
           <form id="titikLakaForm" name="titikLakaForm">
             <div class="modal-header">
@@ -72,36 +71,69 @@
                 <span aria-hidden="true">&times;</span>
               </button>   
             </div>
-            <div class="modal-body">
+            <div class="modal-body row">
+                <div class="col-12">
+                    <div id="map" style="width:750px; height:450px;" class="mb-4 ml-2"></div>
+                </div>
                 <input type="hidden" name="titikLakaId" id="titikLakaId">
                 <input type="hidden" name="jalanKecamatanId" id="jalanKecamatanId">
-                <div class="form-group">
-                    <label>Nama Kecamatan</label>
-                    <select class="form-control" id="kecamatanId" name="kecamatanId">
-                        <option value=""> - Pilih Kecamatan - </option>
-                        @foreach($dataKec as $kec)
-                            <option value="<?= $kec->kecamatanId ?>"> <?= $kec->namaKecamatan ?> </option>
-                        @endforeach
-                    </select>
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label>Nama Kecamatan</label>
+                        <select class="form-control" id="kecamatanId" name="kecamatanId">
+                            <option value=""> - Pilih Kecamatan - </option>
+                            @foreach($dataKec as $kec)
+                                <option value="<?= $kec->kecamatanId ?>"> <?= $kec->namaKecamatan ?> </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Nama Jalan</label>
-                    <select class="form-control" id="jalanId" name="jalanId">
-                        <option value=""> - Pilih Jalan - </option>
-                    </select>
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label>Nama Jalan</label>
+                        <select class="form-control" id="jalanId" name="jalanId">
+                            <option value=""> - Pilih Jalan - </option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="">Lokasi</label>
-                    <input type="text" class="form-control" name="lokasiKecelakaan" id="lokasiKecelakaan">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="">Tanggal</label>
+                        <input type="date" class="form-control" name="tanggalKecelakaan" id="tanggalKecelakaan">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Penyebab</label>
+                        <input type="text" class="form-control" name="penyebabKecelakaan" id="penyebabKecelakaan">
+                    </div>
+                </div>                
+                <div class="col-12 col-sm-4">
+                    <div class="form-group">
+                        <label for="">Korban Luka Ringan</label>
+                        <input type="text" class="form-control" name="korbanLR" id="korbanLR">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="">Deskripsi</label>
-                    <input type="text" class="form-control" name="deskripsiKecelakaan" id="deskripsiKecelakaan">
+                <div class="col-12 col-sm-4">
+                    <div class="form-group">
+                        <label for="">Korban Luka Berat</label>
+                        <input type="text" class="form-control" name="korbanLB" id="korbanLB">
+                    </div>
                 </div>
-                <div id="map" style="width:900px; height:500px" class="mb-4"></div>
-                <div class="form-group">
-                    <label for="">Geo Json Titik Kecelakaan</label>
-                    <textarea type="text" class="form-control" name="geoJsonKecelakaan" id="geoJsonKecelakaan"></textarea>
+                <div class="col-12 col-sm-4">
+                    <div class="form-group">
+                        <label for="">Korban Meninggal Dunia</label>
+                        <input type="text" class="form-control" name="korbanMD" id="korbanMD">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="">Lokasi</label>
+                        <input type="text" class="form-control" name="lokasiKecelakaan" id="lokasiKecelakaan">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Geo Json Titik Kecelakaan</label>
+                        <textarea type="text" class="form-control" name="geoJsonKecelakaan" id="geoJsonKecelakaan" readonly></textarea>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -372,14 +404,13 @@
                 "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 'order': [[2, 'asc']],
                 columnDefs: [
-                    {orderable: false, searchable: false, targets: [0, 1, 6]},
+                    {orderable: false, searchable: false, targets: [0, 1, 5]},
                     {width: 10, targets: 0},
                     {width: 20, targets: 1},
                     {width: 155, targets: 2},
                     {width: 100, targets: 3},
                     {width: 100, targets: 4},
                     {width: 100, targets: 5},
-                    {width: 40, targets: 6},
                 ],
                 columns: [
                     {data: 'checkbox', name: 'checkbox'},
@@ -387,7 +418,6 @@
                     {data: 'namaJalan', name: 'namaJalan'},
                     {data: 'namaKecamatan', name: 'namaKecamatan'},
                     {data: 'lokasiKecelakaan', name: 'lokasiKecelakaan'},
-                    {data: 'deskripsiKecelakaan', name: 'deskripsiKecelakaan'},
                     {data: 'action', name: 'action'},
                 ],
                 ajax: "{{ route('titik_kecelakaan.index') }}",
@@ -615,8 +645,12 @@
                     });
                     $('#titikLakaModal').modal('show');
                     $('#titikLakaId').val(data.id);
+                    $('#tanggalKecelakaan').val(data.tanggalKecelakaan);
                     $('#lokasiKecelakaan').val(data.lokasiKecelakaan);
-                    $('#deskripsiKecelakaan').val(data.deskripsiKecelakaan);
+                    $('#penyebabKecelakaan').val(data.penyebabKecelakaan);
+                    $('#korbanMD').val(data.korbanMD);
+                    $('#korbanLB').val(data.korbanLB);
+                    $('#korbanLR').val(data.korbanLR);
                     $('#geoJsonKecelakaan').val(data.geoJsonKecelakaan);
                     $('#jalanKecamatanId').val(data.jalanKecamatanId);
                     $('#kecamatanId').empty();

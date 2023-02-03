@@ -177,16 +177,16 @@
                         <h3 class="card-title mt-2 ml-4">Data Kecelakaan</h3>
                     </div>
                     <div class="card-header p-0 pt-1">
-                        <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
                             <?php $count = 0 ?>
                             @foreach($kecelakaan as $laka)
                             <?php if($count == 0){ ?>
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="custom-tabs-one-<?= $count ?>-tab" data-toggle="pill" href="#custom-tabs-one-<?= $count ?>" role="tab" aria-controls="custom-tabs-one-<?= $count ?>" aria-selected="true"><?= $laka->tahunKecelakaan ?></a>
+                                    <a class="nav-link active" id="custom-tabs-two-<?= $count ?>-tab" data-toggle="pill" href="#custom-tabs-two-<?= $count ?>" role="tab" aria-controls="custom-tabs-two-<?= $count ?>" aria-selected="true"><?= $laka->tahunKecelakaan ?></a>
                                 </li>
                             <?php }else{ ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-one-<?= $count ?>-tab" data-toggle="pill" href="#custom-tabs-one-<?= $count ?>" role="tab" aria-controls="custom-tabs-one-<?= $count ?>" aria-selected="false"><?= $laka->tahunKecelakaan ?></a>
+                                    <a class="nav-link" id="custom-tabs-two-<?= $count ?>-tab" data-toggle="pill" href="#custom-tabs-two-<?= $count ?>" role="tab" aria-controls="custom-tabs-two-<?= $count ?>" aria-selected="false"><?= $laka->tahunKecelakaan ?></a>
                                 </li>
                             <?php } ?>
                             <?php $count++ ?>
@@ -194,47 +194,51 @@
                         </ul>
                     </div>
                     <div class="card-body">
-                        <div class="tab-content" id="custom-tabs-one-tabContent">
+                        <div class="tab-content" id="custom-tabs-two-tabContent">
                         <?php $count = 0 ?>
                         @foreach($kecelakaan as $laka)
                         <?php if($count == 0){ ?>
-                            <div class="tab-pane fade show active" id="custom-tabs-one-<?= $count ?>" role="tabpanel" aria-labelledby="custom-tabs-one-<?= $count ?>-tab">
+                            <div class="tab-pane fade show active" id="custom-tabs-two-<?= $count ?>" role="tabpanel" aria-labelledby="custom-tabs-two-<?= $count ?>-tab">
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td>Penyebab</td>
-                                            <td>: <?= $laka->penyebabKecelakaan ?></td>
-                                        </tr>
-                                        <tr>
                                             <td>Korban Meninggal Dunia</td>
-                                            <td>: <?= $laka->jumlahKorbanMeninggalDunia ?></td>
+                                            <td>: <?= $laka->korbanMD ?></td>
                                         </tr>
                                         <tr>
                                             <td>Korban Luka Berat</td>
-                                            <td>: <?= $laka->jumlahKorbanLukaBerat ?></td>
+                                            <td>: <?= $laka->korbanLB ?></td>
                                         </tr>
                                         <tr>
                                             <td>Korban Luka Ringan</td>
-                                            <td>: <?= $laka->jumlahKorbanLukaRingan ?></td>
+                                            <td>: <?= $laka->korbanLR ?></td>
                                         </tr>
                                         <tr>
                                             <td>Total Kecelakaan</td>
-                                            <td>: <?= $laka->totalKecelakaan ?></td>
+                                            <td>: <?= $laka->jumlahKecelakaan ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         <?php }else{ ?>
-                            <div class="tab-pane fade" id="custom-tabs-one-<?= $count ?>" role="tabpanel" aria-labelledby="custom-tabs-one-<?= $count ?>-tab">
+                            <div class="tab-pane fade" id="custom-tabs-two-<?= $count ?>" role="tabpanel" aria-labelledby="custom-tabs-two-<?= $count ?>-tab">
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td>Volume Lalu Lintas:</td>
-                                            <td><?= $laka->volume ?></td>
+                                            <td>Korban Meninggal Dunia</td>
+                                            <td>: <?= $laka->korbanMD ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Kecepatan Tempuh:</td>
-                                            <td><?= $laka->kecepatan ?></td>
+                                            <td>Korban Luka Berat</td>
+                                            <td>: <?= $laka->korbanLB ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Korban Luka Ringan</td>
+                                            <td>: <?= $laka->korbanLR ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Kecelakaan</td>
+                                            <td>: <?= $laka->jumlahKecelakaan ?></td>
                                         </tr>
                                     </tbody>
                                 </table>

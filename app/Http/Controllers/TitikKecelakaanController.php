@@ -87,9 +87,13 @@ class TitikKecelakaanController extends Controller
         TitikKecelakaan::updateOrCreate([
             'id' => $request->titikLakaId
         ],  [
+            'tanggalKecelakaan' => $request->tanggalKecelakaan,
+            'penyebabKecelakaan' => $request->penyebabKecelakaan,
+            'korbanMD' => $request->korbanMD,
+            'korbanLB' => $request->korbanLB,
+            'korbanLR' => $request->korbanLR,
             'lokasiKecelakaan' => $request->lokasiKecelakaan,
             'geoJsonKecelakaan' => $request->geoJsonKecelakaan,
-            'deskripsiKecelakaan' => $request->deskripsiKecelakaan,
             'jalanKecamatanId' => $request->jalanKecamatanId,
         ]);
 

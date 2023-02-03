@@ -70,9 +70,15 @@ class AdminController extends Controller
                             })
                             ->select('kecelakaans.*')
                             ->get();
-        $titikLaka = TitikKecelakaan::get();
+        $titikLaka = DB::table('titik_kecelakaans')
+                        ->join('jalans_kecamatans', 'titik_kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                        ->join('jalans', 'jalans.id', '=', 'jalans_kecamatans.jalanId')
+                        ->select('titik_kecelakaans.*', 'jalans.*', 'titik_kecelakaans.id as titikID', 'jalans.id as jalanID')
+                        ->get();
+            
         $kecamatans = Kecamatan::get();
         $jalans = Jalan::get();
+        // return response()->json($titikLaka);
         return view('admin/peta_kecelakaan', compact('kecamatans', 'jalans', 'perhitungan', 'totalKecelakaan', 'titikLaka'));
     }
     
