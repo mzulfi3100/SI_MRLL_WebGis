@@ -11,6 +11,7 @@ use App\Http\Controllers\KecelakaanController;
 use App\Http\Controllers\ApillController;
 use App\Http\Controllers\TitikKemacetanController;
 use App\Http\Controllers\TitikKecelakaanController;
+use App\Http\Controllers\PenggunaJalanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +139,4 @@ Route::get('/administrator/jalan/{id}/show', [JalanController::class, 'show']);
 // Route::post('password', [UserController::class, 'password_action'])->name('password.action');
 // Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('dashboardPenggunaJalan', function () {
-    return view ('penggunaJalan/landingPage');
-});
+Route::get('dashboardPenggunaJalan', [PenggunaJalanController::class, 'index']);
