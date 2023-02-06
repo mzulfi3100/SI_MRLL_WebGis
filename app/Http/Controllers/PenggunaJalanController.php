@@ -39,4 +39,27 @@ class PenggunaJalanController extends Controller
 
         return view('penggunaJalan/landingPage', compact('kecamatans', 'jalans', 'data', 'titikLaka', 'apills', 'titikMacet'));
     }
+
+    public function detailJalan($id){
+        $jalan = DB::table('jalans_kecamatans')
+                        ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                        ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                        ->where('jalans_kecamatans.id', '=', $id)
+                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan')
+                        ->first();
+
+        $lalulintas = DB::table('lalulintas')
+                        ->where('lalulintas.tahun', '>', DB::raw('year(NOW()) - 3'))
+                        ->where('lalulintas.jalanKecamatanId', '=', $id)
+                        ->orderBy('lalulintas.tahun', 'desc')
+                        ->get();
+        $kecelakaan = DB::table('titik_kecelakaans')
+                        ->where(DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan)'), '>', DB::raw('year(NOW()) - 3'))
+                        ->where('titik_kecelakaans.jalanKecamatanId', '=', $id)
+                        ->orderBy(DB::raw('titik_kecelakaans.tanggalKecelakaan'), 'desc')
+                        ->select(DB::raw('sum(titik_kecelakaans.korbanMD) as korbanMD'), DB::raw('sum(titik_kecelakaans.korbanLB) as korbanLB'), DB::raw('sum(titik_kecelakaans.korbanLR) as korbanLR'), DB::raw('count(*) as jumlahKecelakaan'), DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan) as tahunKecelakaan'))
+                        ->groupBy(DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan)'))
+                        ->get();
+        return view('penggunaJalan/detail_jalan', compact('jalan', 'lalulintas', 'kecelakaan'));
+    }
 }

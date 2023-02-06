@@ -660,7 +660,7 @@ https://templatemo.com/tm-573-eduwell
                                                                 '<td>:' +" <?= $titik->korbanMD ?>" +'</td>' + 
                                                             '</tr>' +
                                                             '<tr>' +
-                                                                '<td>' + '<a href="/administrator/jalan/<?= $titik->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                                '<td>' + '<a href="/detail_jalan/<?= $titik->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
                                                             '</tr>' +
                                                         '</tbody>' +
                                                     '</table>' +
@@ -764,7 +764,7 @@ https://templatemo.com/tm-573-eduwell
                                                                 '<td>:' + '<?= $jln->kecepatan ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
-                                                                '<td>' + '<a href="/administrator/jalan/<?= $jln->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                                '<td>' + '<a href="/detail_jalan/<?= $jln->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
                                                             '</tr>' +
                                                         '</tbody>' +
                                                     '</table>' +

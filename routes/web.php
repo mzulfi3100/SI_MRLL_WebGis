@@ -140,3 +140,5 @@ Route::get('/administrator/jalan/{id}/show', [JalanController::class, 'show']);
 // Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('dashboardPenggunaJalan', [PenggunaJalanController::class, 'index']);
+
+Route::get('/detail_jalan/{id}', [PenggunaJalanController::class, 'detailJalan']);
