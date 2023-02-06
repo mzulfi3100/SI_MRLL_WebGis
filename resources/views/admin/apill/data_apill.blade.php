@@ -104,7 +104,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="">Geo Json Apill</label>
-                        <textarea type="text" class="form-control" name="geoJsonApill" id="geoJsonApill" disabled></textarea>
+                        <textarea type="text" class="form-control" name="geoJsonApill" id="geoJsonApill" readonly></textarea>
                     </div>
                 </div>
             </div>
