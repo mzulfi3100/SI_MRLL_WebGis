@@ -163,23 +163,18 @@
                         label: 'Jalan',
                         selectAllCheckbox: true,
                         children: [
-                            @foreach($perhitungan as $htg)
+                            @foreach($jalans as $jln)
                             {
-                                label: '<?= $htg->namaJalan ?>', 
-                                layer: L.geoJSON(<?= $htg->geoJsonJalan ?>, {
+                                label: '<?= $jln->namaJalan ?>', 
+                                layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
                                     onEachFeature: function (feature, layer) {
-                                        layer.bindTooltip('<?= $htg->namaJalan ?>');
-                                        if('<?= $htg->nilai ?>' > 0){
-                                            layer.setStyle({color :'#FF0000'});
-                                        }else if('<?= $htg->nilai ?>' < 0){
-                                            layer.setStyle({color :'#3CB043'});
-                                        }
+                                        layer.bindTooltip('<?= $jln->namaJalan ?>');
                                     }
                                 }),
                                 name:   '<div style="max-height: 200px; overflow-y: auto"' +
                                             '<div class="card">' +
                                                 '<div class="card-header">' +
-                                                    '<h3 class="card-title">' + '<?= $htg->namaJalan ?>' +'</h3>' +
+                                                    '<h3 class="card-title">' + '<?= $jln->namaJalan ?>' +'</h3>' +
                                                 '</div>' +
                                                 '<div class="card-body">' +
                                                     '<table class="table">' +
@@ -187,67 +182,31 @@
                                                             '<th>Data Jalan</th>' +
                                                             '<tr>' +
                                                                 '<td>Nama Jalan</td>' +
-                                                                '<td>:' + '<?= $htg->namaJalan ?>' + '</td>' +
+                                                                '<td>:' + '<?= $jln->namaJalan ?>' + '</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Tipe Jalan</td>' +
-                                                                '<td>:' + '<?= $htg->tipeJalan ?>' + '</td>'+
+                                                                '<td>:' + '<?= $jln->tipeJalan ?>' + '</td>'+
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Panjang Jalan</td>' +
-                                                                '<td>:' + '<?= $htg->panjangJalan ?>' + '</td>' +
+                                                                '<td>:' + '<?= $jln->panjangJalan ?>' + '</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Lebar Jalan:</td>' +
-                                                                '<td>:' + '<?= $htg->lebarJalan ?>' +'</td>' +
+                                                                '<td>:' + '<?= $jln->lebarJalan ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Kapasitas Jalan:</td>' +
-                                                                '<td>:' + '<?= $htg->kapasitasJalan ?>' +'</td>' +
+                                                                '<td>:' + '<?= $jln->kapasitasJalan ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Hambatan Samping</td>' +
-                                                                '<td>:' + '<?= $htg->hambatanSamping ?>' +'</td>' +
+                                                                '<td>:' + '<?= $jln->hambatanSamping ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Kondisi Jalan</td>' +
-                                                                '<td>:' + '<?= $htg->kondisiJalan ?>' +'</td>' +
-                                                            '</tr>' +
-                                                            '<th>Data Kecelakaan</th>' +
-                                                            '<tr>' +
-                                                                '<td>Korban Luka Ringan</td>' +
-                                                                @foreach($totalKecelakaan as $total)
-                                                                    <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
-                                                                        '<td>:' +" <?= $total->jumlahKorbanLukaRingan ?>" +'</td>' + 
-                                                                    <?php } ?>
-                                                                @endforeach
-                                                            '</tr>' +
-                                                            '<tr>' +
-                                                                '<td>Korban Luka Berat</td>' +
-                                                                @foreach($totalKecelakaan as $total)
-                                                                    <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
-                                                                        '<td>:' +" <?= $total->jumlahKorbanLukaBerat ?>" +'</td>' + 
-                                                                    <?php } ?>
-                                                                @endforeach
-                                                            '</tr>' +
-                                                            '<tr>' +
-                                                                '<td>Korban Meninggal Dunia</td>' +
-                                                                @foreach($totalKecelakaan as $total)
-                                                                    <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
-                                                                        '<td>:' +" <?= $total->jumlahKorbanMeninggalDunia ?>" +'</td>' + 
-                                                                    <?php } ?>
-                                                                @endforeach
-                                                            '</tr>' +
-                                                            '<tr>' +
-                                                                '<td>Total Kecelakaan</td>' +
-                                                                @foreach($totalKecelakaan as $total)
-                                                                    <?php if($total->jalanKecamatanId == $htg->jalanKecamatanId){ ?>
-                                                                        '<td>:' +" <?= $total->totalKecelakaan ?>" +'</td>' + 
-                                                                    <?php } ?>
-                                                                @endforeach
-                                                            '</tr>' +
-                                                            '<tr>' +
-                                                                '<td>' + '<a href="/administrator/jalan/<?= $htg->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                                '<td>:' + '<?= $jln->kondisiJalan ?>' +'</td>' +
                                                             '</tr>' +
                                                         '</tbody>' +
                                                     '</table>' +
