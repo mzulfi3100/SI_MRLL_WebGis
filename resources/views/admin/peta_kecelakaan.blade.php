@@ -59,6 +59,15 @@
             "fillOpacity": 0 ,
         };
 
+        var laka = L.icon({
+            iconUrl: '/laka.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
         L.geoJSON(kabupatenJson, {
             style: kabupatenStyle
         }).addTo(map);
@@ -78,7 +87,12 @@
                             @foreach($titikLaka as $titik)
                             {
                                 label: '<?= $titik->lokasiKecelakaan ?>',
-                                layer: L.geoJSON(<?= $titik->geoJsonKecelakaan ?>).addTo(map),
+                                layer: L.geoJSON(<?= $titik->geoJsonKecelakaan ?>, {
+                                            onEachFeature: function(feature, layer){
+                                                layer.bindTooltip('<?= $titik->lokasiKecelakaan ?>');
+                                                layer.setIcon(laka);
+                                            }
+                                        }).addTo(map),
                                 name:   '<div style="max-height: 200px;  max-width: 400px; overflow-y: auto"' +
                                             '<div class="card">' +
                                                 '<div class="card-header">' +
@@ -301,19 +315,9 @@
             opacity: 1,
             column: 2,
             legends: [{
-                label: "Rawan Kecelakaan",
-                type: "polyline",
-                color: "#FF0000",
-                weight: 2,
-            },  {
-                label: "Tidak Rawan Kecelakaan",
-                type: "polyline",
-                color: "#3CB043",
-                weight: 2,
-            },  {
-                label: "Titik Kecelakaan",
+                label: "Rawan Laka",
                 type: "image",
-                url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                url: '/laka.png',
             }]
         }).addTo(map);
 
@@ -328,19 +332,9 @@
                 opacity: 1,
                 column: 2,
                 legends: [{
-                    label: "Rawan Kecelakaan",
-                    type: "polyline",
-                    color: "#FF0000",
-                    weight: 2,
-                },  {
-                    label: "Tidak Rawan Kecelakaan",
-                    type: "polyline",
-                    color: "#3CB043",
-                    weight: 2,
-                },  {
-                    label: "Titik Kecelakaan",
+                    label: "Rawan Laka",
                     type: "image",
-                    url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                    url: '/laka.png',
                 }]
             }).addTo(e.printMap);
         });

@@ -20,6 +20,15 @@
             subdomains:['mt0','mt1','mt2','mt3']
         });
 
+        var macet = L.icon({
+            iconUrl: '/macet.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
         var map = L.map('map', {
             layers: [street, hybrid, satellite],
             center: [-5.420000, 105.292969],
@@ -88,7 +97,7 @@
                                 layer: L.geoJSON(<?= $titik->geoJsonKemacetan ?>, {
                                     onEachFeature: function(feature, layer){
                                         layer.bindTooltip('<?= $titik->lokasiKemacetan ?>');
-                                        layer.setIcon(blue);
+                                        layer.setIcon(macet);
                                     }
                                 }).addTo(map),
                                 name:   '<div style="max-height: 200px;  max-width: 400px; overflow-x: auto"' +
@@ -253,7 +262,7 @@
             },  {
                 label: "Titik Kemacetan",
                 type: "image",
-                url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                url: '/macet.png',
             }]
         }).addTo(map);
 
@@ -284,7 +293,7 @@
             },  {
                 label: "Titik Kemacetan",
                 type: "img",
-                url: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                url: '/macet.png',
             }]}).addTo(e.printMap);
         });
 

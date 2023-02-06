@@ -59,8 +59,8 @@
             "fillOpacity": 0 ,
         };
 
-        var green = L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        var atcs = L.icon({
+            iconUrl: '/ATCS.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
@@ -68,8 +68,8 @@
             shadowSize: [41, 41]
         });
 
-        var red = L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        var apill = L.icon({
+            iconUrl: '/apill.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
@@ -98,9 +98,9 @@
                                         onEachFeature: function(feature, layer){
                                             layer.bindTooltip('<?= $apill->namaSimpang ?>');
                                             if('<?= $apill->terkoneksiATCS ?>' == 'Sudah'){
-                                                layer.setIcon(green);
+                                                layer.setIcon(atcs);
                                             }else{
-                                                layer.setIcon(red);
+                                                layer.setIcon(apill);
                                             }
                                         }
                                     }).addTo(map),
@@ -182,11 +182,11 @@
             legends: [{
                 label: "Terkoneksi ATCS",
                 type: "image",
-                url: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png"
+                url: "/ATCS.png"
             },  {
                 label: "Tidak Terkoneksi ATCS",
                 type: "image",
-                url: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png"
+                url: "/apill.png"
             }]
         }).addTo(map);
 
@@ -203,11 +203,11 @@
                 legends: [{
                     label: "Terkoneksi ATCS",
                     type: "image",
-                    url: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png"
+                    url: "/ATCS.png"
                 },  {
                     label: "Tidak Terkoneksi ATCS",
                     type: "image",
-                    url: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png"
+                    url: "/apill.png"
                 }]
             }).addTo(e.printMap);
         });
