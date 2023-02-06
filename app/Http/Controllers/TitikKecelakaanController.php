@@ -97,7 +97,7 @@ class TitikKecelakaanController extends Controller
             'jalanKecamatanId' => $request->jalanKecamatanId,
         ]);
 
-        return response()->json(['success'=>'Product saved successfully.']);
+        return response()->json(['code'=>1, 'msg'=> ' Berhasil Menyimpan Data Titik Kecelakan']);
     }
 
     /**
@@ -147,11 +147,11 @@ class TitikKecelakaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $titikMacet = TitikKecelakaan::find($id);
-        $titikMacet->delete();
-        return response()->json(['success'=>'Product deleted successfully']);
+        $titikLaka = TitikKecelakaan::find($request->titikLakaId);
+        $titikLaka->delete();
+        return response()->json(['code'=>1, 'msg'=> ' Data Titik Kecelakaan Berhasil Dihapus']);
     }
     public function deleteSelectedTitikKecelakaan(Request $request){
         $titikKecelakaan_ids = $request->titikKecelakaan_id;

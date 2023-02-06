@@ -1,3 +1,4 @@
+<?php $title="Data Lalu Lintas"?>
 @extends('admin/template')
 @section('content')
     <!-- Content Header (Page header) -->
@@ -42,12 +43,11 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="p-4">
+              <div class="p-2">
         <!-- <a href="{{ route('lalulinta.create') }}" type="button" class="btn btn-primary mb-3">Tambah Data Lalu Lintas</a> -->
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahLalinBaru">Tambah Data</button>
-        <!-- Trigger modal hapus all data with a button -->
-        <a href="#" type="button" class="btn btn-danger" >Hapus Semua</a>
+        
         <!-- Trigger selected delete data with a button -->
         <button class="btn btn-danger d-none" id="deleteAllBtn"></button>
 
@@ -137,7 +137,7 @@
         </div>
         <div> &nbsp; </div>
         <!-- DataTable -->
-        <table class="table table-striped yajra-datatable p-0">
+        <table class="table table-striped yajra-datatable table-bordered">
             <thead class="table-dark"> 
                 <tr>
                 <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox"><label></label></th>
@@ -752,6 +752,7 @@
                     toastr.success(data.msg);
                     $('#lalinForm').trigger('reset');
                     $('#lalinModal').modal('hide');
+                    toastr.success(data.msg);
                     table.draw();
                 },
                 error: function(data){

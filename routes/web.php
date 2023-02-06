@@ -109,6 +109,16 @@ Route::post('/deleteSelectedApill', [ApillController::class, 'deleteSelectedApil
 
 Route::post('/administrator/lalu_lintas/destroy', [LaluLintaController::class, 'destroy'])->name('lalulinta.destroy');
 
+Route::post('/administrator/titikKemacetan/destroy', [TitikKemacetanController::class, 'destroy'])->name('titikKemacetan.destroy');
+
+Route::post('/administrator/titikLaka/destroy', [TitikKecelakaanController::class, 'destroy'])->name('titikLaka.destroy');
+
+Route::post('/administrator/kecamatan/destroy', [KecamatanController::class, 'destroy'])->name('kecamatan.destroy');
+
+Route::post('/administrator/apill/destroy', [ApillController::class, 'destroy'])->name('apill.destroy');
+
+Route::post('/administrator/jalan/hapus', [JalanController::class, 'hapus'])->name('jalan.hapus');
+
 Route::post('/deleteSelectedKecelakaan', [KecelakaanController::class, 'deleteSelectedKecelakaan'])->name('delete.selected.kecelakaan');
 
 Route::get('/administrator/jalan/{id}/show', [JalanController::class, 'show']);

@@ -98,7 +98,7 @@ class JalanController extends Controller
             'kecamatanId' => $request->kecamatanId,
         ]);
         // mengembalikan response success
-        return response()->json(['success'=>'Data Jalan Telah Berhasil Disimpan']);
+        return response()->json(['code'=>1, 'msg'=> ' Berhasil Menyimpan Data Kecamatan']);
     }
 
     /**
@@ -188,15 +188,15 @@ class JalanController extends Controller
 
     public function hapus(Request $request)
     {
-        JalanKecamatan::where('jalanId', $request->jalan)
-                        ->where('kecamatanId', $request->kecamatan)
+        JalanKecamatan::where('jalanId', $request->jalanId)
+                        ->where('kecamatanId', $request->kecamatanId)
                         ->delete();
 
-        $jalan = Jalan::find($request->jalan);
+        $jalan = Jalan::find($request->jalanId);
         $jalan->delete();
 
         // mengembalikan response success
-        return response()->json(['success' => 'Data Jalan Telah Berhasil Dihapus']);
+        return response()->json(['code'=>1, 'msg'=> ' Data Jalan Berhasil Dihapus']);
     }
     public function deleteSelectedJalan(Request $request){
         $jalan_ids = $request->jalan_id;

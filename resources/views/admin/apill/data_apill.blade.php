@@ -1,3 +1,4 @@
+<?php $title="Data Apill"?>
 @extends('admin/template')
 @section('content')
     <!-- Content Header -->
@@ -44,12 +45,12 @@
         <div class="row">
           <div class="col-auto">
             <div class="card">
-              <div class="p-4">
+              <div class="p-2">
         <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahApillBaru">Tambah Data</button>
         <!-- Trigger selected delete data with a button -->
         <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
         
-        <table class="table table-striped yajra-datatable p-0">
+        <table class="table table-striped yajra-datatable table-bordered">
             <thead class="table-dark">
                 <tr>
                 <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox"><label></label></th>
@@ -104,7 +105,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="">Geo Json Apill</label>
-                        <textarea type="text" class="form-control" name="geoJsonApill" id="geoJsonApill" disabled></textarea>
+                        <textarea type="text" class="form-control" name="geoJsonApill" id="geoJsonApill" readonly></textarea>
                     </div>
                 </div>
             </div>
@@ -550,6 +551,7 @@
                     console.log('save');
                     $('#apillForm').trigger('reset');
                     $('#apillModal').modal('hide');
+                    toastr.success(data.msg);
                     table.draw();
                 },
                 error: function(data){
@@ -563,18 +565,34 @@
             // delete data
             $('body').on('click', '.deleteApill', function () {
                 var apillId = $(this).data("id");
-                confirm("Are You sure want to delete !");
                 
-                $.ajax({
-                    type: "DELETE",
-                    url: "{{ route('apill.store') }}"+'/'+apillId,
-                    success: function (data) {
-                        table.draw();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
+                swal.fire({
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        title:'<h3 style ="color:red">Peringatan!</h3>',
+                        icon: 'warning',
+                        html:'Apakah anda yakin ingin menghapus <b></b> data apill yang dipilih?',
+                        showCancelButton:true,
+                        showCloseButton:true,
+                        confirmButtonText:'Lanjutkan',
+                        cancelButtonText:'Kembali',
+                        confirmButtonColor:'#28a745',
+                        cancelButtonColor:'#d33',
+                        width:500,
+                        allowOutsideClick:false
+                    }).then(function(result){
+                        if(result.value){
+                            $.post("{{ route('apill.destroy') }}", {apillId},function(data){
+                                if(data.code == 1){
+                                    toastr.success(data.msg);
+                                    table.draw();
+                                }else{
+                                    toastr.error(data.msg);
+                                }
+                            },'json');
+                        }
+                    })
             });
         });
     </script>

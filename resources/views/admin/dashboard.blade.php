@@ -1,6 +1,7 @@
 
 
   <!-- untuk memanggil file header.blade.php -->
+  <?php $title="Dashboard"?>
   @include('admin/header')
 
   <!-- untuk memanggil file sidebar.blade.php -->

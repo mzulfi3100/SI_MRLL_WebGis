@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="style.css">
   <meta charset="utf-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Dashboard</title>
+  <title><?= $title ?></title>
 
   <link rel="stylesheet" href="{{'/Assets/css/style4.css'}}" type="text/css">
 

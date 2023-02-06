@@ -83,7 +83,7 @@ class ApillController extends Controller
             'geoJsonApill' => $request->geoJsonApill,
         ]);
 
-        return response()->json(['success'=>'Product saved successfully.']);
+        return response()->json(['code'=>1, 'msg'=> ' Berhasil Menyimpan Data Apill']);
     }
 
     /**
@@ -140,11 +140,11 @@ class ApillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $apill = Apill::find($id);
+        $apill = Apill::find($request->apillId);
         $apill->delete();
-        return response()->json(['success'=>'Product deleted successfully.']);
+        return response()->json(['code'=>1, 'msg'=> ' Data Apill Berhasil Dihapus']);
     }
     public function deleteSelectedApill(Request $request){
         $apill_ids = $request->apill_id;

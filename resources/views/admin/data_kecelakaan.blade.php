@@ -1,3 +1,4 @@
+<?php $title="Data Kecelakaan"?>
 @extends('admin/template')
 @section('content')
     <!-- Content Header (Page header) -->
@@ -696,6 +697,7 @@
                 type: "DELETE",
                 url: "{{ route('kecelakaan.store') }}"+'/'+lakaId,
                 success: function (data) {
+                    toastr.success(data.msg);
                     table.draw();
                 },
                 error: function (data) {

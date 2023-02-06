@@ -78,7 +78,7 @@ class KecamatanController extends Controller
             ]);
         }
         
-        return response()->json(['success'=>'Product saved successfully.']);
+        return response()->json(['code'=>1, 'msg'=> ' Berhasil Menyimpan Data Kecamatan']);
     }
 
     /**
@@ -130,11 +130,11 @@ class KecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $kecamatan = Kecamatan::find($id);
+        $kecamatan = Kecamatan::find($request->kecamatanId);
         $kecamatan->delete();
-        return response()->json(['success'=>'Product deleted successfully.']);
+        return response()->json(['code'=>1, 'msg'=> ' Data Kecamatan Berhasil Dihapus']);
     }
     public function deleteAllTruncate(){
 

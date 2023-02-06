@@ -99,7 +99,7 @@ class KecelakaanController extends Controller
             'jalanKecamatanId' => $request->jalanKecamatanId,
         ]);
 
-        return response()->json(['success'=>'Product saved successfully.']);
+        return response()->json(['code'=>1, 'msg'=> ' Berhasil Menyimpan Data Kecelakaan']);
     }
 
     /**

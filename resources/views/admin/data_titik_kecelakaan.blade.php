@@ -1,3 +1,4 @@
+<?php $title="Data Titik Kecelakaan"?>
 @extends('admin/template')
 @section('content')
     <!-- Content Header -->
@@ -39,12 +40,17 @@
     </div>
     <!-- End Content Header -->           
     <!-- Tabel Apill -->
-    <div class="p-4">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="p-2">
         <button type="button" class="btn btn-primary" href="javascript:void(0)" id="tambahTitikLakaBaru">Tambah Data</button>
         <!-- Trigger selected delete data with a button -->
         <button class="btn btn-danger d-none" id="deleteAllBtn"></button><br></br>
         
-        <table class="table table-striped yajra-datatable p-0">
+        <table class="table table-striped yajra-datatable table-bordered">
             <thead class="table-dark">
                 <tr>
                     <th><input type="checkbox" name="main_checkbox"><label></label></th>
@@ -58,11 +64,16 @@
             <tbody>
             </tbody>
         </table>
-    </div>
+        </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </section>
     <!-- End Tabel Apill -->
     <!-- Modal -->
     <div id="titikLakaModal" class="modal fade" aria-hidden="true">
-      <div class="modal-dialog modal-lg" s>
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <form id="titikLakaForm" name="titikLakaForm">
             <div class="modal-header">
@@ -404,12 +415,13 @@
                 "lengthMenu": [ [10, 15, 25, 50, -1], [10, 15, 25, 50, "All"] ],
                 'order': [[2, 'asc']],
                 columnDefs: [
+                    {"className": "dt-center", "targets": [0, 1, 5]},
                     {orderable: false, searchable: false, targets: [0, 1, 5]},
                     {width: 10, targets: 0},
-                    {width: 20, targets: 1},
-                    {width: 155, targets: 2},
-                    {width: 100, targets: 3},
-                    {width: 100, targets: 4},
+                    {width: 30, targets: 1},
+                    {width: 220, targets: 2},
+                    {width: 200, targets: 3},
+                    {width: 250, targets: 3},
                     {width: 100, targets: 5},
                 ],
                 columns: [
@@ -764,6 +776,7 @@
                     console.log('save');
                     $('#titikLakaForm').trigger('reset');
                     $('#titikLakaModal').modal('hide');
+                    toastr.success(data.msg);
                     table.draw();
                 },
                 error: function(data){
@@ -776,18 +789,32 @@
 
             $('body').on('click', '.deleteTitikLaka', function () {
                 var titikLakaId = $(this).data("id");
-                confirm("Are You sure want to delete !");
                 
-                $.ajax({
-                    type: "DELETE",
-                    url: "{{ route('titik_kecelakaan.store') }}"+'/'+titikLakaId,
-                    success: function (data) {
-                        table.draw();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
+                swal.fire({
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        title:'<h3 style ="color:red">Peringatan!</h3>',
+                        icon: 'warning',
+                        html:'Apakah anda yakin ingin menghapus <b></b> data titik kecelakaan yang dipilih?',
+                        showCancelButton:true,
+                        showCloseButton:true,
+                        confirmButtonText:'Lanjutkan',
+                        cancelButtonText:'Kembali',
+                        confirmButtonColor:'#28a745',
+                        cancelButtonColor:'#d33',
+                        width:500,
+                        allowOutsideClick:false
+                    }).then(function(result){
+                        if(result.value){
+                            $.post("{{ route('titikLaka.destroy') }}", {titikLakaId},function(data){
+                                if(data.code == 1){
+                                    toastr.success(data.msg);
+                                    table.draw();
+                                }
+                            },'json');
+                        }
+                    })
             });
         });
     </script>

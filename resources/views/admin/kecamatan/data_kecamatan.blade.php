@@ -1,3 +1,4 @@
+<?php $title="Data Kecamatan"?>
 @extends('admin/template')
 @section('content')
   <!-- Content Header (Page header) -->
@@ -44,7 +45,7 @@
         <div class="row">
           <div class="col-auto">
             <div class="card">
-              <div class="p-3">
+              <div class="p-2">
               <!-- </div>
             </div>
           </div>
@@ -138,7 +139,7 @@
     </div>
     
     <!-- table -->
-    <table id="myTable" class="table table-striped yajra-datatable ">
+    <table id="myTable" class="table table-striped yajra-datatable table-bordered">
         <thead class="table-dark"> 
             <tr>
               <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox" cellpadding="2" cellspacing="2" border="2"><label></label></th>
@@ -329,6 +330,7 @@
             console.log('save');
             $('#kecamatanForm').trigger('reset');
             $('#modalKecamatan').modal('hide');
+            toastr.success(data.msg);
             table.draw();
           },
           errror: function(data){
@@ -341,18 +343,32 @@
 
       $('body').on('click', '.deleteKecamatan', function () {
         var kecamatanId = $(this).data("id");
-        confirm("Are You sure want to delete !");
-        
-        $.ajax({
-            type: "DELETE",
-            url: "{{ route('kecamatan.store') }}"+'/'+kecamatanId,
-            success: function (data) {
-                table.draw();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+
+        swal.fire({
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        title:'<h3 style ="color:red">Peringatan!</h3>',
+                        icon: 'warning',
+                        html:'Apakah anda yakin ingin menghapus <b></b> data kecamatan yang dipilih?',
+                        showCancelButton:true,
+                        showCloseButton:true,
+                        confirmButtonText:'Lanjutkan',
+                        cancelButtonText:'Kembali',
+                        confirmButtonColor:'#28a745',
+                        cancelButtonColor:'#d33',
+                        width:500,
+                        allowOutsideClick:false
+                    }).then(function(result){
+                        if(result.value){
+                            $.post("{{ route('kecamatan.destroy') }}", {kecamatanId},function(data){
+                                if(data.code == 1){
+                                    toastr.success(data.msg);
+                                    table.draw();
+                                }
+                            },'json');
+                        }
+                    })
       });
 
     });    

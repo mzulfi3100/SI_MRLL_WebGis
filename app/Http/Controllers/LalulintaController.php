@@ -91,7 +91,7 @@ class LalulintaController extends Controller
             'jalanKecamatanId' => $request->jalanKecamatanId,
         ]);
 
-        return response()->json(['msg'=>'Data telah berhasil disimpan.']);
+        return response()->json(['code'=>1, 'msg'=> ' Berhasil Menyimpan Data Lalu Lintas']);
     }
 
     /**
