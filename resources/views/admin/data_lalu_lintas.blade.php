@@ -79,7 +79,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Volume Lalu lintas</label>
+                                    <label for="">Volume Lalu lintas(smp)</label>
                                     <input type="text" class="form-control" name="volume" id="volume">
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Kapasitas Jalan</label>
+                                    <label for="">Kapasitas Jalan(smp)</label>
                                     <input type="text" class="form-control" name="kapasitasJalan" id="kapasitasJalan" disabled>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Kecepatan Tempuh</label>
+                                    <label for="">Kecepatan Tempuh(km)</label>
                                     <input type="text" class="form-control" name="kecepatan" id="kecepatan">
                                 </div>
                                 <div class="form-group">
@@ -144,8 +144,8 @@
                     <th>No</th>
                     <th>Nama Jalan</th>
                     <th>Kecamatan</th>
-                    <th>Volume</th>
-                    <th>Kecepatan</th>
+                    <th>Volume(smp)</th>
+                    <th>Kecepatan(km)</th>
                     <th>Tahun</th>
                     <th>Aksi</th>
                 </tr>
