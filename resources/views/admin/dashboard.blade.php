@@ -23,43 +23,39 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a >
               <?php $hari=date('l');
-$bulan=date('m');
-switch ($hari) {
- case"Sunday":$hari="Minggu";break;
- case"Monday":$hari="Senin";break;
- case"Tuesday":$hari="Selasa";break;
- case"Wednesday":$hari="Rabu";break;
- case"Thursday":$hari="Kamis";break;
- case"Friday":$hari="Jumat";break;
- case"Saturday":$hari="Sabtu";break;
-}
-
-//menampilkan format hari dalam bahasa indonesia
-$tanggal=date('d');
-$tahun=date('y');
-//menampilkan hari tanggal bulan dan tahun
-echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;"; 
-?></a></li>
-            </ol>
-          </div>
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        @yield('content')
+              $bulan=date('m');
+              switch ($hari) {
+                case"Sunday":$hari="Minggu";break;
+                case"Monday":$hari="Senin";break;
+                case"Tuesday":$hari="Selasa";break;
+                case"Wednesday":$hari="Rabu";break;
+                case"Thursday":$hari="Kamis";break;
+                case"Friday":$hari="Jumat";break;
+                case"Saturday":$hari="Sabtu";break;
+              }
+              
+              //menampilkan format hari dalam bahasa indonesia
+              $tanggal=date('d');
+              $tahun=date('y');
+              //menampilkan hari tanggal bulan dan tahun
+              echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;"; 
+              ?></a></li>
+              </ol>
+            </div>
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
         
-        <!-- Menampilkan Jumlah Jalan -->
-        <div class="row">
-          <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2" style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
-              <div class="card-body" >
-                <div class="row no-gutters align-items-center">
-                  <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Jalan</div>
-                    <?php
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+            @yield('content')
+            <!-- Menampilkan Jumlah Jalan -->
+            <div class="row">
+              <div class="col-lg-3 col-6">
+                <div class="small-box"  style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
+                  <div class="inner">
+                  <?php
                       $count = 0;
                     ?>
                     @foreach($jalans as $jln)
@@ -67,54 +63,41 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                         $count++;
                       ?>
                     @endforeach
-                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count ?> </div>
+                    <h3><?= $count ?></h3>
+                    <p><b>Jumlah Jalan</b></p>
                   </div>
-                  <div class="col-auto">
-                    <i class= "fas fa-fw fa-road fa-3x text-gray-300" ></i>
+                  <div class="icon">
+                  <i class= "fas fa-fw fa-road fa-2x text-gray-300" ></i>
                   </div>
+                  <a href="/administrator/jalan" class="small-box-footer">Selengkapnya&nbsp;<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-            </div>
-          </div>
-          
-          <!-- Menampilkan Jumlah Kecamatan -->
-          <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card shadow h-100 py-2" style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
-              <div class="card-body" >
-                <div class="row no-gutters align-items-center">
-                  <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Kecamatan</div>
-                      <?php
+              
+              <div class="col-lg-3 col-6">
+                <div class="small-box "  style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
+                  <div class="inner">
+                  <?php
                         $count = 0;
                       ?>
-                      <div class="row no-gutters align-items-center">
                         @foreach($kecamatans as $kec)
                           <?php
                             $count++;
                           ?>
                         @endforeach
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> <?= $count ?>  </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-fw fa-landmark fa-3x text-gray-300"></i>
-                    </div>
+                    <h3><?= $count ?></h3>
+                    <p><b>Jumlah Kecamatan</b></p>
                   </div>
+                  <div class="icon">
+                  <i class="fas fa-fw fa-landmark fa-2x text-gray-300"></i>
+                  </div>
+                  <a href="/kecamatan" class="small-box-footer">Selengkapnya&nbsp;<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-            </div>
-
-            <!-- Menampilkan Jumlah Jalan Rawan Kemacetan -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card shadow h-100 py-2" style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
-                <div class="card-body" >
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Jalan Rawan Kemacetan</div>
-                      <div class="row no-gutters align-items-center">
-                        <?php
+              
+              <div class="col-lg-3 col-6">
+                <div class="small-box"  style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
+                  <div class="inner">
+                  <?php
                           $count = 0;
                         ?>
                         @foreach($kemacetan as $macet)
@@ -124,28 +107,20 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                             }
                           ?>
                         @endforeach
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $count ?> </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-fw fa-car-side fa-3x text-gray-300"></i>
-                    </div>
+                    <h3><?= $count ?></h3>
+                    <p><b>Rawan Kemacetan</b></p>
                   </div>
+                  <div class="icon">
+                  <i class="fas fa-fw fa-car-side fa-2x text-gray-300"></i>
+                  </div>
+                  <a href="/administrator/titik_kemacetan" class="small-box-footer">Selengkapnya&nbsp;<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-            </div>
-            
-            <!-- Menampilkan Jumlah Jalan Rawan Kecelakaan -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card shadow h-100 py-2" style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
-                <div class="card-body" >
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Titik Rawan Kecelakaan</div>
-                      <div class="row no-gutters align-items-center">
-                        <?php
+              
+              <div class="col-lg-3 col-6">
+                <div class="small-box"  style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
+                  <div class="inner">
+                  <?php
                           $count = 0;
                         ?>
                         @foreach($kecelakaan as $laka)
@@ -153,32 +128,20 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                             $count++;
                           ?>
                         @endforeach
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $count ?> </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-fw fa-car-crash fa-3x text-gray-300"></i>
-                    </div>
-                    </div>
+                    <h3><?= $count ?></h3>
+                    <p><b>Rawan Kecelakaan</b></p>
                   </div>
+                  <div class="icon">
+                  <i class="fas fa-fw fa-car-crash fa-2x text-gray-300"></i>
+                  </div>
+                  <a href="/administrator/titik_kecelakaan" class="small-box-footer">Selengkapnya&nbsp;<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-            </div>
-          </div>
 
-        <!-- /.row -->
-       <div class="row">
-          <!-- Menampilkan Jumlah Apill -->
-          <div class="col-xl-3 col-md-6 mb-4 ml-3">
-            <div class="card shadow h-100 py-2" style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
-              <div class="card-body" >
-                <div class="row no-gutters align-items-center">
-                  <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Apill (ATCS) </div>
-                    <div class="row no-gutters align-items-center">
-                      <?php
+              <div class="col-lg-3 col-6">
+                <div class="small-box "  style="background-color: #7ddef2; background-image: linear-gradient(0deg, #7ddef2 0%, #1474f5 100%);">
+                  <div class="inner">
+                  <?php
                         $count = 0;
                       ?>
                       @foreach($apill as $apil)
@@ -188,29 +151,26 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                           }
                         ?>
                       @endforeach
-                      <div class="col-auto">
-                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $count ?> </div>
-                      </div>
-                    </div>
+                    <h3><?= $count ?></h3>
+                    <p><b>Jumlah Apill (ATCS)</b></p>
                   </div>
-                  <div class="col-auto">
-                    <i class="fas fa-fw fa-traffic-light fa-3x text-gray-300"></i>
+                  <div class="icon">
+                  <i class="fas fa-fw fa-traffic-light fa-2x text-gray-300"></i>
                   </div>
-                  </div>
+                  <a href="/administrator/apill" class="small-box-footer">Selengkapnya&nbsp;<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             </div>
-          </div>
-       </div>
-      </div><!-- /.container-fluid -->
-      <!-- <div id="bca"></div> -->
+          </div><!-- /.container-fluid -->
+          <!-- <div id="bca"></div> -->
+        </div>
+        <!-- /.content -->
+      </div>
     </div>
-    <!-- /.content -->\
-    </div>
+  </div>
   <!-- /.content-wrapper -->
   <script src="https://code.highcharts.com/highcharts.js"></script>
-
-<script>
+  <script>
   Highcharts.chart('bca', {
     chart: {
         type: 'column'
