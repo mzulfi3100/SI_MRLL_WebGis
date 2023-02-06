@@ -1,3 +1,4 @@
+<?php $title="Peta Rawan Kecelakaan"?>
 @extends('admin/template')
 @section('content')
     <div id="map" style="height:650px; width: 1050px;"></div>

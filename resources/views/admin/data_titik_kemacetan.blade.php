@@ -53,7 +53,7 @@
         <table class="table table-striped yajra-datatable table-bordered">
             <thead class="table-dark">
                 <tr>
-                    <th><input type="checkbox" name="main_checkbox"><label></label></th>
+                    <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox"><label></label></th>
                     <th>No</th>
                     <th>Nama Jalan</th>
                     <th>Kecamatan</th>

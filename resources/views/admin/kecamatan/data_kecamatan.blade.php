@@ -142,7 +142,7 @@
     <table id="myTable" class="table table-striped yajra-datatable table-bordered">
         <thead class="table-dark"> 
             <tr>
-              <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox" cellpadding="2" cellspacing="2" border="2"><label></label></th>
+              <th><i class="hiddentext" style="display:none">CheckBox</i><input type="checkbox" name="main_checkbox"><label></label></th>
               <th>No</th>
               <th>Nama Kecamatan</th>
               <th>Warna Kecamatan</th>
