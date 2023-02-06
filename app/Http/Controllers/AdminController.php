@@ -27,12 +27,7 @@ class AdminController extends Controller
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
                     ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId')
                     ->get(); 
-        $kecelakaan = DB::table('zscores')
-                    ->join('jalans_kecamatans', 'zscores.jalanKecamatanId', '=', 'jalans_kecamatans.id')
-                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
-                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                    ->select('zscores.nilai', 'zscores.jalanKecamatanId', 'jalans.*')
-                    ->get(); 
+        $kecelakaan = TitikKecelakaan::get();
         $apill = Apill::get();        
         $kecamatans = Kecamatan::get();
         $jalans = Jalan::get();

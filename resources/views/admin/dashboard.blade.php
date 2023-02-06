@@ -119,7 +119,7 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                         ?>
                         @foreach($kemacetan as $macet)
                           <?php
-                            if($macet->volume/$macet->kapasitasJalan  >= 0 && $macet->volume/$macet->kapasitasJalan <= 0.69){
+                            if($macet->tingkatKemacetan == 'Tinggi'){
                               $count++;
                             }
                           ?>
@@ -143,16 +143,14 @@ echo "$hari, $tanggal/$bulan/$tahun&nbsp;|&nbsp;";
                 <div class="card-body" >
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Jalan Rawan Kecelakaan</div>
+                      <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Jumlah Titik Rawan Kecelakaan</div>
                       <div class="row no-gutters align-items-center">
                         <?php
                           $count = 0;
                         ?>
                         @foreach($kecelakaan as $laka)
                           <?php
-                            if($laka->nilai  > 0){
-                              $count++;
-                            }
+                            $count++;
                           ?>
                         @endforeach
                         <div class="col-auto">
