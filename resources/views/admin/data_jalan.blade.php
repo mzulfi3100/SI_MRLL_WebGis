@@ -58,9 +58,9 @@
                     <th>No</th>
                     <th>Nama Jalan</th>
                     <th>Kecamatan</th>
-                    <th>Panjang</th>
-                    <th>Lebar</th>
-                    <th>Kapasitas</th>
+                    <th>Panjang(km)</th>
+                    <th>Lebar(m)</th>
+                    <th>Kapasitas(smp)</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -108,7 +108,7 @@
                                 <input type="text" class="form-control" id="namaJalan" name="namaJalan">
                             </div>
                             <div class="form-group">
-                                <label>Panjang Jalan</label>
+                                <label>Panjang Jalan(km)</label>
                                 <input type="text" class="form-control" id="panjangJalan" name="panjangJalan">
                             </div>
                         </div>
@@ -119,13 +119,13 @@
                             </div>
                             
                             <div class="form-group">
-                                <label>Lebar Jalan</label>
+                                <label>Lebar Jalan(m)</label>
                                 <input type="text" class="form-control" id="lebarJalan" name="lebarJalan">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label>Kapasitas Jalan</label>
+                                <label>Kapasitas Jalan(smp)</label>
                                 <input type="text" class="form-control" id="kapasitasJalan" name="kapasitasJalan">
                             </div>
                             <div class="form-group">
