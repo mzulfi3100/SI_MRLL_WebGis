@@ -42,11 +42,22 @@ class PenggunaJalanController extends Controller
 
     public function detailJalan($id){
         $jalan = DB::table('jalans_kecamatans')
-                        ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
-                        ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                        ->where('jalans_kecamatans.id', '=', $id)
-                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan')
-                        ->first();
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->where('jalans_kecamatans.id', '=', $id)
+                    ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
+                    ->first();
+
+        $data = DB::table('lalulintas')
+                    ->join(DB::raw('(select lalulintas.jalanKecamatanId, max(lalulintas.tahun) as MaxDate from lalulintas group by lalulintas.jalanKecamatanId) tm'), function($join){
+                        $join->on('lalulintas.jalanKecamatanId', '=', 'tm.jalanKecamatanId')
+                        ->on('lalulintas.tahun', '=', 'tm.MaxDate');
+                    })
+                    ->join('jalans_kecamatans', 'lalulintas.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId', 'jalans_kecamatans.id AS jalanKecamatanId')
+                    ->get();  
 
         $lalulintas = DB::table('lalulintas')
                         ->where('lalulintas.tahun', '>', DB::raw('year(NOW()) - 3'))
@@ -60,6 +71,8 @@ class PenggunaJalanController extends Controller
                         ->select(DB::raw('sum(titik_kecelakaans.korbanMD) as korbanMD'), DB::raw('sum(titik_kecelakaans.korbanLB) as korbanLB'), DB::raw('sum(titik_kecelakaans.korbanLR) as korbanLR'), DB::raw('count(*) as jumlahKecelakaan'), DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan) as tahunKecelakaan'))
                         ->groupBy(DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan)'))
                         ->get();
-        return view('penggunaJalan/detail_jalan', compact('jalan', 'lalulintas', 'kecelakaan'));
+        $titikMacet = TitikKemacetan::where('jalanKecamatanId', $id)->get();
+        $titikLaka = TitikKecelakaan::where('jalanKecamatanId', $id)->get();
+        return view('penggunaJalan/detail_jalan', compact('jalan', 'lalulintas', 'kecelakaan', 'titikLaka', 'titikMacet', 'data'));
     }
 }
