@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     
     
-    <title>EduWell - Education HTML5 Template</title>
-
+    <title>Detail Jalan</title>
+    <link rel="icon" href="{!! asset('/Admin/dist/img/LogoDishub.png') !!}"/>
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('/eduwell/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
