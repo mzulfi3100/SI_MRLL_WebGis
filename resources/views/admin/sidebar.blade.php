@@ -20,7 +20,7 @@
 
         <!-- Menu Dashboard Admin -->
         <li class="nav-item">
-            <a href="/" class="nav-link" class="active">
+            <a href="/administrator" class="nav-link" class="active">
             <i class="fas fa-tachometer-alt" style="color:black"></i>
               <p style="color:white;">
               &nbsp;&nbsp;Dashboard
