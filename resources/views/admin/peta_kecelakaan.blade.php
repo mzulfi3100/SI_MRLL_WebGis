@@ -1,7 +1,7 @@
 <?php $title="Peta Rawan Kecelakaan"?>
 @extends('admin/template')
 @section('content')
-    <div id="map" style="height:650px; width: 1050px;"></div>
+    <div id="map" style="height:600px; width: 1050px;"></div>
 @stop
 @section('script_peta')
     <script type="text/javascript">
