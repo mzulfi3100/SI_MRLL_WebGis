@@ -511,12 +511,19 @@
                 color: "#3CB043",
                 weight: 2,
             },  {
+            },  {
+                label: "Kemacetan Tidak Diketahui",
+                type: "polyline",
+                color: "lightblue",
+                weight: 2,
+            },  {
                 label: "Rawan Laka",
                 type: "image",
                 url: '/laka.png',
             },  {
                 label: "Titik Kemacetan",
-                type: "image",
+                type:
+                 "image",
                 url: '/macet.png',
             }]
         }).addTo(map);
