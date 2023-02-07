@@ -58,7 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <span class="checkmark"></span>
                                     </label>
                                 </div><div>| &nbsp;</div>
-                                <div> <a href="/dashboardPenggunaJalan" style="font-size: 15px; font-weight: bold">Kembali Ke Menu Awal</a>
+                                <div> <a href="/" style="font-size: 15px; font-weight: bold">Kembali Ke Menu Awal</a>
                                 </div>
                             </div>
                         </form>
