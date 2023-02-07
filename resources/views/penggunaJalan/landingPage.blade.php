@@ -52,7 +52,7 @@ https://templatemo.com/tm-573-eduwell
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Menu Start ***** -->
                       <ul class="nav">
-                          <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                          <li class="scroll-to-section"><a href="#home" class="active">Home</a></li>
                           <li class="scroll-to-section"><a href="#info-web">Info</a></li> 
                           <li class="scroll-to-section"><a href="#peta">Peta</a></li> 
                           <li class="border px-3 rounded border-white"><a href="login" >Login</a></li> 
@@ -67,7 +67,7 @@ https://templatemo.com/tm-573-eduwell
       </div>
   </header>
   <!-- ***** Header Area End ***** -->
-  <section class="main-banner" id="home">
+  <section class="main-banner" id="home" >
     <div class="container">
       <div class="row">
         <div class="col-lg-6 align-self-center">
@@ -86,7 +86,7 @@ https://templatemo.com/tm-573-eduwell
   </section>
   <!-- ***** Main Banner Area End ***** -->
 
-  <section class="our-courses" id="info-web">
+  <section class="our-courses" id="info-web" style="margin-top: 140px;">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 offset-lg-3">
@@ -166,7 +166,7 @@ https://templatemo.com/tm-573-eduwell
     </div>
   </section>
 
-  <section class="contact-us" id="peta">
+  <section class="contact-us" id="peta" >
     <div class="container">
       <!-- <div class="section-heading" style >
       <center><h6>Peta</h6> </center>
