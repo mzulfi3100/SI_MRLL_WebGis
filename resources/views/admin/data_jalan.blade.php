@@ -388,8 +388,8 @@
                 dom: 'lBfrtip',
                 buttons: [
                     {extend: 'spacer'},
-                    {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-success', text: '<i class="fas fa-file-pdf" aria-hidden="true"></i> Excell'},
-                    {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-info', text: '<i class="fas fa-file-excel" aria-hidden="true"></i> PDF'},
+                    {extend: 'excelHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-success', text: '<i class="fas fa-file-excel" aria-hidden="true"></i> Excell'},
+                    {extend: 'pdfHtml5', exportOptions: {columns: ':visible'}, className: 'btn btn-info', text: '<i class="fas fa-file-pdf" aria-hidden="true"></i> PDF'},
                     {extend: 'colvis', columnText: function ( dt, idx, title) {return (idx+1)+'. '+title;}, className: 'btn btn-warning', text: 'Filter'},
                 ],
                 ajax: "{{ route('jalan.index') }}",
