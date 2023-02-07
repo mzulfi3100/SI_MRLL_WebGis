@@ -219,7 +219,7 @@
                                                                 '<td>:' +" <?= $titik->korbanMD ?>" +'</td>' + 
                                                             '</tr>' +
                                                             '<tr>' +
-                                                                '<td>' + '<a href="/detail_jalan/<?= $titik->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                                '<td>' + '<a href="/administrator/jalan/<?= $titik->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
                                                             '</tr>' +
                                                         '</tbody>' +
                                                     '</table>' +
@@ -261,19 +261,23 @@
                         label: 'Jalan',
                         selectAllCheckbox: true,
                         children: [
-                            @foreach($data as $jln)
+                            @foreach($jalans as $jln)
                             {
                                 label: '<?= $jln->namaJalan ?>',
                                 layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
                                     onEachFeature: function (feature, layer) {
                                         layer.bindTooltip('<?= $jln->namaJalan ?>');
-                                        if('<?= $jln->tingkatKemacetan ?>' == "Rendah"){
-                                            layer.setStyle({color :'#3CB043'});
-                                        }else if('<?= $jln->tingkatKemacetan ?>' == "Sedang"){
-                                                layer.setStyle({color :'#FFF200'});
-                                        }else if('<?= $jln->tingkatKemacetan ?>' == "Tinggi"){
-                                                layer.setStyle({color :'#FF0000'});
-                                        }
+                                        @foreach($data as $lalin)
+                                            if('<?= $lalin->jalanKecamatanId ?>' == '<?= $jln->jalanKecamatanId ?>'){
+                                                if('<?= $lalin->tingkatKemacetan ?>' == "Rendah"){
+                                                layer.setStyle({color :'#3CB043'});
+                                                }else if('<?= $lalin->tingkatKemacetan ?>' == "Sedang"){
+                                                        layer.setStyle({color :'#FFF200'});
+                                                }else if('<?= $lalin->tingkatKemacetan ?>' == "Tinggi"){
+                                                        layer.setStyle({color :'#FF0000'});
+                                                }
+                                            }
+                                        @endforeach
                                     }
                                 }).addTo(map),
                                 name:   '<div style="max-height: 200px; overflow-y: auto"' +
@@ -313,18 +317,22 @@
                                                                 '<td>Kondisi Jalan</td>' +
                                                                 '<td>:' + '<?= $jln->kondisiJalan ?>' +'</td>' +
                                                             '</tr>' +
-                                                            '<th>Data Lalu Lintas</th>' +
-                                                            '<tr>' +
-                                                                '<td>Volume Lalu Lintas</td>' +
-                                                                '<td>:' + '<?= $jln->volume ?>' +'</td>' +
-                                                            '</tr>' +
-                                                            '<tr>' +
-                                                                '<td>Kecepatan Tempuh</td>' +
-                                                                '<td>:' + '<?= $jln->kecepatan ?>' +'</td>' +
-                                                            '</tr>' +
-                                                            '<tr>' +
-                                                                '<td>' + '<a href="/detail_jalan/<?= $jln->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
-                                                            '</tr>' +
+                                                            @foreach($data as $lalin)
+                                                                <?php if($lalin->jalanKecamatanId ==  $jln->jalanKecamatanId){ ?>
+                                                                '<th>Data Lalu Lintas</th>' +
+                                                                        '<tr>' +
+                                                                    '<td>Volume Lalu Lintas</td>' +
+                                                                        '<td>:' + '<?= $lalin->volume ?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
+                                                                        '<td>Kecepatan Tempuh</td>' +
+                                                                        '<td>:' + '<?= $lalin->kecepatan ?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
+                                                                        '<td>' + '<a href="/administrator/jalan/<?= $titik->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                                    '</tr>' +
+                                                                <?php } ?>
+                                                            @endforeach
                                                         '</tbody>' +
                                                     '</table>' +
                                                 '</div>' +
@@ -372,6 +380,7 @@
 
         L.control.Legend({
             position: "bottomleft",
+            collapsed: false,
             symbolWidth: 15,
             opacity: 1,
             column: 2,
@@ -392,12 +401,17 @@
                 color: "#3CB043",
                 weight: 2,
             },  {
+                label: "Kemacetan Tidak Diketahui",
+                type: "polyline",
+                color: "lightblue",
+                weight: 2,
+            },  {
                 label: "Rawan Laka",
                 type: "image",
                 url: '/laka.png',
             },  {
                 label: "Titik Kemacetan",
-                type: "img",
+                type: "image",
                 url: '/macet.png',
             },  {
                 label: "Terkoneksi ATCS",

@@ -52,7 +52,11 @@ class AdminController extends Controller
                 ->get();
         $titikMacet = TitikKemacetan::get();
         $kecamatans = Kecamatan::get();
-        $jalans = Jalan::get();
+        $jalans = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
+                    ->get();
         $apills = Apill::get();
 
         return view('admin/peta', compact('kecamatans', 'jalans', 'data', 'titikLaka', 'apills', 'titikMacet'));
@@ -71,7 +75,11 @@ class AdminController extends Controller
                     ->get();  
         $titikMacet = TitikKemacetan::get();
         $kecamatans = Kecamatan::get();
-        $jalans = Jalan::get();
+        $jalans = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
+                    ->get();
         return view('admin/peta_kemacetan', compact('kecamatans', 'jalans', 'data', 'titikMacet'));
     }
 
