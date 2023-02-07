@@ -17,15 +17,17 @@
         <div class="sidebar-heading" style="font-size:14px;color:black;"><b>
             ADMIN</b>
         </div>
+
         <!-- Menu Dashboard Admin -->
         <li class="nav-item">
-            <a href="/" class="nav-link">
+            <a href="/" class="nav-link" class="active">
             <i class="fas fa-tachometer-alt" style="color:black"></i>
               <p style="color:white;">
               &nbsp;&nbsp;Dashboard
               </p>
             </a>
         </li>
+
         <!-- Menu Kelola Data Kecamatan -->
         <li class="nav-item">
             <a href="/kecamatan" class="nav-link">
@@ -95,6 +97,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/administrator/kecelakaan" class="nav-link">
+                <i class="far fa-circle" style="color:black"></i>
+                  <p style="color:white">
+                  &nbsp;&nbsp;Data Kecelakaan
+                </p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="/administrator/titik_kecelakaan" class="nav-link">
                   <i class="far fa-circle" style="color:black"></i>

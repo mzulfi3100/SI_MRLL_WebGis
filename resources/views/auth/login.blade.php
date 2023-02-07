@@ -26,7 +26,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="wrapper"><!-- bg-bubbles -> memanggil jumlah animasi yang muncul -->
         <ul class="bg-bubbles"><li><li><li><li><li><li><li><li><li><li></li></li></li></li></li></li></li></li></li></li></ul>
         <!-- bagian utama -->
-        <div class="container fadeInDown">
+        <!-- fadeInDown -->
+        <div class="container ">
             <div>&nbsp;</div>
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mb-4">

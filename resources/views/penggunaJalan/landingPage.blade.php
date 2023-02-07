@@ -7,8 +7,8 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     
-    
-    <title>EduWell - Education HTML5 Template</title>
+    <title>SI MRLL</title>
+    <link rel="icon" href="{!! asset('/Admin/dist/img/LogoDishub.png') !!}"/>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('/eduwell/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -46,25 +46,16 @@ https://templatemo.com/tm-573-eduwell
               <div class="col-12">
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
-                      <a href="index.html" class="logo">
-                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}" alt="LogoDishub" style="width: 45px; height: 45px;"></img>
+                      <a href="index.html" class="logo" >
+                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 45px; height: 45px; font-size:16px; color:red;">&nbsp;&nbsp;Sistem Informasi MRLL</img>
                       </a>
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Menu Start ***** -->
                       <ul class="nav">
                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                          <li class="scroll-to-section"><a href="#services">Services</a></li>
-                          <li class="scroll-to-section"><a href="#courses">Courses</a></li>
-                          <li class="has-sub">
-                              <a href="javascript:void(0)">Pages</a>
-                              <ul class="sub-menu">
-                                  <li><a href="about-us.html">About Us</a></li>
-                                  <li><a href="our-services.html">Our Services</a></li>
-                                  <li><a href="contact-us.html">Contact Us</a></li>
-                              </ul>
-                          </li>
-                          <li class="scroll-to-section"><a href="#testimonials">Testimonials</a></li> 
-                          <li class="scroll-to-section"><a href="#contact-section">Contact Us</a></li> 
+                          <li class="scroll-to-section"><a href="#info-web">Info</a></li> 
+                          <li class="scroll-to-section"><a href="#peta">Peta</a></li> 
+                          <li class="border px-3 rounded border-white"><a href="login" >Login</a></li> 
                       </ul>        
                       <a class='menu-trigger'>
                           <span>Menu</span>
@@ -76,16 +67,13 @@ https://templatemo.com/tm-573-eduwell
       </div>
   </header>
   <!-- ***** Header Area End ***** -->
-  <section class="main-banner" id="top">
+  <section class="main-banner" id="home">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 align-self-center">
           <div class="header-text">
-            <h6>Welcome to our school</h6>
-            <h2>Best Place To Learn Graphic <em>Design!</em></h2>
-            <div class="main-button-gradient">
-              <div class="scroll-to-section"><a href="#contact-section">Join Us Now!</a></div>
-            </div>
+            <h6><b>SELAMAT DATANG DI</b></h6>&nbsp;
+            <h3><b>Sistem Informasi </b></h3><h3><b>Manajemen Rekayasa Lalu Lintas</b></h3>
           </div>
         </div>
         <div class="col-lg-6">
@@ -98,139 +86,14 @@ https://templatemo.com/tm-573-eduwell
   </section>
   <!-- ***** Main Banner Area End ***** -->
 
-  <section class="services" id="services">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="section-heading">
-            <h6>Our Services</h6>
-            <h4>Provided <em>Services</em></h4>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="owl-service-item owl-carousel">
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-01.png') }}" alt="">
-                </div>
-                <h4>Useful Tricks</h4>
-                <p>EduWell is the professional HTML5 template for your school or university websites.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-02.png') }}" alt="">
-                </div>
-                <h4>Creative Ideas</h4>
-                <p>You can download and use this EduWell Template for your teaching and learning stuffs.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-03.png') }}" alt="">
-                </div>
-                <h4>Ready Target</h4>
-                <p>Please tell your friends about the best CSS template website that is TemplateMo.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-04.png') }}" alt="">
-                </div>
-                <h4>Technology</h4>
-                <p>Aenean bibendum consectetur ex eu porttitor. Pellentesque id ultrices metus.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-01.png') }}" alt="">
-                </div>
-                <h4>Useful Tricks</h4>
-                <p>In non nisi eget magna efficitur ultricies non quis sapien. Pellentesque tellus.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-02.png') }}" alt="">
-                </div>
-                <h4>Creative Ideas</h4>
-                <p>Aenean bibendum consectetur ex eu porttitor. Pellentesque id ultrices metus.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-03.png') }}" alt="">
-                </div>
-                <h4>Ready Target</h4>
-                <p>In non nisi eget magna efficitur ultricies non quis sapien. Pellentesque tellus.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-04.png') }}" alt="">
-                </div>
-                <h4>Technology</h4>
-                <p>Aenean bibendum consectetur ex eu porttitor. Pellentesque id ultrices metus.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-01.png') }}" alt="">
-                </div>
-                <h4>Useful Tricks</h4>
-                <p>In non nisi eget magna efficitur ultricies non quis sapien. Pellentesque tellus.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-02.png') }}" alt="">
-                </div>
-                <h4>Creative Ideas</h4>
-                <p>Aenean bibendum consectetur ex eu porttitor. Pellentesque id ultrices metus.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-03.png') }}" alt="">
-                </div>
-                <h4>Ready Target</h4>
-                <p>In non nisi eget magna efficitur ultricies non quis sapien. Pellentesque tellus.</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="{{ asset('/eduwell/images/service-icon-04.png') }}" alt="">
-                </div>
-                <h4>Technology</h4>
-                <p>Praesent accumsan condimentum arcu, id porttitor est semper nec. Nunc diam lorem.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="our-courses" id="courses">
+  <section class="our-courses" id="info-web">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 offset-lg-3">
           <div class="section-heading">
-            <h6>OUR COURSES</h6>
-            <h4>What You Can <em>Learn</em></h4>
-            <p>You just think about TemplateMo whenever you need free CSS templates for your business website</p>
+            <h6>Informasi Umum</h6>
+            <h4>Deskripsi Terkait Sistem Informasi<em></em></h4>
+            <p>Sebagai pengguna jalan diperlukan pengetahuan dan wawasan terkait beberapa informasi MRLL sebagai sarana pendukung transportasi dan kegiatan berkendara. </p>
           </div>
         </div>
         <div class="col-lg-12">
@@ -239,10 +102,10 @@ https://templatemo.com/tm-573-eduwell
               <div class="row">
                 <div class="col-lg-3">
                   <div class="menu">
-                    <div class="active gradient-border"><span>Web Development</span></div>
-                    <div class="gradient-border"><span>Graphic Design</span></div>
-                    <div class="gradient-border"><span>Web Design</span></div>
-                    <div class="gradient-border"><span>WordPress</span></div>
+                    <div class="active gradient-border"><span>MRLL</span></div>
+                    <div class="gradient-border"><span>ATCS & APILL</span></div>
+                    <div class="gradient-border"><span>Titik Kecelakaan</span></div>
+                    <div class="gradient-border"><span>Titik Kemacetan</span></div>
                   </div>
                 </div>
                 <div class="col-lg-9">
@@ -251,18 +114,10 @@ https://templatemo.com/tm-573-eduwell
                       <div>
                         <div class="left-image">
                           <img src="{{ asset('/eduwell/images/courses-01.jpg') }}" alt="">
-                          <div class="price"><h6>$128</h6></div>
                         </div>
                         <div class="right-content">
-                          <h4>Web Development</h4>
-                          <p>Did you know that you can visit <a rel="nofollow" href="https://www.toocss.com/" target="_blank">TooCSS website</a> for latest listing of HTML templates and a variety of useful templates. 
-                          <br><br>You just need to go and visit that website right now. IF you have any suggestion or comment about this template, you can feel free to go to contact page for our email address.</p>
-                          <span>36 Hours</span>
-                          <span>4 Weeks</span>
-                          <span class="last-span">3 Certificates</span>
-                          <div class="text-button">
-                            <a href="contact-us.html">Subscribe Course</a>
-                          </div>
+                          <h4>MRLL</h4>
+                          <p>Sistem Kendali Lalu lintas Kendaraan atau Area Traffic Control System adalah pengendalian lalu lintas dengan menyelaraskan waktu lampu merah pada jaringan jalan raya dari sebuah kota. Pengaturan lalu lintas melalui sistem ini memerlukan parameter jumlah kendaraan dan waktu tempuh kendaraan.</p>
                         </div>
                       </div>
                     </li>
@@ -270,17 +125,12 @@ https://templatemo.com/tm-573-eduwell
                       <div>
                         <div class="left-image">
                           <img src="{{ asset('/eduwell/images/courses-02.jpg') }}" alt="">
-                          <div class="price"><h6>$156</h6></div>
                         </div>
                         <div class="right-content">
-                          <h4>Creative Graphic Design</h4>
-                          <p>You are not allowed to redistribute this template ZIP file on any other website without a permission from us.<br><br>There are some unethical people on this world copied and reposted our templates without any permission from us. Their Karma will hit them really hard. Yeah!</p>
-                          <span>48 Hours</span>
-                          <span>6 Weeks</span>
-                          <span class="last-span">1 Certificate</span>
-                          <div class="text-button">
-                            <a href="contact-us.html">Subscribe Course</a>
-                          </div>
+                          <h4>ATCS</h4>
+                          <p>Sistem Kendali Lalu lintas Kendaraan atau Area Traffic Control System adalah pengendalian lalu lintas dengan menyelaraskan waktu lampu merah pada jaringan jalan raya dari sebuah kota.</p>
+                          <h4>APILL</h4>
+                          <p>APILL merupakan peralatan yang menggunakan isyarat lampu untuk mengatur lalu lintas orang serta kendaraan di persimpangan atau pada ruas jalan.</p>
                         </div>
                       </div>
                     </li>
@@ -288,17 +138,10 @@ https://templatemo.com/tm-573-eduwell
                       <div>
                         <div class="left-image">
                           <img src="{{ asset('/eduwell/images/courses-03.jpg') }}" alt="">
-                          <div class="price"><h6>$184</h6></div>
                         </div>
                         <div class="right-content">
-                          <h4>Web Design</h4>
-                          <p>Quinoa roof party squid prism sustainable letterpress cray hammock tumeric man bun mixtape tofu subway tile cronut. Deep v ennui subway tile organic seitan.<br><br>Kogi VHS freegan bicycle rights try-hard green juice probably haven't heard of them cliche la croix af chillwave.</p>
-                          <span>28 Hours</span>
-                          <span>4 Weeks</span>
-                          <span class="last-span">1 Certificate</span>
-                          <div class="text-button">
-                            <a href="contact-us.html">Subscribe Course</a>
-                          </div>
+                          <h4>Titik Kecelakaan</h4>
+                          <p>Lokasi rawan kecelakaan adalah suatu lokasi dimana angka kecelakaan tinggi dengan kejadian kecelakaan berulang dalam suatu ruang dan rentang waktu yang relatif sama yang diakibatkan oleh suatu penyebab tertentu.</p>
                         </div>
                       </div>
                     </li>
@@ -306,17 +149,10 @@ https://templatemo.com/tm-573-eduwell
                       <div>
                         <div class="left-image">
                           <img src="{{ asset('/eduwell/images/courses-04.jpg') }}" alt="">
-                          <div class="price"><h6>$76</h6></div>
                         </div>
                         <div class="right-content">
-                          <h4>WordPress Introduction</h4>
-                          <p>Quinoa roof party squid prism sustainable letterpress cray hammock tumeric man bun mixtape tofu subway tile cronut. Deep v ennui subway tile organic seitan.<br><br>Kogi VHS freegan bicycle rights try-hard green juice probably haven't heard of them cliche la croix af chillwave.</p>
-                          <span>48 Hours</span>
-                          <span>4 Weeks</span>
-                          <span class="last-span">2 Certificates</span>
-                          <div class="text-button">
-                            <a href="contact-us.html">Subscribe Course</a>
-                          </div>
+                          <h4>Titik Kemacetan</h4>
+                          <p>Kemacetan Lalu lintas merupakan suatu keadaan kondisi jalan bila tidak ada keseimbangan antara kapasitas jalan dengan jumlah kendaraan yang lewat. Gejala ini ditandai dengan kecepatan yang rendah hingga terjadinya penumpukan kendaran, jarak antara kendaraan yang satu dengan kendaraan yang lain menjadi rapat, sehingga pengemudi tidak dapat menjalankan kendaraan dengan kecepatan yang diinginkannya.</p>
                         </div>
                       </div>
                       </li>
@@ -330,93 +166,11 @@ https://templatemo.com/tm-573-eduwell
     </div>
   </section>
 
-  <section class="simple-cta">
+  <section class="contact-us" id="peta">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-5 offset-lg-1">
-          <div class="left-image">
-            <img src="{{ asset('/eduwell/images/cta-left-image.png') }}" alt="">
-          </div>
-        </div>
-        <div class="col-lg-5 align-self-center">
-          <h6>Get the sale right now!</h6>
-          <h4>Up to 50% OFF For 1+ courses</h4>
-          <p>Kogi VHS freegan bicycle rights try-hard green juice probably haven't heard of them cliche la croix af chillwave.</p>
-          <div class="white-button">
-            <a href="contact-us.html">View Courses</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="testimonials" id="testimonials">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="section-heading">
-            <h6>Testimonials</h6>
-            <h4>What They <em>Think</em></h4>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="owl-testimonials owl-carousel" style="position: relative; z-index: 5;">
-            <div class="item">
-              <p>“just think about TemplateMo if you need free CSS templates for your website”</p>
-                <h4>Catherine Walk</h4>
-                <span>CEO &amp; Founder</span>
-                <img src="{{ asset('/eduwell/images/quote.png') }}" alt="">
-            </div>
-            <div class="item">
-              <p>“think about our website first when you need free HTML templates for your website”</p>
-                <h4>David Martin</h4>
-                <span>CTO of Tech Company</span>
-                <img src="{{ asset('/eduwell/images/quote.png') }}" alt="">
-            </div>
-            <div class="item">
-              <p>“just think about our website wherever you need free templates for your website”</p>
-                <h4>Sophia Whity</h4>
-                <span>CEO and Co-Founder</span>
-                <img src="{{ asset('/eduwell/images/quote.png') }}" alt="">
-            </div>
-            <div class="item">
-              <p>“Praesent accumsan condimentum arcu, id porttitor est semper nec. Nunc diam lorem.”</p>
-                <h4>Helen Shiny</h4>
-                <span>Tech Officer</span>
-                <img src="{{ asset('/eduwell/images/quote.png') }}" alt="">
-            </div>
-            <div class="item">
-              <p>“Praesent accumsan condimentum arcu, id porttitor est semper nec. Nunc diam lorem.”</p>
-                <h4>George Soft</h4>
-                <span>Gadget Reviewer</span>
-                <img src="{{ asset('/eduwell/images/quote.png') }}" alt="">
-            </div>
-            <div class="item">
-              <p>“Praesent accumsan condimentum arcu, id porttitor est semper nec. Nunc diam lorem.”</p>
-                <h4>Andrew Hall</h4>
-                <span>Marketing Manager</span>
-                <img src="{{ asset('/eduwell/images/quote.png') }}" alt="">
-            </div>
-            <div class="item">
-              <p>“Praesent accumsan condimentum arcu, id porttitor est semper nec. Nunc diam lorem.”</p>
-                <h4>Maxi Power</h4>
-                <span>Fashion Designer</span>
-                <img src="{{ asset('/eduwell/images/quote.png') }}" alt="">
-            </div>
-            <div class="item">
-              <p>“Praesent accumsan condimentum arcu, id porttitor est semper nec. Nunc diam lorem.”</p>
-                <h4>Olivia Too</h4>
-                <span>Creative Designer</span>
-                <img src="{{ asset('/eduwell/images/quote.png') }}" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact-us" id="contact-section">
-    <div class="container">
+      <!-- <div class="section-heading" style >
+      <center><h6>Peta</h6> </center>
+      </div> -->
       <div class="row">
         <div class="col-lg-12">
           <div id="map" style="height:650px; width: 1050px;"></div>
