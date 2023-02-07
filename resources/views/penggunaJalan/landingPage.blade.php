@@ -173,7 +173,7 @@ https://templatemo.com/tm-573-eduwell
       </div> -->
       <div class="row">
         <div class="col-lg-12">
-          <div id="map" style="height:650px; width: 1050px;"></div>
+          <div id="map" style="height:550px; width: 1050px;"></div>
         </div>
       </div>
     </div>
