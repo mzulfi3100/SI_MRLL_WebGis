@@ -43,3 +43,6 @@ table.dataTable thead th.sorting_asc,
 table.dataTable thead th.sorting_desc {
   background: none;
 }
+.dt-button.dropdown-item.buttons-columnVisibility {
+  color: #08060a;
+}
