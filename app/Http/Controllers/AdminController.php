@@ -48,7 +48,8 @@ class AdminController extends Controller
         $titikLaka = DB::table('titik_kecelakaans')
                 ->join('jalans_kecamatans', 'titik_kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
                 ->join('jalans', 'jalans.id', '=', 'jalans_kecamatans.jalanId')
-                ->select('titik_kecelakaans.*', 'jalans.*', 'titik_kecelakaans.id as titikID', 'jalans.id as jalanID')
+                ->join('kecamatans', 'kecamatans.id', '=', 'jalans_kecamatans.jalanId')
+                ->select('titik_kecelakaans.*', 'jalans.*', 'titik_kecelakaans.id as titikID', 'jalans.id as jalanID', 'kecamatans.namaKecamatan')
                 ->get();
         $titikMacet = TitikKemacetan::get();
         $kecamatans = Kecamatan::get();
@@ -100,7 +101,8 @@ class AdminController extends Controller
         $titikLaka = DB::table('titik_kecelakaans')
                         ->join('jalans_kecamatans', 'titik_kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
                         ->join('jalans', 'jalans.id', '=', 'jalans_kecamatans.jalanId')
-                        ->select('titik_kecelakaans.*', 'jalans.*', 'titik_kecelakaans.id as titikID', 'jalans.id as jalanID')
+                        ->join('kecamatans', 'kecamatans.id', '=', 'jalans_kecamatans.jalanId')
+                        ->select('titik_kecelakaans.*', 'jalans.*', 'titik_kecelakaans.id as titikID', 'jalans.id as jalanID', 'kecamatans.namaKecamatan')
                         ->get();
             
         $kecamatans = Kecamatan::get();

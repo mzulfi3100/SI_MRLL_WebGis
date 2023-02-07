@@ -369,49 +369,53 @@ https://templatemo.com/tm-573-eduwell
                                                         '<tbody>' +
                                                             '<th>Data Jalan</th>' +
                                                             '<tr>' +
+                                                                '<td>Kecamatan</td>' +
+                                                                '<td>: ' + '<?= $titik->namaKecamatan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
                                                                 '<td>Nama Jalan</td>' +
-                                                                '<td>:' + '<?= $titik->namaJalan ?>' + '</td>' +
+                                                                '<td>: ' + '<?= $titik->namaJalan ?>' + '</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Tipe Jalan</td>' +
-                                                                '<td>:' + '<?= $titik->tipeJalan ?>' + '</td>'+
+                                                                '<td>: ' + '<?= $titik->tipeJalan ?>' + '</td>'+
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Panjang Jalan</td>' +
-                                                                '<td>:' + '<?= $titik->panjangJalan ?>' + '</td>' +
+                                                                '<td>: ' + '<?= $titik->panjangJalan ?>' + '</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Lebar Jalan:</td>' +
-                                                                '<td>:' + '<?= $titik->lebarJalan ?>' +'</td>' +
+                                                                '<td>: ' + '<?= $titik->lebarJalan ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Kapasitas Jalan:</td>' +
-                                                                '<td>:' + '<?= $titik->kapasitasJalan ?>' +'</td>' +
+                                                                '<td>: ' + '<?= $titik->kapasitasJalan ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Hambatan Samping</td>' +
-                                                                '<td>:' + '<?= $titik->hambatanSamping ?>' +'</td>' +
+                                                                '<td>: ' + '<?= $titik->hambatanSamping ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Kondisi Jalan</td>' +
-                                                                '<td>:' + '<?= $titik->kondisiJalan ?>' +'</td>' +
+                                                                '<td>: ' + '<?= $titik->kondisiJalan ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<th>Data Kecelakaan</th>' +
                                                             '<tr>' +
                                                                 '<td>Penyebab Kecelakaan</td>' +
-                                                                '<td>:' +" <?= $titik->penyebabKecelakaan ?>" +'</td>' + 
+                                                                '<td>: ' +" <?= $titik->penyebabKecelakaan ?>" +'</td>' + 
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Korban Luka Ringan</td>' +
-                                                                '<td>:' +" <?= $titik->korbanLR ?>" +'</td>' + 
+                                                                '<td>: ' +" <?= $titik->korbanLR ?>" +'</td>' + 
                                                              '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Korban Luka Berat</td>' +
-                                                                '<td>:' +" <?= $titik->korbanLB ?>" +'</td>' + 
+                                                                '<td>: ' +" <?= $titik->korbanLB ?>" +'</td>' + 
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Korban Meninggal Dunia</td>' +
-                                                                '<td>:' +" <?= $titik->korbanMD ?>" +'</td>' + 
+                                                                '<td>: ' +" <?= $titik->korbanMD ?>" +'</td>' + 
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>' + '<a href="/detail_jalan/<?= $titik->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
@@ -485,43 +489,47 @@ https://templatemo.com/tm-573-eduwell
                                                         '<tbody>' +
                                                             '<th>Data Jalan</th>' +
                                                             '<tr>' +
+                                                                '<td>Kecamatan</td>' +
+                                                                '<td>:'  + '<?= $jln->namaKecamatan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
                                                                 '<td>Nama Jalan</td>' +
-                                                                '<td>:' + '<?= $jln->namaJalan ?>' + '</td>' +
+                                                                '<td>:'  + '<?= $jln->namaJalan ?>' + '</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Tipe Jalan</td>' +
-                                                                '<td>:' + '<?= $jln->tipeJalan ?>' + '</td>'+
+                                                                '<td>:'  + '<?= $jln->tipeJalan ?>' + '</td>'+
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Panjang Jalan</td>' +
-                                                                '<td>:' + '<?= $jln->panjangJalan ?>' + '</td>' +
+                                                                '<td>:'  + '<?= $jln->panjangJalan ?>' + '</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Lebar Jalan:</td>' +
-                                                                '<td>:' + '<?= $jln->lebarJalan ?>' +'</td>' +
+                                                                '<td>:'  + '<?= $jln->lebarJalan ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Kapasitas Jalan:</td>' +
-                                                                '<td>:' + '<?= $jln->kapasitasJalan ?>' +'</td>' +
+                                                                '<td>: ' + '<?= $jln->kapasitasJalan ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Hambatan Samping</td>' +
-                                                                '<td>:' + '<?= $jln->hambatanSamping ?>' +'</td>' +
+                                                                '<td>: ' + '<?= $jln->hambatanSamping ?>' +'</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Kondisi Jalan</td>' +
-                                                                '<td>:' + '<?= $jln->kondisiJalan ?>' +'</td>' +
+                                                                '<td>: ' + '<?= $jln->kondisiJalan ?>' +'</td>' +
                                                             '</tr>' +
                                                             @foreach($data as $lalin)
                                                                 <?php if($lalin->jalanKecamatanId ==  $jln->jalanKecamatanId){ ?>
                                                                 '<th>Data Lalu Lintas</th>' +
                                                                         '<tr>' +
                                                                     '<td>Volume Lalu Lintas</td>' +
-                                                                        '<td>:' + '<?= $lalin->volume ?>' +'</td>' +
+                                                                        '<td>: ' + '<?= $lalin->volume ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +
                                                                         '<td>Kecepatan Tempuh</td>' +
-                                                                        '<td>:' + '<?= $lalin->kecepatan ?>' +'</td>' +
+                                                                        '<td>: ' + '<?= $lalin->kecepatan ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +
                                                                         '<td>' + '<a href="/detail_jalan/<?= $jln->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
