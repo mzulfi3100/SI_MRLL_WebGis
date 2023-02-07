@@ -24,7 +24,7 @@ use App\Http\Controllers\PenggunaJalanController;
 |
 */
 
-Route::get('/', [AdminController::class, 'index']);
+Route::get('/administrator', [AdminController::class, 'index']);
 
 Route::get('administrator/peta_kemacetan', [AdminController::class, 'peta_kemacetan']);
 
@@ -141,6 +141,6 @@ Route::get('/administrator/peta', [AdminController::class, 'peta']);
 // Route::post('password', [UserController::class, 'password_action'])->name('password.action');
 // Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('dashboardPenggunaJalan', [PenggunaJalanController::class, 'index']);
+Route::get('/', [PenggunaJalanController::class, 'index']);
 
 Route::get('/detail_jalan/{id}', [PenggunaJalanController::class, 'detailJalan']);

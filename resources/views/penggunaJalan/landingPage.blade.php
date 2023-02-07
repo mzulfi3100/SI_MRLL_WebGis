@@ -46,7 +46,7 @@ https://templatemo.com/tm-573-eduwell
               <div class="col-12">
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
-                      <a href="index.html" class="logo" >
+                      <a href="/" class="logo" >
                         <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 45px; height: 45px; font-size:16px; color:red;">&nbsp;&nbsp;Sistem Informasi MRLL</img>
                       </a>
                       <!-- ***** Logo End ***** -->

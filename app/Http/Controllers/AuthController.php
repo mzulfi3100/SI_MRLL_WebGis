@@ -32,7 +32,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect('/');
+        return redirect('/administrator');
     }
 
     public function login_process(Request $request)
@@ -56,6 +56,6 @@ class AuthController extends Controller
         Session::flush();
         Auth::logout();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }
