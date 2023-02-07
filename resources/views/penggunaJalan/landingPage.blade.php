@@ -619,8 +619,6 @@ https://templatemo.com/tm-573-eduwell
             }]
         }).addTo(map);
 
-        L.control.browserPrint().addTo(map);
-
         var lay = L.control.layers.tree(baseTree, overlaysTree, {
                     namedToggle: true,
                     selectorBack: false,

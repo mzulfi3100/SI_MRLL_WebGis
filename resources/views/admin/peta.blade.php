@@ -443,43 +443,51 @@
 
         map.on("browser-print-start", function(e){
             /*on print start we already have a print map and we can create new control and add it to the print map to be able to print custom information */
-            L.control.Legend({position: "bottomleft",
-            collapsed: false,
-            symbolWidth: 15,
-            opacity: 1,
-            column: 2,
-            legends: [{
-                label: "Kemacetan Tinggi",
-                type: "polyline",
-                color: "#FF0000",
-                weight: 2,
-            },  {
-                label: "Kemacetan Sedang",
-                type: "polyline",
-                color: "#FFF200",
-                weight: 2,
-            },  {
-                label: "Kemacetan Rendah",
-                type: "polyline",
-                color: "#3CB043",
-                weight: 2,
-            },  {
-                label: "Rawan Laka",
-                type: "image",
-                url: '/laka.png',
-            },  {
-                label: "Titik Kemacetan",
-                type: "img",
-                url: '/macet.png',
-            },  {
-                label: "Terkoneksi ATCS",
-                type: "image",
-                url: "/ATCS.png"
-            },  {
-                label: "Tidak Terkoneksi ATCS",
-                type: "image",
-                url: "/apill.png"
-            }]}).addTo(e.printMap);
+            L.control.Legend({
+                position: "bottomleft",
+                collapsed: false,
+                symbolWidth: 15,
+                opacity: 1,
+                column: 2,
+                collapsed: false,
+                legends: [{
+                    label: "Kemacetan Tinggi",
+                    type: "polyline",
+                    color: "#FF0000",
+                    weight: 2,
+                },  {
+                    label: "Kemacetan Sedang",
+                    type: "polyline",
+                    color: "#FFF200",
+                    weight: 2,
+                },  {
+                    label: "Kemacetan Rendah",
+                    type: "polyline",
+                    color: "#3CB043",
+                    weight: 2,
+                },  {
+                    label: "Kemacetan Tidak Diketahui",
+                    type: "polyline",
+                    color: "lightblue",
+                    weight: 2,
+                },  {
+                    label: "Rawan Laka",
+                    type: "image",
+                    url: '/laka.png',
+                },  {
+                    label: "Titik Kemacetan",
+                    type: "image",
+                    url: '/macet.png',
+                },  {
+                    label: "Terkoneksi ATCS",
+                    type: "image",
+                    url: "/ATCS.png"
+                },  {
+                    label: "Tidak Terkoneksi ATCS",
+                    type: "image",
+                    url: "/apill.png"
+                }]
+            }).addTo(e.printMap);
         });
 
     </script>
