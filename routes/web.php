@@ -124,6 +124,8 @@ Route::post('/deleteSelectedKecelakaan', [KecelakaanController::class, 'deleteSe
 
 Route::get('/administrator/jalan/{id}/show', [JalanController::class, 'show']);
 
+Route::get('/administrator/peta', [AdminController::class, 'peta']);
+
 /*-----------------------------------------------------------
 ----------------- Semua Menu Login --------------------------
 ------------------------------------------------------------*/

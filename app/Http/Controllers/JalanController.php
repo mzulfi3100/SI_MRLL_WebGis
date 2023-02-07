@@ -77,6 +77,11 @@ class JalanController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'kecamatanId' => 'required',
+            'namaJalan' => 'required',
+            'geoJsonJalan' => 'required',
+        ]);
 
         // update atau create data jalan
         $jalan = Jalan::updateOrCreate([
@@ -113,7 +118,7 @@ class JalanController extends Controller
                         ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                         ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
                         ->where('jalans_kecamatans.id', '=', $id)
-                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan')
+                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan')
                         ->first();
 
         $lalulintas = DB::table('lalulintas')

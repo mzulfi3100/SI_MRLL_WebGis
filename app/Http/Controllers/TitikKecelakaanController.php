@@ -81,6 +81,7 @@ class TitikKecelakaanController extends Controller
         $request->validate([
             'kecamatanId' => 'required',
             'jalanId' => 'required',
+            'lokasiKecelakaan' => 'required',
             'geoJsonKecelakaan' => 'required',
         ]);
 

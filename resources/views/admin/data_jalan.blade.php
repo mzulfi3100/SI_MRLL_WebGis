@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label>Kecamatan</label>
+                                <label>Kecamatan <span style="color:red;">&#42;</span></label>
                                 <select class="form-control" name="kecamatanId" id="kecamatanId">
                                     <option value="">- Pilih Kecamatan -</option>
                                     @foreach($kecamatans as $kec)
@@ -104,7 +104,7 @@
                         </div>
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
-                                <label>Nama Jalan</label>
+                                <label>Nama Jalan <span style="color:red;">&#42;</span></label>
                                 <input type="text" class="form-control" id="namaJalan" name="namaJalan">
                             </div>
                             <div class="form-group">
@@ -137,7 +137,7 @@
                                 <input type="text" class="form-control" id="kondisiJalan" name="kondisiJalan">
                             </div>
                             <div class="form-group">
-                                <label>Geo JSON Jalan</label>
+                                <label>Geo JSON Jalan <span style="color:red;">&#42;</span></label>
                                 <textarea type="text" class="form-control" id="geoJsonJalan" name="geoJsonJalan" readonly></textarea>
                             </div>
                         </div>
@@ -262,18 +262,7 @@
             ]
         };
 
-        // Layer Controls
-        var lay = L.control.layers.tree(baseTree, overlaysTree, {
-            namedToggle: true,
-            selectorBack: false,
-            closedSymbol: '&#8862; &#x1f5c0;',
-            openedSymbol: '&#8863; &#x1f5c1;',
-            collapseAll: 'Collapse All',
-            collapsed: false,
-        });
-
-        //menambahkan layer control tree ke map
-        lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
+        
 
         // Geomann drawing geoJson Control
         map.pm.addControls({
@@ -311,6 +300,20 @@
         })
 
         map.addControl(L.control.search({position: 'topleft'}));
+
+        //layer control tree
+        var lay = L.control.layers.tree(baseTree, overlaysTree, {
+                    namedToggle: true,
+                    selectorBack: false,
+                    closedSymbol: '&#8862; &#x1f5c0;',
+                    openedSymbol: '&#8863; &#x1f5c1;',
+                    collapseAll: 'Collapse all',
+                    collapsed: true,
+                    position: 'topleft'
+                });
+
+        //menambahkan layer control tree ke map
+        lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
 
         // menampilkan batas kecamatan yang dipilih
 

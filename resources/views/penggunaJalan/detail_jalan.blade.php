@@ -35,33 +35,23 @@ https://templatemo.com/tm-573-eduwell
 -->
   </head>
   <body>
-    <!-- ***** Header Area Start ***** -->
    <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky">
+   <header class="header-area header-sticky">
       <div class="container">
           <div class="row">
               <div class="col-12">
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
-                      <a href="index.html" class="logo">
-                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}" alt="LogoDishub" style="width: 45px; height: 45px;"></img>
+                      <a href="/" class="logo" >
+                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 45px; height: 45px; font-size:16px; color:red;">&nbsp;&nbsp;Sistem Informasi MRLL</img>
                       </a>
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Menu Start ***** -->
                       <ul class="nav">
-                          <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                          <li class="scroll-to-section"><a href="#services">Services</a></li>
-                          <li class="scroll-to-section"><a href="#courses">Courses</a></li>
-                          <li class="has-sub">
-                              <a href="javascript:void(0)">Pages</a>
-                              <ul class="sub-menu">
-                                  <li><a href="about-us.html">About Us</a></li>
-                                  <li><a href="our-services.html">Our Services</a></li>
-                                  <li><a href="contact-us.html">Contact Us</a></li>
-                              </ul>
-                          </li>
-                          <li class="scroll-to-section"><a href="#testimonials">Testimonials</a></li> 
-                          <li class="scroll-to-section"><a href="#contact-section">Contact Us</a></li> 
+                          <li class="scroll-to-section"><a href="#home" class="active">Home</a></li>
+                          <li class="scroll-to-section"><a href="#info-web">Info</a></li> 
+                          <li class="scroll-to-section"><a href="#peta">Peta</a></li> 
+                          <li class="border px-3 rounded border-white"><a href="login" >Login</a></li> 
                       </ul>        
                       <a class='menu-trigger'>
                           <span>Menu</span>
@@ -71,7 +61,7 @@ https://templatemo.com/tm-573-eduwell
               </div>
           </div>
       </div>
-    </header>
+  </header>
   <!-- ***** Header Area End ***** -->
     <section class="main-banner" id="top">
         <div class="container">
@@ -114,6 +104,10 @@ https://templatemo.com/tm-573-eduwell
                             <div class="card-body">
                             <table class="table">
                                 <tbody>
+                                    <tr>
+                                        <td>Kecamatan</td>
+                                        <td>: <?= $jalan->namaKecamatan ?></td>
+                                    </tr>
                                     <tr>
                                         <td>Nama Jalan</td>
                                         <td>: <?= $jalan->namaJalan ?></td>
@@ -302,6 +296,10 @@ https://templatemo.com/tm-573-eduwell
         </div>
     </section>
 
+    <!-- jQuery -->
+    <script src="{{ asset('Admin/plugins/jquery/jquery.min.js')}}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('Admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('/eduwell/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('/eduwell/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
@@ -408,19 +406,23 @@ https://templatemo.com/tm-573-eduwell
 
         // menampilkan batas kecamatan yang dipilih
 
-        L.geoJSON(<?= $jalan->geoJsonKecamatan ?>, {
+        var kecamatanJson = L.geoJSON(<?= $jalan->geoJsonKecamatan ?>, {
+            style: {
+                'color': '<?= $jalan->warnaKecamatan ?>',
+                'fillOpacity': '0.5',
+            },
+            pmIgnore: true,
+        }).addTo(map);
+
+        var jalanJson = L.geoJSON(<?= $jalan->geoJsonJalan ?>, {
             style: {
                 'fillOpacity': '0',
             },
             pmIgnore: true,
         }).addTo(map);
 
-        L.geoJSON(<?= $jalan->geoJsonJalan ?>, {
-            style: {
-                'fillOpacity': '0',
-            },
-            pmIgnore: true,
-        }).addTo(map);
+        kecamatanJson.bindPopup("<?= $jalan->namaKecamatan ?>");
+        jalanJson.bindPopup("<?= $jalan->namaJalan ?>");
     </script>
   </body>
 

@@ -70,7 +70,7 @@
                             <input type="hidden" name="jalanKecamatanId" id="jalanKecamatanId">
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
-                                    <label>Nama Kecamatan</label>
+                                    <label>Nama Kecamatan <span style="color:red;">&#42;</span></label>
                                     <select class="form-control" id="kecamatanId" name="kecamatanId">
                                         <option value=""> - Pilih Kecamatan - </option>
                                         @foreach($dataKec as $kec)
@@ -79,13 +79,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Volume Lalu lintas(smp)</label>
+                                    <label for="">Volume Lalu lintas(smp) <span style="color:red;">&#42;</span></label>
                                     <input type="text" class="form-control" name="volume" id="volume">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
-                                    <label>Nama Jalan</label>
+                                    <label>Nama Jalan <span style="color:red;">&#42;</span></label>
                                     <select class="form-control" id="jalanId" name="jalanId">
                                         <option value=""> - Pilih Jalan - </option>
                                     </select>
@@ -109,7 +109,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Tingkat Kemacetan</label>
+                                    <label for="">Tingkat Kemacetan <span style="color:red;">&#42;</span></label>
                                     <select class="form-control" id="tingkatKemacetan" name="tingkatKemacetan">
                                         <option value="">- Pilih Tingkat Kemacetan -</option>
                                         <option value="Rendah">Rendah</option>
@@ -122,7 +122,7 @@
                                     <input type="text" class="form-control" name="kecepatan" id="kecepatan">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Tahun</label>
+                                    <label for="">Tahun <span style="color:red;">&#42;</span></label>
                                     <input type="text" class="form-control" name="tahun" id="tahun">
                                 </div>
                             </div>
@@ -270,13 +270,14 @@
 
         //layer control tree
         var lay = L.control.layers.tree(baseTree, overlaysTree, {
-            namedToggle: true,
-            selectorBack: false,
-            closedSymbol: '&#8862; &#x1f5c0;',
-            openedSymbol: '&#8863; &#x1f5c1;',
-            collapseAll: 'Collapse All',
-            collapsed: false,
-        });
+                    namedToggle: true,
+                    selectorBack: false,
+                    closedSymbol: '&#8862; &#x1f5c0;',
+                    openedSymbol: '&#8863; &#x1f5c1;',
+                    collapseAll: 'Collapse all',
+                    collapsed: true,
+                    position: 'topleft'
+                });
 
         //menambahkan layer control tree ke map
         lay.addTo(map).collapseTree().expandSelected().collapseTree(true);

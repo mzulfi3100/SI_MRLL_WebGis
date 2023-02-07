@@ -76,6 +76,7 @@ class LalulintaController extends Controller
         $request->validate([
             'kecamatanId' => 'required',
             'jalanId' => 'required',
+            'tingkatKemacetan' => 'required',
             'volume' => 'required',
             'tahun' => 'required',
         ]);

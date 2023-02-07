@@ -98,14 +98,6 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/administrator/kecelakaan" class="nav-link">
-                <i class="far fa-circle" style="color:black"></i>
-                  <p style="color:white">
-                  &nbsp;&nbsp;Data Kecelakaan
-                </p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="/administrator/titik_kecelakaan" class="nav-link">
                   <i class="far fa-circle" style="color:black"></i>
                   <p style="color:white">
@@ -119,6 +111,15 @@
           <div class="sidebar-heading" style="font-size:14px;color:black;"><b>
             PETA</b>
           </div>
+          <!-- Menu Melihat Peta Rawan Kemacetan-->
+          <li class="nav-item">
+            <a href="/administrator/peta" class="nav-link">
+            <i class="fas fa-map-marked-alt" style="color:blue"></i>
+              <p style="color:white">
+              &nbsp;&nbsp;Peta 
+              </p>
+            </a>
+          </li>
           <!-- Menu Melihat Peta Rawan Kemacetan-->
           <li class="nav-item">
             <a href="/administrator/peta_kemacetan" class="nav-link">

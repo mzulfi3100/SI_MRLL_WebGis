@@ -1,4 +1,4 @@
-<?php $title="Peta Rawan Kecelakaan"?>
+<?php $title="Peta"?>
 @extends('admin/template')
 @section('content')
     <div id="map" style="height:650px; width: 1050px;"></div>
@@ -18,6 +18,42 @@
         var hybrid = L.tileLayer('http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}',{
             maxZoom: 20,
             subdomains:['mt0','mt1','mt2','mt3']
+        });
+
+        var macet = L.icon({
+            iconUrl: '/macet.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        var laka = L.icon({
+            iconUrl: '/laka.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        var atcs = L.icon({
+            iconUrl: '/ATCS.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        var apill = L.icon({
+            iconUrl: '/apill.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41] 
         });
 
         var map = L.map('map', {
@@ -59,8 +95,8 @@
             "fillOpacity": 0 ,
         };
 
-        var laka = L.icon({
-            iconUrl: '/laka.png',
+        var blue = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
@@ -72,8 +108,6 @@
             style: kabupatenStyle
         }).addTo(map);
 
-        var totalKec;
-
         var overlaysTree = 
             {
                 label: 'Layers',
@@ -81,6 +115,43 @@
                 children: [
                     {label: '<div id="onlysel">-Show only selected-</div>'},
                     {
+                        label: "Apill",
+                        selectAllCheckbox: true,
+                        children: [
+                            @foreach($apills as $apill)
+                                {
+                                    label: '<?= $apill->namaSimpang ?>',
+                                    layer: L.geoJSON(<?= $apill->geoJsonApill ?>, {
+                                        onEachFeature: function(feature, layer){
+                                            layer.bindTooltip('<?= $apill->namaSimpang ?>');
+                                            if('<?= $apill->terkoneksiATCS ?>' == 'Sudah'){
+                                                layer.setIcon(atcs);
+                                            }else{
+                                                layer.setIcon(apill);
+                                            }
+                                        }
+                                    }).addTo(map),
+                                    name:   '<div style="max-height: 200px; overflow-y: auto"' +
+                                                '<div class="card">' +
+                                                    '<div class="card-header">' +
+                                                        '<h3 class="card-title" style="text-align: center" >' + '<?= $apill->namaSimpang ?>' +'</h3>' +
+                                                    '</div>' +
+                                                    '<div class="card-body">' +
+                                                        '<table class="table">' +
+                                                            '<tbody>' +
+                                                                '<tr>' +
+                                                                    '<td>Terkoneksi ATCS</td>' +
+                                                                    '<td>: ' + '<?= $apill->terkoneksiATCS ?>' + '</td>' +
+                                                                '</tr>' +
+                                                            '</tbody>' +
+                                                        '</table>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' 
+                                },
+                            @endforeach
+                        ]
+                    },  {
                         label: 'Titik Kecelakaan',
                         selectAllCheckbox: true,
                         children: [
@@ -138,7 +209,7 @@
                                                             '<tr>' +
                                                                 '<td>Korban Luka Ringan</td>' +
                                                                 '<td>:' +" <?= $titik->korbanLR ?>" +'</td>' + 
-                                                            '</tr>' +
+                                                             '</tr>' +
                                                             '<tr>' +
                                                                 '<td>Korban Luka Berat</td>' +
                                                                 '<td>:' +" <?= $titik->korbanLB ?>" +'</td>' + 
@@ -148,7 +219,7 @@
                                                                 '<td>:' +" <?= $titik->korbanMD ?>" +'</td>' + 
                                                             '</tr>' +
                                                             '<tr>' +
-                                                                '<td>' + '<a href="/administrator/jalan/<?= $titik->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                                '<td>' + '<a href="/detail_jalan/<?= $titik->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
                                                             '</tr>' +
                                                         '</tbody>' +
                                                     '</table>' +
@@ -160,17 +231,51 @@
                             @endforeach
                         ]
                     },  {
+                        label: 'Titik Kemacetan',
+                        selectAllCheckbox: true,
+                        children: [
+                            @foreach($titikMacet as $titik)
+                            {
+                                label: '<?= $titik->lokasiKemacetan ?>',
+                                layer: L.geoJSON(<?= $titik->geoJsonKemacetan ?>, {
+                                    onEachFeature: function(feature, layer){
+                                        layer.bindTooltip('<?= $titik->lokasiKemacetan ?>');
+                                        layer.setIcon(macet);
+                                    }
+                                }).addTo(map),
+                                name:   '<div style="max-height: 200px;  max-width: 400px; overflow-x: auto"' +
+                                            '<div class="card">' +
+                                                '<div class="card-header">' +
+                                                    '<h3 class="card-title" style="text-align: center" >' + '<?= $titik->lokasiKemacetan ?>' +'</h3>' +
+                                                '</div>' +
+                                                '<div class="card-body">' +
+                                                    '<h8><b>Deskripsi Kemacetan</b></h8><br><br>' +
+                                                    '<?= $titik->deskripsiKemacetan ?>' + 
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' 
+                            },
+                            @endforeach
+                        ]
+                    },  {
                         label: 'Jalan',
                         selectAllCheckbox: true,
                         children: [
-                            @foreach($jalans as $jln)
+                            @foreach($data as $jln)
                             {
-                                label: '<?= $jln->namaJalan ?>', 
+                                label: '<?= $jln->namaJalan ?>',
                                 layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
                                     onEachFeature: function (feature, layer) {
                                         layer.bindTooltip('<?= $jln->namaJalan ?>');
+                                        if('<?= $jln->tingkatKemacetan ?>' == "Rendah"){
+                                            layer.setStyle({color :'#3CB043'});
+                                        }else if('<?= $jln->tingkatKemacetan ?>' == "Sedang"){
+                                                layer.setStyle({color :'#FFF200'});
+                                        }else if('<?= $jln->tingkatKemacetan ?>' == "Tinggi"){
+                                                layer.setStyle({color :'#FF0000'});
+                                        }
                                     }
-                                }),
+                                }).addTo(map),
                                 name:   '<div style="max-height: 200px; overflow-y: auto"' +
                                             '<div class="card">' +
                                                 '<div class="card-header">' +
@@ -208,14 +313,23 @@
                                                                 '<td>Kondisi Jalan</td>' +
                                                                 '<td>:' + '<?= $jln->kondisiJalan ?>' +'</td>' +
                                                             '</tr>' +
+                                                            '<th>Data Lalu Lintas</th>' +
+                                                            '<tr>' +
+                                                                '<td>Volume Lalu Lintas</td>' +
+                                                                '<td>:' + '<?= $jln->volume ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kecepatan Tempuh</td>' +
+                                                                '<td>:' + '<?= $jln->kecepatan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>' + '<a href="/detail_jalan/<?= $jln->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                            '</tr>' +
                                                         '</tbody>' +
                                                     '</table>' +
                                                 '</div>' +
-                                                '<div class="card-footer">' +
-                                                    
-                                                '</div>' +
                                             '</div>' +
-                                        '</div>'
+                                        '</div>'             
                             },
                             @endforeach
                         ]
@@ -241,15 +355,7 @@
                 ]
             };
 
-        var lay = L.control.layers.tree(baseTree, overlaysTree, {
-                    namedToggle: true,
-                    selectorBack: false,
-                    closedSymbol: '&#8862; &#x1f5c0;',
-                    openedSymbol: '&#8863; &#x1f5c1;',
-                    collapseAll: 'Collapse all',
-                    collapsed: true,
-                    position: 'topleft'
-                });
+        
 
         var makePopups = function(node) {
             if (node.layer) {
@@ -261,44 +367,106 @@
         };
         makePopups(overlaysTree);
 
+
         map.addControl(L.control.search({position: 'topleft'}));
 
         L.control.Legend({
             position: "bottomleft",
-            collapsed: true,
             symbolWidth: 15,
             opacity: 1,
             column: 2,
+            collapsed: true,
             legends: [{
+                label: "Kemacetan Tinggi",
+                type: "polyline",
+                color: "#FF0000",
+                weight: 2,
+            },  {
+                label: "Kemacetan Sedang",
+                type: "polyline",
+                color: "#FFF200",
+                weight: 2,
+            },  {
+                label: "Kemacetan Rendah",
+                type: "polyline",
+                color: "#3CB043",
+                weight: 2,
+            },  {
                 label: "Rawan Laka",
                 type: "image",
                 url: '/laka.png',
+            },  {
+                label: "Titik Kemacetan",
+                type: "img",
+                url: '/macet.png',
+            },  {
+                label: "Terkoneksi ATCS",
+                type: "image",
+                url: "/ATCS.png"
+            },  {
+                label: "Tidak Terkoneksi ATCS",
+                type: "image",
+                url: "/apill.png"
             }]
         }).addTo(map);
 
         L.control.browserPrint().addTo(map);
 
+        var lay = L.control.layers.tree(baseTree, overlaysTree, {
+                    namedToggle: true,
+                    selectorBack: false,
+                    closedSymbol: '&#8862; &#x1f5c0;',
+                    openedSymbol: '&#8863; &#x1f5c1;',
+                    collapseAll: 'Collapse all',
+                    collapsed: true,
+                    position: 'topleft',
+                });
+
         lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
-        L.DomEvent.on(L.DomUtil.get('onlysel'), 'click', function() {
+            L.DomEvent.on(L.DomUtil.get('onlysel'), 'click', function() {
             lay.collapseTree(true).expandSelected(true);
         });
 
         map.on("browser-print-start", function(e){
             /*on print start we already have a print map and we can create new control and add it to the print map to be able to print custom information */
-            L.control.Legend({
-                position: "bottomleft",
-                collapsed: false,
-                symbolWidth: 15,
-                opacity: 1,
-                column: 2,
-                legends: [{
-                    label: "Rawan Laka",
-                    type: "image",
-                    url: '/laka.png',
-                }]
-            }).addTo(e.printMap);
+            L.control.Legend({position: "bottomleft",
+            collapsed: false,
+            symbolWidth: 15,
+            opacity: 1,
+            column: 2,
+            legends: [{
+                label: "Kemacetan Tinggi",
+                type: "polyline",
+                color: "#FF0000",
+                weight: 2,
+            },  {
+                label: "Kemacetan Sedang",
+                type: "polyline",
+                color: "#FFF200",
+                weight: 2,
+            },  {
+                label: "Kemacetan Rendah",
+                type: "polyline",
+                color: "#3CB043",
+                weight: 2,
+            },  {
+                label: "Rawan Laka",
+                type: "image",
+                url: '/laka.png',
+            },  {
+                label: "Titik Kemacetan",
+                type: "img",
+                url: '/macet.png',
+            },  {
+                label: "Terkoneksi ATCS",
+                type: "image",
+                url: "/ATCS.png"
+            },  {
+                label: "Tidak Terkoneksi ATCS",
+                type: "image",
+                url: "/apill.png"
+            }]}).addTo(e.printMap);
         });
-
 
     </script>
 @stop

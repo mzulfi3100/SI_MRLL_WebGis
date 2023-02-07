@@ -92,16 +92,16 @@
             <div class="modal-body">
                 <input type="hidden" name="kecamatanId" id="kecamatanId">
                 <div class="form-group">
-                  <label>Nama Kecamatan</label>
+                  <label>Nama Kecamatan <span style="color:red;">&#42;</span></label>
                   <input type="text" class="form-control" id="namaKecamatan" value="" name="namaKecamatan">
                 </div>
                 <div class="form-group">
-                  <label>Warna Kecamatan</label>
+                  <label>Warna Kecamatan <span style="color:red;">&#42;</span></label>
                   <input type="color" class="form-control" id="colorpicker" value=""> 
                   <input type="hidden" class="form-control" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" id="hexcolor" name="warnaKecamatan" value="">
                 </div>
                 <div class="form-group">
-                  <label>Geo JSON Kecamatan</label>
+                  <label>Geo JSON Kecamatan <span style="color:red;">&#42;</span></label>
                   <input type="text" class="form-control" id="geoJsonKecamatan" name="geoJsonKecamatan" value="">
                 </div>
             </div>

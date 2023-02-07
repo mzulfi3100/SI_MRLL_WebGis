@@ -45,7 +45,7 @@ class PenggunaJalanController extends Controller
                         ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                         ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
                         ->where('jalans_kecamatans.id', '=', $id)
-                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan')
+                        ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan')
                         ->first();
 
         $lalulintas = DB::table('lalulintas')

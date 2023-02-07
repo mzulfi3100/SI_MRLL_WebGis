@@ -218,7 +218,8 @@
                     closedSymbol: '&#8862; &#x1f5c0;',
                     openedSymbol: '&#8863; &#x1f5c1;',
                     collapseAll: 'Collapse all',
-                    collapsed: false,
+                    collapsed: true,
+                    position: 'topleft'
                 });
 
         var makePopups = function(node) {
@@ -231,16 +232,12 @@
         };
         makePopups(overlaysTree);
 
-        lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
-        L.DomEvent.on(L.DomUtil.get('onlysel'), 'click', function() {
-            lay.collapseTree(true).expandSelected(true);
-        });
 
         map.addControl(L.control.search({position: 'topleft'}));
 
         L.control.Legend({
             position: "bottomleft",
-            collapsed: false,
+            collapsed: true,
             symbolWidth: 15,
             opacity: 1,
             column: 2,
@@ -267,6 +264,11 @@
         }).addTo(map);
 
         L.control.browserPrint().addTo(map);
+
+        lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
+        L.DomEvent.on(L.DomUtil.get('onlysel'), 'click', function() {
+            lay.collapseTree(true).expandSelected(true);
+        });
 
         map.on("browser-print-start", function(e){
             /*on print start we already have a print map and we can create new control and add it to the print map to be able to print custom information */

@@ -90,7 +90,7 @@
                 <input type="hidden" name="jalanKecamatanId" id="jalanKecamatanId">
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
-                        <label>Nama Kecamatan</label>
+                        <label>Nama Kecamatan <span style="color:red;">&#42;</span></label>
                         <select class="form-control" id="kecamatanId" name="kecamatanId">
                             <option value=""> - Pilih Kecamatan - </option>
                             @foreach($dataKec as $kec)
@@ -101,7 +101,7 @@
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
-                        <label>Nama Jalan</label>
+                        <label>Nama Jalan <span style="color:red;">&#42;</span></label>
                         <select class="form-control" id="jalanId" name="jalanId">
                             <option value=""> - Pilih Jalan - </option>
                         </select>
@@ -138,11 +138,11 @@
 
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="">Lokasi</label>
+                        <label for="">Lokasi <span style="color:red;">&#42;</span></label>
                         <input type="text" class="form-control" name="lokasiKecelakaan" id="lokasiKecelakaan">
                     </div>
                     <div class="form-group">
-                        <label for="">Geo Json Titik Kecelakaan</label>
+                        <label for="">Geo Json Titik Kecelakaan <span style="color:red;">&#42;</span></label>
                         <textarea type="text" class="form-control" name="geoJsonKecelakaan" id="geoJsonKecelakaan" readonly></textarea>
                     </div>
                 </div>
@@ -266,13 +266,14 @@
 
         //layer control tree
         var lay = L.control.layers.tree(baseTree, overlaysTree, {
-            namedToggle: true,
-            selectorBack: false,
-            closedSymbol: '&#8862; &#x1f5c0;',
-            openedSymbol: '&#8863; &#x1f5c1;',
-            collapseAll: 'Collapse All',
-            collapsed: false,
-        });
+                    namedToggle: true,
+                    selectorBack: false,
+                    closedSymbol: '&#8862; &#x1f5c0;',
+                    openedSymbol: '&#8863; &#x1f5c1;',
+                    collapseAll: 'Collapse all',
+                    collapsed: true,
+                    position: 'topleft'
+                });
 
         //menambahkan layer control tree ke map
         lay.addTo(map).collapseTree().expandSelected().collapseTree(true);

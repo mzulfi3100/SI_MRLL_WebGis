@@ -87,13 +87,13 @@
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
-                        <label for="">Nama Simpang</label>
+                        <label for="">Nama Simpang <span style="color:red;">&#42;</span></label>
                         <input type="text" class="form-control" name="namaSimpang" id="namaSimpang">
                     </div>
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
-                        <label for="">Terkoneksi ATCS</label>
+                        <label for="">Terkoneksi ATCS <span style="color:red;">&#42;</span></label>
                         <select class="form-control" name="terkoneksiATCS" id="terkoneksiATCS">
                             <option value="">- Pilih -</option>
                             <option value="Belum">Belum</option>
@@ -104,7 +104,7 @@
                 <input type="hidden" name="apillId" id="apillId">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="">Geo Json Apill</label>
+                        <label for="">Geo Json Apill <span style="color:red;">&#42;</span></label>
                         <textarea type="text" class="form-control" name="geoJsonApill" id="geoJsonApill" readonly></textarea>
                     </div>
                 </div>
@@ -226,19 +226,6 @@
             ]
         };
 
-        //layer control tree
-        var lay = L.control.layers.tree(baseTree, overlaysTree, {
-            namedToggle: true,
-            selectorBack: false,
-            closedSymbol: '&#8862; &#x1f5c0;',
-            openedSymbol: '&#8863; &#x1f5c1;',
-            collapseAll: 'Collapse All',
-            collapsed: false,
-        });
-
-        //menambahkan layer control tree ke map
-        lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
-
         //control draw geomann
         map.pm.addControls({
             position: 'topleft',
@@ -292,6 +279,20 @@
         })
 
         map.addControl(L.control.search({position: 'topleft'}));
+
+        //layer control tree
+        var lay = L.control.layers.tree(baseTree, overlaysTree, {
+                    namedToggle: true,
+                    selectorBack: false,
+                    closedSymbol: '&#8862; &#x1f5c0;',
+                    openedSymbol: '&#8863; &#x1f5c1;',
+                    collapseAll: 'Collapse all',
+                    collapsed: true,
+                    position: 'topleft'
+                });
+
+        //menambahkan layer control tree ke map
+        lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
     </script>
     <!-- End Tampil Map -->
 @stop

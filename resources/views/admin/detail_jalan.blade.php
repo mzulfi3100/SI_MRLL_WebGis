@@ -72,6 +72,10 @@
                 <table class="table">
                     <tbody>
                         <tr>
+                            <td>Kecamatan</td>
+                            <td>: <?= $jalan->namaKecamatan ?></td>
+                        </tr>
+                        <tr>
                             <td>Nama Jalan</td>
                             <td>: <?= $jalan->namaJalan ?></td>
                         </tr>
@@ -344,19 +348,23 @@
 
         // menampilkan batas kecamatan yang dipilih
 
-        L.geoJSON(<?= $jalan->geoJsonKecamatan ?>, {
+        var kecamatanJson = L.geoJSON(<?= $jalan->geoJsonKecamatan ?>, {
+            style: {
+                'color': '<?= $jalan->warnaKecamatan ?>',
+                'fillOpacity': '0.5',
+            },
+            pmIgnore: true,
+        }).addTo(map);
+
+        var jalanJson = L.geoJSON(<?= $jalan->geoJsonJalan ?>, {
             style: {
                 'fillOpacity': '0',
             },
             pmIgnore: true,
         }).addTo(map);
 
-        L.geoJSON(<?= $jalan->geoJsonJalan ?>, {
-            style: {
-                'fillOpacity': '0',
-            },
-            pmIgnore: true,
-        }).addTo(map);
+        kecamatanJson.bindPopup("<?= $jalan->namaKecamatan ?>");
+        jalanJson.bindPopup("<?= $jalan->namaJalan ?>");
     </script>
     <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
