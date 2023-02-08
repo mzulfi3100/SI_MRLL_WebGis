@@ -334,7 +334,7 @@
         })
 
         //menghapus layer jalan jika mouse mengarah ke select jalan
-        $('#kecamatanId').mouseenter(function() {
+        $('#kecamatanId').on('contextmenu', function(){
             if(kecamatanSelected != null){
                 kecamatanGroup.removeLayer(kecamatanSelected);
                 getKecamatanGroup.removeLayer(getKecamatanLayer);
@@ -355,7 +355,7 @@
         });
 
         //menghapus layer jalan jika mouse mengarah ke select jalan
-        $('#jalanId').mouseenter(function() {
+        $('#jalanId').on('contextmenu', function(){
             if(jalanSelected != null){
                 jalanGroup.removeLayer(jalanSelected);
                 getJalanGroup.removeLayer(getJalanLayer);

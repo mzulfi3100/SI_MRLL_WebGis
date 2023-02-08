@@ -332,9 +332,18 @@
         var getKecamatanGroup = L.layerGroup(); //layer group untuk menampilkan kecamatan pada jalan yang diedit
         var getKecamatanLayer;
         var getJalanLayer;
-        
+        var isClick;
+
         // melakukan action jika kecamatan id diinputkan 
+        $('#kecamatanId').on('contextmenu', function(){
+            kecamatanGroup.removeLayer(kecamatanLayer);
+            getKecamatanGroup.removeLayer(getKecamatanLayer)
+            
+        });
+
+        // melakukkan action jika kecamatan id telah diinputkan dan mouse mengarah ke kecamatan id
         $('#kecamatanId').on('input', function(){
+            isClick = true;
             var kecamatanId = this.value;
             kecamatanGroup.addTo(map);
             @foreach($kecamatans as $kec)
@@ -349,12 +358,8 @@
                 }
             @endforeach
         });
-
-        // melakukkan action jika kecamatan id telah diinputkan dan mouse mengarah ke kecamatan id
-        $('#kecamatanId').mouseenter(function(){
-            getKecamatanGroup.removeLayer(getKecamatanLayer)
-            kecamatanGroup.removeLayer(kecamatanLayer);
-        });
+        
+        
     </script>
 @stop
 @section('script_tabel')
