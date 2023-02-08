@@ -48,6 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/L.Control.Layers.Tree.css" crossorigin=""/>
   <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />  
   <link rel="stylesheet" href="/leaflet.legend.css" crossorigin=""/>
+  <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 </head>
 <body class="hold-transition sidebar-mini" onload="realtimeClock()">
 <!-- Tampilan Preloader Logo Dishub -->

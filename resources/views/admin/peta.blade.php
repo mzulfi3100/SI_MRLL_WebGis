@@ -57,6 +57,9 @@
         });
 
         var map = L.map('map', {
+            fullscreenControl: {
+                pseudoFullscreen: false
+            },
             layers: [street, hybrid, satellite],
             center: [-5.420000, 105.292969],
             zoom: 12.4

@@ -50,6 +50,7 @@
 <script src="//unpkg.com/@sjaakp/leaflet-search/dist/leaflet-search.js"></script>
 <script src="/leaflet.legend.js"></script>
 <script src="/leaflet.browser.print.min.js"></script>
+<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 @yield('script_peta')
 @yield('script_warna')
 @yield('script_tabel')

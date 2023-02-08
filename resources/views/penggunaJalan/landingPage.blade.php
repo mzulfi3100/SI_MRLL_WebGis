@@ -10,6 +10,8 @@
     <title>SI MRLL</title>
     <link rel="icon" href="{!! asset('/Admin/dist/img/LogoDishub.png') !!}"/>
 
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('/eduwell/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
@@ -67,18 +69,21 @@ https://templatemo.com/tm-573-eduwell
       </div>
   </header>
   <!-- ***** Header Area End ***** -->
-  <section class="main-banner" id="home" >
+  <section class="main-banner" id="home">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 align-self-center">
           <div class="header-text">
             <h6><b>SELAMAT DATANG DI</b></h6>&nbsp;
-            <h3><b>Sistem Informasi </b></h3><h3><b>Manajemen Rekayasa Lalu Lintas</b></h3>
+            <h3><b>Sistem Informasi </b></h3><h3><em>Manajemen Rekayasa Lalu Lintas</em></h3>
+            <div class="main-button-gradient" style="margin-top:30px">
+              <div class="scroll-to-section"><a href="#peta">PETA</a></div>
+            </div>
           </div>
         </div>
         <div class="col-lg-6">
           <div class="right-image">
-            <img src="# " alt="">
+            <img src="{{ asset('/eduwell/images/banner-right-dec.png') }}" alt="">
           </div>
         </div>
       </div>
@@ -166,7 +171,7 @@ https://templatemo.com/tm-573-eduwell
     </div>
   </section>
 
-  <section class="contact-us" id="peta" >
+  <section class="contact-us" id="peta" style="margin-bottom:100px;">
     <div class="container">
       <!-- <div class="section-heading" style >
       <center><h6>Peta</h6> </center>
@@ -199,6 +204,7 @@ https://templatemo.com/tm-573-eduwell
     <script src="//unpkg.com/@sjaakp/leaflet-search/dist/leaflet-search.js"></script>
     <script src="/leaflet.legend.js"></script>
     <script src="/leaflet.browser.print.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
     <script type="text/javascript">
         var satellite = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
             maxZoom: 20,
@@ -252,6 +258,9 @@ https://templatemo.com/tm-573-eduwell
         });
 
         var map = L.map('map', {
+            fullscreenControl: {
+                pseudoFullscreen: false
+            },
             layers: [street, hybrid, satellite],
             center: [-5.420000, 105.292969],
             zoom: 12.4
@@ -722,6 +731,7 @@ https://templatemo.com/tm-573-eduwell
           checkSection();
         });
     </script>
+
 </body>
 
 </html>

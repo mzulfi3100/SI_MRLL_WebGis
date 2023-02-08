@@ -130,12 +130,12 @@ body {
 }
 
 ::selection {
-  background: #dc8cdb;
+  background: #0f6bd4;
   color: #fff;
 }
 
 ::-moz-selection {
-  background: #dc8cdb;
+  background: #11bae4;
   color: #fff;
 }
 
@@ -158,8 +158,8 @@ body {
 .main-button-gradient a {
   font-size: 13px;
   color: #fff;
-  background: rgb(219,138,222);
-  background: linear-gradient(-145deg, rgba(219,138,222,1) 0%, rgba(246,191,159,1) 100%);
+  background: rgb(14, 140, 224);
+  background: linear-gradient(-145deg, rgb(8, 168, 231) 0%, rgb(9, 31, 226) 100%);
   padding: 12px 30px;
   display: inline-block;
   border-radius: 5px;
@@ -170,7 +170,7 @@ body {
 
 .main-button-gradient a:hover {
   background: rgb(219,138,222);
-  background: linear-gradient(-145deg, rgba(219,138,222,1) 0%, rgba(246,191,159,1) 100%);
+  background: linear-gradient(-145deg, rgb(31, 121, 206) 0%, rgb(9, 111, 179) 100%);
   opacity: 0.9;
 }
 
@@ -232,7 +232,7 @@ body {
   color: #111;
 }
 
-.section-heading h4 em {
+.section-heading h3 em {
   font-style: normal;
   color: #2967db;
 }
@@ -403,6 +403,11 @@ header
   font-size: 12px;
   font-weight: 400;
   border-bottom: 1px solid #eee;
+}
+
+.main-banner .header-text h3 em {
+  font-style: normal;
+  color: #1b74e7;
 }
 
 .header-area .main-nav .nav li.has-sub ul li a:hover {
@@ -732,10 +737,6 @@ section.main-banner {
   margin-bottom: 40px;
 }
 
-.main-banner .header-text h2 em {
-  font-style: normal;
-  color: #dc8cdb;
-}
 
 .main-banner .main-button-gradient {
   position: relative;

@@ -85,16 +85,25 @@
                 <div class="col-12">
                     <div id="map" style="width:750px; height:450px;" class="mb-4 ml-2"></div>
                 </div>
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
                         <label for="">Nama Simpang <span style="color:red;">&#42;</span></label>
-                        <input type="text" class="form-control" name="namaSimpang" id="namaSimpang">
+                        <input type="text" class="form-control" name="namaSimpang" id="namaSimpang" required> 
                     </div>
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
                         <label for="">Terkoneksi ATCS <span style="color:red;">&#42;</span></label>
-                        <select class="form-control" name="terkoneksiATCS" id="terkoneksiATCS">
+                        <select class="form-control" name="terkoneksiATCS" id="terkoneksiATCS" required>
                             <option value="">- Pilih -</option>
                             <option value="Belum">Belum</option>
                             <option value="Sudah">Sudah</option>
@@ -105,7 +114,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="">Geo Json Apill <span style="color:red;">&#42;</span></label>
-                        <textarea type="text" class="form-control" name="geoJsonApill" id="geoJsonApill" readonly></textarea>
+                        <textarea type="text" class="form-control" name="geoJsonApill" id="geoJsonApill" readonly required></textarea>
                     </div>
                 </div>
             </div>
