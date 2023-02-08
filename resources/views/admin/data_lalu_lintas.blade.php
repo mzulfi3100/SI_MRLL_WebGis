@@ -99,7 +99,7 @@
                                 <div class="form-group">
                                     <label for="">Tingkat Pelayanan</label>
                                     <select class="form-control" id="tingkatPelayanan" name="tingkatPelayanan">
-                                        <option value="">- Pilih Tingkat Pelayanan -</option>
+                                        <option>- Pilih Tingkat Pelayanan -</option>
                                         <option value="A">A</option>
                                         <option value="B">B</option>
                                         <option value="C">C</option>
@@ -111,7 +111,7 @@
                                 <div class="form-group">
                                     <label for="">Tingkat Kemacetan <span style="color:red;">&#42;</span></label>
                                     <select class="form-control" id="tingkatKemacetan" name="tingkatKemacetan">
-                                        <option value="">- Pilih Tingkat Kemacetan -</option>
+                                        <option>- Pilih Tingkat Kemacetan -</option>
                                         <option value="Rendah">Rendah</option>
                                         <option value="Sedang">Sedang</option>
                                         <option value="Tinggi">Tinggi</option>

@@ -60,6 +60,8 @@ class AdminController extends Controller
                     ->get();
         $apills = Apill::get();
 
+        
+
         return view('admin/peta', compact('kecamatans', 'jalans', 'data', 'titikLaka', 'apills', 'titikMacet'));
     }
 

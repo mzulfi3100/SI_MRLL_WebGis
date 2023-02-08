@@ -498,6 +498,10 @@ https://templatemo.com/tm-573-eduwell
                                                                 '<td>:' + '<?= $jln->namaJalan ?>' + '</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
+                                                                '<td>Fungsi Jalan</td>' +
+                                                                '<td>:' + '<?= $jln->fungsiJalan ?>' + '</td>'+
+                                                            '</tr>' +
+                                                            '<tr>' +
                                                                 '<td>Tipe Jalan</td>' +
                                                                 '<td>:' + '<?= $jln->tipeJalan ?>' + '</td>'+
                                                             '</tr>' +

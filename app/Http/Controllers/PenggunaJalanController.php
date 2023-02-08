@@ -65,7 +65,7 @@ class PenggunaJalanController extends Controller
                     ->get();  
 
         $lalulintas = DB::table('lalulintas')
-                        ->where('lalulintas.tahun', '>', DB::raw('year(NOW()) - 3'))
+                        ->where('lalulintas.tahun', '>', DB::raw('year(NOW()) - 5'))
                         ->where('lalulintas.jalanKecamatanId', '=', $id)
                         ->orderBy('lalulintas.tahun', 'desc')
                         ->get();

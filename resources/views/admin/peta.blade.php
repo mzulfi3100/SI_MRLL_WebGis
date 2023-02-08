@@ -305,6 +305,10 @@
                                                                 '<td>:'  + '<?= $jln->namaJalan ?>' + '</td>' +
                                                             '</tr>' +
                                                             '<tr>' +
+                                                                '<td>Fungsi Jalan</td>' +
+                                                                '<td>:'  + '<?= $jln->fungsiJalan ?>' + '</td>'+
+                                                            '</tr>' +
+                                                            '<tr>' +
                                                                 '<td>Tipe Jalan</td>' +
                                                                 '<td>:'  + '<?= $jln->tipeJalan ?>' + '</td>'+
                                                             '</tr>' +
@@ -340,7 +344,7 @@
                                                                         '<td>: ' + '<?= $lalin->kecepatan ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +
-                                                                        '<td>' + '<a href="/detail_jalan/<?= $jln->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                                        '<td>' + '<a href="/administrator/jalan/<?= $jln->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
                                                                     '</tr>' +
                                                                 <?php } ?>
                                                             @endforeach

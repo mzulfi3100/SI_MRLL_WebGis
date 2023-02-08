@@ -90,6 +90,7 @@ class JalanController extends Controller
             'id' => $request->jalanId
         ],[
             'namaJalan' => $request->namaJalan,
+            'fungsiJalan' => $request->fungsiJalan,
             'tipeJalan' => $request->tipeJalan,
             'panjangJalan' => $request->panjangJalan,
             'lebarJalan' => $request->lebarJalan,
@@ -135,7 +136,7 @@ class JalanController extends Controller
                         ->get();  
 
         $lalulintas = DB::table('lalulintas')
-                        ->where('lalulintas.tahun', '>', DB::raw('year(NOW()) - 3'))
+                        ->where('lalulintas.tahun', '>', DB::raw('year(NOW()) - 5'))
                         ->where('lalulintas.jalanKecamatanId', '=', $id)
                         ->orderBy('lalulintas.tahun', 'desc')
                         ->get();

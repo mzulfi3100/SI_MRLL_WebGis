@@ -102,10 +102,16 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>Nama Jalan <span style="color:red;">&#42;</span></label>
                                 <input type="text" class="form-control" id="namaJalan" name="namaJalan">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Fungsi Jalan <span style="color:red;">&#42;</span></label>
+                                <input type="text" class="form-control" id="fungsiJalan" name="fungsiJalan">
                             </div>
                             <div class="form-group">
                                 <label>Panjang Jalan(km)</label>
@@ -174,6 +180,9 @@
 
         // Inisialisasi map
         var map = L.map('map', {
+            fullscreenControl: {
+                pseudoFullscreen: false
+            },
             layers: [satellite, hybrid, street], //base layers
             center: [-5.420000, 105.292969], //koordinat bandar lampung
             zoom: 12.4,
@@ -332,6 +341,7 @@
                 if('<?= $kec->id ?>' == kecamatanId){
                     kecamatanLayer = L.geoJSON(<?= $kec->geoJsonKecamatan ?>, {
                         style: {
+                            'color': '<?= $kec->warnaKecamatan ?>',
                             'fillOpacity': '0',
                         },
                         pmIgnore: true,
@@ -531,6 +541,7 @@
                     $('#jalanModal').modal('show');
                     $('#jalanId').val(data.id);
                     $('#namaJalan').val(data.namaJalan);
+                    $('#fungsiJalan').val(data.fungsiJalan);
                     $('#tipeJalan').val(data.tipeJalan);
                     $('#panjangJalan').val(data.panjangJalan);
                     $('#lebarJalan').val(data.lebarJalan);
@@ -588,6 +599,7 @@
                         if('<?= $kec->id ?>' == data.kecamatanId ){
                             getKecamatanLayer = L.geoJSON(<?= $kec->geoJsonKecamatan ?>,{
                                 style: {
+                                    'color': '<?= $kec->warnaKecamatan ?>',
                                     'fillOpacity': '0',
                                 },
                                 pmIgnore: true,
