@@ -381,14 +381,6 @@
                 columnDefs: [
                     {"className": "dt-center", "targets": [0, 1, 4, 5, 6, 7]},
                     {orderable: false, searchable: false, targets: [0, 1, 7]},
-                    {width: 10, targets: 0},
-                    {width: 20, targets: 1},
-                    {width: 190, targets: 2},
-                    {width: 190, targets: 3},
-                    {width: 120, targets: 4},
-                    {width: 115, targets: 5},
-                    {width: 115, targets: 6},
-                    {width: 150, targets: 7},
                 ],
                 columns: [
                     {data: 'checkbox', name: 'checkbox'},
