@@ -1,7 +1,16 @@
 <?php $title="Peta"?>
 @extends('admin/template')
 @section('content')
-    <div id="map" style="height:650px; width: 1050px;"></div>
+    <div id="map" style="height:600px; width: 1050px;"></div>
+@stop
+@section('copyright_peta')
+<footer class="main-footer">
+    Copyright &copy; 2023<strong> Universitas Lampung.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+    <b>Version</b> 1.0.0
+    </div>
+</footer>
 @stop
 @section('script_peta')
     <script type="text/javascript">

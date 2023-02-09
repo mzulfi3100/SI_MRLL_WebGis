@@ -418,9 +418,6 @@
                                                                 '<td>Korban Meninggal Dunia</td>' +
                                                                 '<td>:' +" <?= $titik->korbanMD ?>" +'</td>' + 
                                                             '</tr>' +
-                                                            '<tr>' +
-                                                                '<td>' + '<a href="/detail_jalan/<?= $titik->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
-                                                            '</tr>' +
                                                         '</tbody>' +
                                                     '</table>' +
                                                 '</div>' +

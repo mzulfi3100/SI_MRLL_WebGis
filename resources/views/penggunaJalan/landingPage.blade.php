@@ -15,6 +15,9 @@
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('/eduwell/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('Admin/dist/css/adminlte.min.css')}}">
+
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{{ asset('/eduwell/css/fontawesome.css')}}">
@@ -49,7 +52,7 @@ https://templatemo.com/tm-573-eduwell
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
                       <a href="/" class="logo" >
-                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 45px; height: 45px; font-size:16px; color:red;">&nbsp;&nbsp;Sistem Informasi MRLL</img>
+                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 35px; height: 35px; font-size:16px; color:red;">&nbsp;&nbsp;Sistem Informasi MRLL</img>
                       </a>
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Menu Start ***** -->
@@ -181,13 +184,24 @@ https://templatemo.com/tm-573-eduwell
           <div id="map" style="height:550px; width: 1050px;"></div>
         </div>
       </div>
+      
     </div>
   </section>
 
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgb(4, 156, 243);">
+        <span style="color:white; font-size:16px;">Copyright © 2023 Universitas Lampung</span>
+    </div>
+    <!-- Copyright -->
+
+  
+
+    
+
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('/eduwell/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{ asset('/eduwell/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('/admin/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{ asset('/admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
     <script src="{{ asset('/eduwell/js/isotope.min.js')}}"></script>
     <script src="{{ asset('/eduwell/js/owl-carousel.js')}}"></script>
@@ -487,7 +501,7 @@ https://templatemo.com/tm-573-eduwell
                                 name:   '<div style="max-height: 200px; overflow-y: auto"' +
                                             '<div class="card">' +
                                                 '<div class="card-header">' +
-                                                    '<h3 class="card-title">' + '<?= $jln->namaJalan ?>' +'</h3>' +
+                                                    '<h3 class="card-title" style="text-align: center">' + '<?= $jln->namaJalan ?>' +'</h3>' +
                                                 '</div>' +
                                                 '<div class="card-body">' +
                                                     '<table class="table">' +

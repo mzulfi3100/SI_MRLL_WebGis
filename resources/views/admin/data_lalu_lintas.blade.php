@@ -99,7 +99,7 @@
                                 <div class="form-group">
                                     <label for="">Tingkat Pelayanan <span style="color:red;">&#42;</span></label>
                                     <select class="form-control" id="tingkatPelayanan" name="tingkatPelayanan">
-                                        <option>- Pilih Tingkat Pelayanan -</option>
+                                        <option value="">- Pilih Tingkat Pelayanan -</option>
                                         <option value="A">A</option>
                                         <option value="B">B</option>
                                         <option value="C">C</option>
@@ -159,6 +159,15 @@
         </div>
       </div>
     </section>
+@stop
+@section('copyright_data')
+<footer class="main-footer">
+    Copyright &copy; 2023<strong> Universitas Lampung.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+    <b>Version</b> 1.0.0
+    </div>
+</footer>
 @stop
 @section('script_peta')
     <!-- Tampil Map -->

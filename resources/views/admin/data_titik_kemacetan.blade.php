@@ -137,6 +137,15 @@
       </div>
     </div>
 @stop
+@section('copyright_data')
+<footer class="main-footer">
+    Copyright &copy; 2023<strong> Universitas Lampung.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+    <b>Version</b> 1.0.0
+    </div>
+</footer>
+@stop
 @section('script_peta')
     <!-- Tampil Map -->
     <script type="text/javascript">
@@ -259,8 +268,7 @@
                     position: 'topleft'
                 });
 
-        //menambahkan layer control tree ke map
-        lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
+        
 
         //control draw geomann
         map.pm.addControls({
@@ -382,6 +390,9 @@
                 @endforeach
             })
         })
+
+        //menambahkan layer control tree ke map
+        lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
     </script>
     <!-- End Tampil Map -->
 @stop

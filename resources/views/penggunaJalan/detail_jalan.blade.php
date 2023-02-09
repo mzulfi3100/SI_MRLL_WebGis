@@ -43,7 +43,7 @@ https://templatemo.com/tm-573-eduwell
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
                       <a href="/" class="logo" >
-                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 45px; height: 45px; font-size:16px; color:red;">&nbsp;&nbsp;Sistem Informasi MRLL</img>
+                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 35px; height: 35px; font-size:16px; color:red;">&nbsp;&nbsp;Sistem Informasi MRLL</img>
                       </a>
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Menu Start ***** -->
@@ -51,7 +51,7 @@ https://templatemo.com/tm-573-eduwell
                           <li class="scroll-to-section"><a href="#home" class="active">Home</a></li>
                           <li class="scroll-to-section"><a href="#info-web">Info</a></li> 
                           <li class="scroll-to-section"><a href="#peta">Peta</a></li> 
-                          <li class="border px-3 rounded border-white"><a href="login" >Login</a></li> 
+                          <li class="border px-3 rounded border-white"><a href="/login" >Login</a></li> 
                       </ul>        
                       <a class='menu-trigger'>
                           <span>Menu</span>
@@ -296,6 +296,12 @@ https://templatemo.com/tm-573-eduwell
         </div>
     </section>
 
+    <!-- Copyright -->
+    <div class="text-center p-4 mt-5" style="background-color: rgb(4, 156, 243);">
+        <span style="color:white; font-size:16px;">Copyright © 2023 Universitas Lampung</span>
+    </div>
+    <!-- Copyright -->
+
     <!-- jQuery -->
     <script src="{{ asset('Admin/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->
@@ -448,9 +454,6 @@ https://templatemo.com/tm-573-eduwell
                                                             '<tr>' +
                                                                 '<td>Korban Meninggal Dunia</td>' +
                                                                 '<td>:' +" <?= $titik->korbanMD ?>" +'</td>' + 
-                                                            '</tr>' +
-                                                            '<tr>' +
-                                                                '<td>' + '<a href="/detail_jalan/<?= $titik->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
                                                             '</tr>' +
                                                         '</tbody>' +
                                                     '</table>' +
