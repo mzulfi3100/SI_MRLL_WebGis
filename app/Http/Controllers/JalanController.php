@@ -39,11 +39,11 @@ class JalanController extends Controller
                     $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Edit" class="edit btn btn-success btn-sm editJalan" id="editJalan"><i class="fas fa-pen" style="color:white"></i></a>&nbsp;';
 
                     // btn delete
-                    $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteJalan" id="deleteJalan"><i class="fa fa-trash" style="color:white"></i></a>';
+                    $actionBtn = $actionBtn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'"  data-jalkec="'.$row->jalanKecamatanId.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteJalan" id="deleteJalan"><i class="fa fa-trash" style="color:white"></i></a>';
                     return $actionBtn;
                 })
                 ->addColumn('checkbox', function($row){
-                    return '<input type="checkbox" name="jalan_checkbox" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'"><label></label>';
+                    return '<input type="checkbox" name="jalan_checkbox" data-id="'.$row->id.'" data-kec="'.$row->kecamatanId.'" data-jalkec="'.$row->jalanKecamatanId.'"><label></label>';
                 })
                 ->rawColumns(['action','checkbox'])
                 ->make(true);
@@ -53,11 +53,15 @@ class JalanController extends Controller
         //                 ->select('jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan')
         //                 ->get();
         // mengambil data kecamatan dari yang terbaru
+
+        $lalulintas = Lalulinta::latest()->get();
+        $titikLaka = TitikKecelakaan::latest()->get();
+        $titikMacet = TitikKemacetan::latest()->get();
         $kecamatans = Kecamatan::latest()->get();
         // mengambil data jalan dari yang terbaru
         $jalans = Jalan::latest()->get();
         // menampilkan view data_jalan dan mengirim data kecamatan dan jalan dari database
-        return view('admin/data_jalan', compact('kecamatans', 'jalans'));
+        return view('admin/data_jalan', compact('kecamatans', 'jalans', 'lalulintas', 'titikLaka', 'titikMacet'));
     }
 
     /**

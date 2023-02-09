@@ -159,6 +159,9 @@
 
         
         var map = L.map('map', {
+            fullscreenControl: {
+                pseudoFullscreen: false
+            },
             layers: [satellite, hybrid, street], //base layers
             center: [-5.420000, 105.292969], //koordinat bandar lampung
             zoom: 12.4,
@@ -298,6 +301,7 @@
                 if('<?= $kec->id ?>' == kecamatanId){
                     kecamatanSelected = L.geoJSON(<?= $kec->geoJsonKecamatan ?>, {
                         style: {
+                            'color': '<?= $kec->warnaKecamatan ?>',
                             'fillOpacity': '0',
                         },
                         pmIgnore: true,
@@ -642,6 +646,7 @@
                         if('<?= $kec->id ?>' == data.kecamatanId ){
                             getKecamatanLayer = L.geoJSON(<?= $kec->geoJsonKecamatan ?>,{
                                 style: {
+                                    'color': '<?= $kec->warnaKecamatan ?>',
                                     'fillOpacity': '0',
                                 },
                                 pmIgnore: true,

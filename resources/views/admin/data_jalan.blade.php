@@ -446,41 +446,88 @@
             $(document).on('click', 'button#deleteAllBtn', function(){
                 var checkedJalan = [];
                 var checkedKecamatan = [];
+                var checkedJalanKecamatan = [];
+                var isDataLalin;
+                var isDataLaka;
+                var isDataMacet;
                 var url = '{{ route("delete.selected.jalan")}}';
                 $('input[name="jalan_checkbox"]:checked').each(function(){
                     checkedJalan.push($(this).data('id')),
                     checkedKecamatan.push($(this).data('kec'))
+                    checkedJalanKecamatan.push($(this).data('jalkec'))
                 });
                 
                 // untuk melihat id data yang dipilih/checked
-                // alert([checkedJalan,checkedKecamatan]);
-                if(checkedJalan.length > 0){
-                    var countJalan = [checkedJalan.length];
-                    swal.fire({
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        title:'<h3 style ="color:red">Peringatan!</h3>',
-                        icon: 'warning',
-                        html:'Apakah anda yakin ingin menghapus <b>'+checkedJalan.length+'</b> data jalan yang dipilih?',
-                        showCancelButton:true,
-                        showCloseButton:true,
-                        confirmButtonText:'Lanjutkan',
-                        cancelButtonText:'Kembali',
-                        confirmButtonColor:'#28a745',
-                        cancelButtonColor:'#d33',
-                        width:500,
-                        allowOutsideClick:false
-                    }).then(function(result){
-                        if(result.value){
-                            $.post(url, {jalan_id:checkedJalan, jalan_kec:checkedKecamatan, countingJalan:countJalan}, function(data){
-                                if(data.code == 1){
-                                    toastr.success(data.msg);
-                                    table.draw();
-                                }
-                            },'json');
+
+                @foreach($lalulintas as $lalin)
+                    for(var i = 0; i < checkedJalanKecamatan.length; i++){
+                        if(<?= $lalin->jalanKecamatanId ?> == checkedJalanKecamatan[i] ){
+                            isDataLalin = true;
                         }
-                    })
+                    }
+                @endforeach
+                @foreach($titikLaka as $laka)
+                for(var i = 0; i < checkedJalanKecamatan.length; i++){
+                    if(<?= $laka->jalanKecamatanId ?> == checkedJalanKecamatan[i]){
+                        isDataLaka = true;
+                    }
+                }
+                @endforeach
+                @foreach($titikMacet as $macet)
+                for(var i = 0; i < checkedJalanKecamatan.length; i++){
+                    if(<?= $macet->jalanKecamatanId ?> == checkedJalanKecamatan[i]){
+                        isDataMacet= true;
+                    }
+                }
+                @endforeach
+                if(checkedJalan.length > 0){
+                    if(isDataLalin == true || isDataLaka == true || isDataMacet == true){
+                        swal.fire({
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            title:'<h3 style ="color:orange">Peringatan!</h3>',
+                            icon: 'error',
+                            html:'Salah satu data jalan ini tidak bisa dihapus! silahkan hapus terlebih dahulu data <span style="color:red">lalulintas/titik kemacetan/ titik kecelakaan</span> yang terkait dengan jalan ini terlebih dahulu',
+                            showCancelButton:false,
+                            showCloseButton:true,
+                            confirmButtonColor:'#28a745',
+                            cancelButtonColor:'#d33',
+                            width:500,
+                            allowOutsideClick:false
+                        })
+                    }else{
+                        var countJalan = [checkedJalan.length];
+                        swal.fire({
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            title:'<h3 style ="color:red">Peringatan!</h3>',
+                            icon: 'warning',
+                            html:'Apakah anda yakin ingin menghapus <b>'+checkedJalan.length+'</b> data jalan yang dipilih?',
+                            showCancelButton:true,
+                            showCloseButton:true,
+                            confirmButtonText:'Lanjutkan',
+                            cancelButtonText:'Kembali',
+                            confirmButtonColor:'#28a745',
+                            cancelButtonColor:'#d33',
+                            width:500,
+                            allowOutsideClick:false
+                        }).then(function(result){
+                            if(result.value){
+                                $.post(url, {jalan_id:checkedJalan, jalan_kec:checkedKecamatan, countingJalan:countJalan}, function(data){
+                                    if(data.code == 1){
+                                        toastr.success(data.msg);
+                                        table.draw();
+                                    }else{
+                                        console.log(data.code);
+                                        toastr.error('errors messages');
+                                    }
+                                },'json');
+                            }
+                        })
+                        
+                    }
                 }
             });
 
@@ -624,8 +671,46 @@
                 e.preventDefault();
                 var jalanId = $(this).data("id");
                 var kecamatanId = $(this).data("kec");
+                var jalanKecamatanId = $(this). data("jalkec");
+                var isDataLalin;
+                var isDataLaka;
+                var isDataMacet;
+
+                @foreach($lalulintas as $lalin)
+                    if(<?= $lalin->jalanKecamatanId ?> == jalanKecamatanId){
+                        isDataLalin = true;
+                    }
+                @endforeach
+                @foreach($titikLaka as $laka)
+                    if(<?= $laka->jalanKecamatanId ?> == jalanKecamatanId){
+                        isDataLaka = true;
+                    }
+                @endforeach
+                @foreach($titikMacet as $macet)
+                    if(<?= $macet->jalanKecamatanId ?> == jalanKecamatanId){
+                        isDataMacet= true;
+                    }
+                @endforeach
+
+                console.log(isDataLalin);
                 
-                swal.fire({
+                if(isDataLalin == true || isDataLaka == true || isDataMacet == true){
+                    swal.fire({
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        title:'<h3 style ="color:orange">Info!</h3>',
+                        icon: 'error',
+                            html:'Data jalan ini tidak bisa dihapus! silahkan hapus terlebih dahulu data <span style="color:red">lalulintas/titik kemacetan/ titik kecelakaan</span> yang terkait dengan jalan ini terlebih dahulu',
+                        showCancelButton:false,
+                        showCloseButton:true,
+                        confirmButtonColor:'#28a745',
+                        cancelButtonColor:'#d33',
+                        width:500,
+                        allowOutsideClick:false
+                    })
+                }else{
+                    swal.fire({
                         showClass: {
                             popup: 'animate__animated animate__fadeInDown'
                         },
@@ -650,6 +735,7 @@
                             },'json');
                         }
                     })
+                }
             })
         
             // Simpan perubahan
