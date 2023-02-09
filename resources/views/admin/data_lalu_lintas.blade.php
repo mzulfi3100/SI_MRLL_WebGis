@@ -750,7 +750,6 @@
                 dataType: 'json',
                 success: function(data){
                     console.log('save');
-                    toastr.success(data.msg);
                     $('#lalinForm').trigger('reset');
                     $('#lalinModal').modal('hide');
                     toastr.success(data.msg);

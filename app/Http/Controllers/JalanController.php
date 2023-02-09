@@ -106,7 +106,7 @@ class JalanController extends Controller
             'kecamatanId' => $request->kecamatanId,
         ]);
         // mengembalikan response success
-        return response()->json(['code'=>1, 'msg'=> ' Berhasil Menyimpan Data Kecamatan']);
+        return response()->json(['code'=>1, 'msg'=> ' Berhasil Menyimpan Data Jalan']);
     }
 
     /**
