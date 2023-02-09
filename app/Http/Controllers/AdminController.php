@@ -97,19 +97,6 @@ class AdminController extends Controller
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
                     ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId', 'jalans_kecamatans.id AS jalanKecamatanId')
                     ->get();
-        $perhitungan = DB::table('zscores')
-                        ->join('jalans_kecamatans', 'zscores.jalanKecamatanId', '=', 'jalans_kecamatans.id')
-                        ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
-                        ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                        ->select('zscores.nilai', 'zscores.jalanKecamatanId', 'jalans.*')
-                        ->get();
-        $totalKecelakaan = DB::table('kecelakaans')
-                            ->join(DB::raw('(select kecelakaans.jalanKecamatanId, max(kecelakaans.tahunKecelakaan) as MaxDate from kecelakaans group by kecelakaans.jalanKecamatanId) tm'), function($join){
-                                $join->on('kecelakaans.jalanKecamatanId', '=', 'tm.jalanKecamatanId')
-                                ->on('kecelakaans.tahunKecelakaan', '=', 'tm.MaxDate');
-                            })
-                            ->select('kecelakaans.*')
-                            ->get();
         $titikLaka = DB::table('titik_kecelakaans')
                         ->join('jalans_kecamatans', 'titik_kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
                         ->join('jalans', 'jalans.id', '=', 'jalans_kecamatans.jalanId')
@@ -123,7 +110,7 @@ class AdminController extends Controller
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
                     ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
                     ->get();
-        return view('admin/peta_kecelakaan', compact('kecamatans', 'jalans', 'perhitungan', 'totalKecelakaan', 'titikLaka', 'data'));
+        return view('admin/peta_kecelakaan', compact('kecamatans', 'jalans', 'titikLaka', 'data'));
     }
     
     public function peta_apill(){
