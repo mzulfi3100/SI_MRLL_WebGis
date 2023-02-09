@@ -97,7 +97,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="">Tingkat Pelayanan</label>
+                                    <label for="">Tingkat Pelayanan <span style="color:red;">&#42;</span></label>
                                     <select class="form-control" id="tingkatPelayanan" name="tingkatPelayanan">
                                         <option>- Pilih Tingkat Pelayanan -</option>
                                         <option value="A">A</option>
