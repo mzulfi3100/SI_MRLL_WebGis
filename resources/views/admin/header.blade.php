@@ -69,22 +69,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt" style="color:white;"></i>
-        </a>
-      </li>
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="mr-2 d-none d-lg-inline text-gray-600 " style="color:white; ">ADMIN</span>
+          <span class="mr-2 d-none d-lg-inline text-gray-600 " style="color:white; ">{{Auth::user()->username}}</span>
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" >
-          <a class="dropdown-item" href="/administrator/register">
+          <?php if(Auth::user()->role == 'superadmin'){ ?>
+            <a class="dropdown-item" href="/administrator/akun_admin">
           <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400">
-          </i>Tambah Akun</a>
-            <div class="dropdown-divider"></div><a class="dropdown-item" href="/administrator/sign_out">
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</a>
+          </i>List Akun Admin</a>
+          <?php } ?>
+            <div class="dropdown-divider"></div><a class="dropdown-item" href="/administrator/edit_password">
+          <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>Edit Password</a>
+          <div class="dropdown-divider"></div><a class="dropdown-item" href="/administrator/sign_out">
+          <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</a>
         </div>
       </li>
     </ul>
