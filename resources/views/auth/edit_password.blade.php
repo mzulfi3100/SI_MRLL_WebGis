@@ -1,4 +1,4 @@
-<?php $title="Ubah Password"?>
+<?php $title="Edit Password"?>
 @extends('admin/template')
 @section('content')
     <div class="p-4">
@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12   ">
                     <div class="card">
-                        <div class="card-header">{{ __('Ubah password') }}</div>
+                        <div class="card-header">{{ __('Edit password') }}</div>
 
                         <form action="{{ route('update.password') }}" method="POST">
                             @csrf
@@ -36,7 +36,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <button class="btn btn-success">Submit</button>
+                                <button class="btn btn-success">Simpan</button>
                             </div>
 
                         </form>
