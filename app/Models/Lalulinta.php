@@ -9,6 +9,6 @@ class Lalulinta extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'tahun', 'volume', 'kecepatan', 'jalanKecamatanId', 'tingkatPelayanan', 'tingkatKemacetan'
+        'tahun', 'volume', 'kecepatan', 'jalanKecamatanId', 'tingkatPelayanan', 'tingkatKemacetan', 'ratio'
     ];
 }

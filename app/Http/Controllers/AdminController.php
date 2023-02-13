@@ -30,7 +30,11 @@ class AdminController extends Controller
         $kecelakaan = TitikKecelakaan::get();
         $apill = Apill::get();        
         $kecamatans = Kecamatan::get();
-        $jalans = Jalan::get();
+        $jalans = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
+                    ->get();
         return view('admin/dashboard', compact('kecamatans', 'jalans', 'kemacetan', 'kecelakaan', 'apill'));
     }
     
@@ -43,7 +47,7 @@ class AdminController extends Controller
                 ->join('jalans_kecamatans', 'lalulintas.jalanKecamatanId', '=', 'jalans_kecamatans.id')
                 ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                 ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
-                ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId', 'jalans_kecamatans.id AS jalanKecamatanId')
+                ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId', 'jalans_kecamatans.id AS jalanKecamatanId', 'lalulintas.ratio')
                 ->get();  
         $titikLaka = DB::table('titik_kecelakaans')
                 ->join('jalans_kecamatans', 'titik_kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
@@ -59,9 +63,6 @@ class AdminController extends Controller
                     ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
                     ->get();
         $apills = Apill::get();
-
-        
-
         return view('admin/peta', compact('kecamatans', 'jalans', 'data', 'titikLaka', 'apills', 'titikMacet'));
     }
 

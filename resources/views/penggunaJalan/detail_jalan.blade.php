@@ -183,6 +183,14 @@ https://templatemo.com/tm-573-eduwell
                                                         <td>Kecepatan Tempuh</td>
                                                         <td>: <?= $lalin->kecepatan ?></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>V/C Ratio</td>
+                                                        <td>: <?= $lalin->ratio ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Level Of Service</td>
+                                                        <td>: <?= $lalin->tingkatPelayanan ?></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -197,6 +205,14 @@ https://templatemo.com/tm-573-eduwell
                                                     <tr>
                                                         <td>Kecepatan Tempuh</td>
                                                         <td>: <?= $lalin->kecepatan ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>V/C Ratio</td>
+                                                        <td>: <?= $lalin->ratio ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Level Of Service</td>
+                                                        <td>: <?= $lalin->tingkatPelayanan ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

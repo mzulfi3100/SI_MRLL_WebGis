@@ -375,6 +375,8 @@
         map.on('pm:remove', (e)=> {
             $('#geoJsonKemacetan').val('');
         })
+        
+        map.addControl(L.control.search({position: 'topleft'}));
 
         //mendapatkan jalanKecamatanId
         $('#kecamatanId').on('input', function() {
@@ -567,13 +569,6 @@
                 $('#jalanId').append($('<option>', {
                     text: "- Pilih Jalan -",
                 }));
-                
-                @foreach($dataJln as $jln)
-                    $('#jalanId').append($('<option>', {
-                        value: <?= $jln->jalanId ?>,
-                        text: "<?= $jln->namaJalan ?>",
-                    }));
-                @endforeach
             });
 
             $('body').on('click', '.editTitikMacet', function () {
@@ -645,7 +640,7 @@
                     @foreach($dataJln as $jln)
                         if(<?= $jln->jalanId ?> == data.jalanId){
                             
-                        }else{
+                        }else if(<?= $jln->kecamatanId ?> == data.kecamatanId){
                             $('#jalanId').append($('<option>', {
                                 value: <?= $jln->jalanId ?>,
                                 text: "<?= $jln->namaJalan?>",

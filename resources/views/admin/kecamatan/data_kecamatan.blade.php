@@ -160,6 +160,15 @@
     </section>
   <!-- End Tabel Data Kecamatan -->
 @stop
+@section('copyright_data')
+<footer class="main-footer">
+    Copyright &copy; 2023<strong> Universitas Lampung.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+    <b>Version</b> 1.0.0
+    </div>
+</footer>
+@stop
 @section('script_tabel')
   <!--- Ambil Warna Terinput -->
   <script>

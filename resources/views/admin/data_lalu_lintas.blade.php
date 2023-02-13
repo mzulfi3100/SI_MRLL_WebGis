@@ -109,6 +109,10 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">V/C Ratio</label>
+                                    <input type="text" class="form-control" name="ratio" id="ratio">
+                                </div>
+                                <div class="form-group">
                                     <label for="">Tingkat Kemacetan <span style="color:red;">&#42;</span></label>
                                     <select class="form-control" id="tingkatKemacetan" name="tingkatKemacetan">
                                         <option>- Pilih Tingkat Kemacetan -</option>
@@ -563,14 +567,6 @@
                 $('#jalanId').append($('<option>', {
                     text: "- Pilih Jalan -",
                 }));
-                
-                // tambah option jalan
-                @foreach($dataJln as $jln)
-                    $('#jalanId').append($('<option>', {
-                        value: <?= $jln->jalanId ?>,
-                        text: "<?= $jln->namaJalan ?>",
-                    }));
-                @endforeach
 
                 $('#tingkatPelayanan').append($('<option>', {
                     text: "- Pilih Tingkat Pelayanan -",
@@ -605,7 +601,7 @@
                 console.log(lalinId);
                 $('#saveBtn').html('Simpan');
                 $.get("{{ route('lalulinta.index') }}" +'/' + lalinId +'/edit', function (data) {
-                    $('#modalHeading').html('Edit Data Apill');
+                    $('#modalHeading').html('Edit Data Lalin');
                     $('#saveBtn').val('editLalin');
                     $('#lalinModal').on('shown.bs.modal', function(){
                         setTimeout(function() {
@@ -619,6 +615,7 @@
                     $('#kapasitasJalan').val(data.kapasitasJalan);
                     $('#tingkatPelayanan').val(data.tingkatPelayanan);
                     $('#tingkatKemacetan').val(data.tingkatKemacetan);
+                    $('#ratio').val(data.ratio);
                     $('#tahun').val(data.tahun);
                     $('#jalanKecamatanId').val(data.jalanKecamatanId);
                     $('#kecamatanId').empty();
@@ -678,7 +675,7 @@
                     @foreach($dataJln as $jln)
                         if(<?= $jln->jalanId ?> == data.jalanId){
                             
-                        }else{
+                        }else if(<?= $jln->kecamatanId ?> == data.kecamatanId){
                             $('#jalanId').append($('<option>', {
                                 value: <?= $jln->jalanId ?>,
                                 text: "<?= $jln->namaJalan?>",

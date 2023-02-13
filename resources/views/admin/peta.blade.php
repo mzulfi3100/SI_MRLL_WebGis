@@ -353,6 +353,14 @@
                                                                         '<td>: ' + '<?= $lalin->kecepatan ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +
+                                                                        '<td>V/C Ratio</td>' +
+                                                                        '<td>: ' + '<?= $lalin->ratio?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
+                                                                        '<td>Level Of Service</td>' +
+                                                                        '<td>: ' + '<?= $lalin->tingkatPelayanan?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
                                                                         '<td>' + '<a href="/administrator/jalan/<?= $jln->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
                                                                     '</tr>' +
                                                                 <?php } ?>

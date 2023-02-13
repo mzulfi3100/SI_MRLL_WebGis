@@ -51,7 +51,7 @@ class LalulintaController extends Controller
                     ->get();
         $dataJln = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
-                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId')
+                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'jalans_kecamatans.kecamatanId')
                     ->distinct()
                     ->get();
         
@@ -89,6 +89,7 @@ class LalulintaController extends Controller
             'kecepatan' => $request->kecepatan,
             'tahun' => $request->tahun,
             'tingkatPelayanan' => $request->tingkatPelayanan,
+            'ratio' => $request->ratio,
             'tingkatKemacetan' => $request->tingkatKemacetan,
             'jalanKecamatanId' => $request->jalanKecamatanId,
         ]);
