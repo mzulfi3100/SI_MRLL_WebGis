@@ -34,10 +34,11 @@ class PenggunaJalanController extends Controller
                 ->select('titik_kecelakaans.*', 'jalans.*', 'titik_kecelakaans.id as titikID', 'jalans.id as jalanID', 'kecamatans.namaKecamatan')
                 ->get();
         $titikMacet = TitikKemacetan::get();
-        $kecamatans = Kecamatan::get();
+        $kecamatans = Kecamatan::orderBy('namaKecamatan')->get();
         $jalans = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->orderBy('jalans.namaJalan')
                     ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
                     ->get();
         $apills = Apill::get();

@@ -5,11 +5,8 @@
 @stop
 @section('copyright_peta')
 <footer class="main-footer">
-    Copyright &copy; 2023<strong> Universitas Lampung.</strong>
+    Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
     All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-    <b>Version</b> 1.0.0
-    </div>
 </footer>
 @stop
 @section('script_peta')
@@ -349,7 +346,7 @@
                                                                         '<td>: ' + '<?= $lalin->volume ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +
-                                                                        '<td>Kecepatan Tempuh</td>' +
+                                                                        '<td>Kecepatan Rata-Rata</td>' +
                                                                         '<td>: ' + '<?= $lalin->kecepatan ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +

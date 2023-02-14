@@ -122,7 +122,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Kecepatan Tempuh(km)</label>
+                                    <label for="">Kecepatan Rata-Rata(km)</label>
                                     <input type="text" class="form-control" name="kecepatan" id="kecepatan">
                                 </div>
                                 <div class="form-group">
@@ -166,11 +166,8 @@
 @stop
 @section('copyright_data')
 <footer class="main-footer">
-    Copyright &copy; 2023<strong> Universitas Lampung.</strong>
+    Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
     All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-    <b>Version</b> 1.0.0
-    </div>
 </footer>
 @stop
 @section('script_peta')

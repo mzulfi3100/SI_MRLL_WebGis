@@ -147,7 +147,7 @@
                                             <td>: <?= $lalin->volume ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Kecepatan Tempuh</td>
+                                            <td>Kecepatan Rata-Rata</td>
                                             <td>: <?= $lalin->kecepatan ?></td>
                                         </tr>
                                         <tr>
@@ -170,7 +170,7 @@
                                             <td>: <?= $lalin->volume ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Kecepatan Tempuh</td>
+                                            <td>Kecepatan Rata-Rata</td>
                                             <td>: <?= $lalin->kecepatan ?></td>
                                         </tr>
                                         <tr>

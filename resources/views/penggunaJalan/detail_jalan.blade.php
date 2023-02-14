@@ -180,7 +180,7 @@ https://templatemo.com/tm-573-eduwell
                                                         <td>: <?= $lalin->volume ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Kecepatan Tempuh</td>
+                                                        <td>Kecepatan Rata-Rata</td>
                                                         <td>: <?= $lalin->kecepatan ?></td>
                                                     </tr>
                                                     <tr>
@@ -203,7 +203,7 @@ https://templatemo.com/tm-573-eduwell
                                                         <td>: <?= $lalin->volume ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Kecepatan Tempuh</td>
+                                                        <td>Kecepatan Rata-Rata</td>
                                                         <td>: <?= $lalin->kecepatan ?></td>
                                                     </tr>
                                                     <tr>
@@ -314,7 +314,7 @@ https://templatemo.com/tm-573-eduwell
 
     <!-- Copyright -->
     <div class="text-center p-4 mt-5" style="background-color: rgb(4, 156, 243);">
-        <span style="color:white; font-size:16px;">Copyright © 2023 Universitas Lampung</span>
+        <span style="color:white; font-size:16px;">Copyright © 2023 Dinas Perhubungan Bandar Lampung</span>
     </div>
     <!-- Copyright -->
 

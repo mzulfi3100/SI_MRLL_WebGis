@@ -57,9 +57,14 @@ class JalanController extends Controller
         $lalulintas = Lalulinta::latest()->get();
         $titikLaka = TitikKecelakaan::latest()->get();
         $titikMacet = TitikKemacetan::latest()->get();
-        $kecamatans = Kecamatan::latest()->get();
+        $kecamatans = Kecamatan::orderBy('namaKecamatan')->get();
         // mengambil data jalan dari yang terbaru
-        $jalans = Jalan::latest()->get();
+        $jalans = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->orderBy('jalans.namaJalan')
+                    ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
+                    ->get();
         // menampilkan view data_jalan dan mengirim data kecamatan dan jalan dari database
         return view('admin/data_jalan', compact('kecamatans', 'jalans', 'lalulintas', 'titikLaka', 'titikMacet'));
     }

@@ -52,7 +52,7 @@ https://templatemo.com/tm-573-eduwell
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
                       <a href="/" class="logo" >
-                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 35px; height: 35px; font-size:16px; color:red;">&nbsp;&nbsp;Sistem Informasi MRLL</img>
+                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 45px; height: 45px; font-size:16px; color:red;">&nbsp;&nbsp;SI MRLL Kota Bandar Lampung</img>
                       </a>
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Menu Start ***** -->
@@ -190,7 +190,7 @@ https://templatemo.com/tm-573-eduwell
 
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgb(4, 156, 243);">
-        <span style="color:white; font-size:16px;">Copyright © 2023 Universitas Lampung</span>
+        <span style="color:white; font-size:16px;">Copyright © 2023 Dinas Perhubungan Bandar Lampung</span>
     </div>
     <!-- Copyright -->
 
@@ -547,7 +547,7 @@ https://templatemo.com/tm-573-eduwell
                                                                         '<td>:' + '<?= $lalin->volume ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +
-                                                                        '<td>Kecepatan Tempuh</td>' +
+                                                                        '<td>Kecepatan Rata-Rata</td>' +
                                                                         '<td>:' + '<?= $lalin->kecepatan ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +

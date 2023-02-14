@@ -5,11 +5,8 @@
 @stop
 @section('copyright_peta')
 <footer class="main-footer">
-    Copyright &copy; 2023<strong> Universitas Lampung.</strong>
+    Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
     All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-    <b>Version</b> 1.0.0
-    </div>
 </footer>
 @stop
 @section('script_peta')
@@ -136,8 +133,96 @@
                                 },
                             @endforeach
                         ]
-                    },
-                    {
+                    }, {
+                        label: 'Jalan',
+                        selectAllCheckbox: true,
+                        children: [
+                            @foreach($jalans as $jln)
+                            {
+                                label: '<?= $jln->namaJalan ?>',
+                                layer: L.geoJSON(<?= $jln->geoJsonJalan ?>, {
+                                    onEachFeature: function (feature, layer) {
+                                        layer.bindTooltip('<?= $jln->namaJalan ?>');
+                                    }
+                                }),
+                                name:   '<div style="max-height: 200px; overflow-y: auto"' +
+                                            '<div class="card">' +
+                                                '<div class="card-header">' +
+                                                    '<h3 class="card-title">' + '<?= $jln->namaJalan ?>' +'</h3>' +
+                                                '</div>' +
+                                                '<div class="card-body">' +
+                                                    '<table class="table">' +
+                                                        '<tbody>' +
+                                                            '<th>Data Jalan</th>' +
+                                                            '<tr>' +
+                                                                '<td>Kecamatan</td>' +
+                                                                '<td>:'  + '<?= $jln->namaKecamatan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Nama Jalan</td>' +
+                                                                '<td>:'  + '<?= $jln->namaJalan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Fungsi Jalan</td>' +
+                                                                '<td>:'  + '<?= $jln->fungsiJalan ?>' + '</td>'+
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Tipe Jalan</td>' +
+                                                                '<td>:'  + '<?= $jln->tipeJalan ?>' + '</td>'+
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Panjang Jalan</td>' +
+                                                                '<td>:'  + '<?= $jln->panjangJalan ?>' + '</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Lebar Jalan:</td>' +
+                                                                '<td>:'  + '<?= $jln->lebarJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kapasitas Jalan:</td>' +
+                                                                '<td>: ' + '<?= $jln->kapasitasJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Hambatan Samping</td>' +
+                                                                '<td>: ' + '<?= $jln->hambatanSamping ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            '<tr>' +
+                                                                '<td>Kondisi Jalan</td>' +
+                                                                '<td>: ' + '<?= $jln->kondisiJalan ?>' +'</td>' +
+                                                            '</tr>' +
+                                                            @foreach($data as $lalin)
+                                                                <?php if($lalin->jalanKecamatanId ==  $jln->jalanKecamatanId){ ?>
+                                                                '<th>Data Lalu Lintas</th>' +
+                                                                        '<tr>' +
+                                                                    '<td>Volume Lalu Lintas</td>' +
+                                                                        '<td>: ' + '<?= $lalin->volume ?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
+                                                                        '<td>Kecepatan Rata-Rata</td>' +
+                                                                        '<td>: ' + '<?= $lalin->kecepatan ?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
+                                                                        '<td>V/C Ratio</td>' +
+                                                                        '<td>: ' + '<?= $lalin->ratio?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
+                                                                        '<td>Level Of Service</td>' +
+                                                                        '<td>: ' + '<?= $lalin->tingkatPelayanan?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
+                                                                        '<td>' + '<a href="/administrator/jalan/<?= $jln->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                                    '</tr>' +
+                                                                <?php } ?>
+                                                            @endforeach
+                                                        '</tbody>' +
+                                                    '</table>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>'              
+                            },
+                            @endforeach
+                        ]
+                    },  {
                         label: 'Kecamatan',
                         selectAllCheckbox: true,
                         children: [

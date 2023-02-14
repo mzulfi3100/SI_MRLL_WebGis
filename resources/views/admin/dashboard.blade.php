@@ -165,11 +165,8 @@
       
     </div>
     <footer class="main-footer">
-      Copyright &copy; 2023<strong> Universitas Lampung.</strong>
+      Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
       All rights reserved.
-      <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.0.0
-      </div>
   </footer>
   <!-- /.content-wrapper -->
   @stop
