@@ -341,7 +341,7 @@
         var isClick;
 
         // melakukan action jika kecamatan id diinputkan 
-        $('#kecamatanId').on('contextmenu', function(){
+        $('#kecamatanId').on('mouseenter', function(){
             kecamatanGroup.removeLayer(kecamatanLayer);
             getKecamatanGroup.removeLayer(getKecamatanLayer)
             
