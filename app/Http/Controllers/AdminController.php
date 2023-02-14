@@ -27,8 +27,8 @@ class AdminController extends Controller
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
                     ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId')
                     ->get(); 
-        $kecelakaan = TitikKecelakaan::get();
-        $apill = Apill::get();        
+        $kecelakaan = TitikKecelakaan::orderBy('lokasiKecelakaan')->get();
+        $apill = Apill::orderBy('namaSimpang')->get();        
         $kecamatans = Kecamatan::orderBy('namaKecamatan')->get();
         $jalans = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
@@ -54,9 +54,10 @@ class AdminController extends Controller
                 ->join('jalans_kecamatans', 'titik_kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
                 ->join('jalans', 'jalans.id', '=', 'jalans_kecamatans.jalanId')
                 ->join('kecamatans', 'kecamatans.id', '=', 'jalans_kecamatans.kecamatanId')
+                ->orderBy('titik_kecelakaans.lokasiKecelakaan')
                 ->select('titik_kecelakaans.*', 'jalans.*', 'titik_kecelakaans.id as titikID', 'jalans.id as jalanID', 'kecamatans.namaKecamatan')
                 ->get();
-        $titikMacet = TitikKemacetan::get();
+        $titikMacet = TitikKemacetan::orderBy('lokasiKemacetan')->get();
         $kecamatans = Kecamatan::orderBy('namaKecamatan')->get();
         $jalans = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
@@ -64,7 +65,7 @@ class AdminController extends Controller
                     ->orderBy('jalans.namaJalan')
                     ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
                     ->get();
-        $apills = Apill::get();
+        $apills = Apill::orderBy('namaSimpang')->get();        
         return view('admin/peta', compact('kecamatans', 'jalans', 'data', 'titikLaka', 'apills', 'titikMacet'));
     }
 
@@ -79,7 +80,7 @@ class AdminController extends Controller
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
                     ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId', 'jalans_kecamatans.id AS jalanKecamatanId')
                     ->get();  
-        $titikMacet = TitikKemacetan::get();
+        $titikMacet = TitikKemacetan::orderBy('lokasiKemacetan')->get();
         $kecamatans = Kecamatan::orderBy('namaKecamatan')->get();
         $jalans = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
@@ -102,11 +103,12 @@ class AdminController extends Controller
                     ->select('lalulintas.*','jalans.*', 'kecamatans.namaKecamatan', 'jalans.id AS jalanId', 'kecamatans.id AS kecamatanId', 'jalans_kecamatans.id AS jalanKecamatanId')
                     ->get();
         $titikLaka = DB::table('titik_kecelakaans')
-                        ->join('jalans_kecamatans', 'titik_kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
-                        ->join('jalans', 'jalans.id', '=', 'jalans_kecamatans.jalanId')
-                        ->join('kecamatans', 'kecamatans.id', '=', 'jalans_kecamatans.kecamatanId')
-                        ->select('titik_kecelakaans.*', 'jalans.*', 'titik_kecelakaans.id as titikID', 'jalans.id as jalanID', 'kecamatans.namaKecamatan')
-                        ->get();
+                    ->join('jalans_kecamatans', 'titik_kecelakaans.jalanKecamatanId', '=', 'jalans_kecamatans.id')
+                    ->join('jalans', 'jalans.id', '=', 'jalans_kecamatans.jalanId')
+                    ->join('kecamatans', 'kecamatans.id', '=', 'jalans_kecamatans.kecamatanId')
+                    ->orderBy('titik_kecelakaans.lokasiKecelakaan')
+                    ->select('titik_kecelakaans.*', 'jalans.*', 'titik_kecelakaans.id as titikID', 'jalans.id as jalanID', 'kecamatans.namaKecamatan')
+                    ->get();
             
         $kecamatans = Kecamatan::orderBy('namaKecamatan')->get();
         $jalans = DB::table('jalans_kecamatans')
@@ -136,7 +138,7 @@ class AdminController extends Controller
                     ->orderBy('jalans.namaJalan')
                     ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
                     ->get();
-        $apills = Apill::get();
+        $apills = Apill::orderBy('namaSimpang')->get();  
         return view('admin/peta_apill', compact('kecamatans', 'apills', 'jalans', 'data'));
     }
 }

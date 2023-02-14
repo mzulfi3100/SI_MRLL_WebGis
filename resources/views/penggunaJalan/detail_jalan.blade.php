@@ -43,7 +43,7 @@ https://templatemo.com/tm-573-eduwell
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
                       <a href="/" class="logo" >
-                        <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 35px; height: 35px; font-size:16px; color:red;">&nbsp;&nbsp;Sistem Informasi MRLL</img>
+                      <img src="{{('/Admin/dist/img/LogoDishub.png')}}"  style="width: 45px; height: 45px; font-size:16px; color:red;">&nbsp;&nbsp;SI MRLL Kota Bandar Lampung</img>
                       </a>
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Menu Start ***** -->
