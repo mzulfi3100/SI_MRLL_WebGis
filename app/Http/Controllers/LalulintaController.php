@@ -42,10 +42,12 @@ class LalulintaController extends Controller
         $data = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->orderBy('jalans.namaJalan')
                     ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'jalans.kapasitasJalan' ,'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId', 'jalans_kecamatans.id')
                     ->get();
         $dataKec = DB::table('jalans_kecamatans')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->orderBy('kecamatans.namaKecamatan')
                     ->select('kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
                     ->distinct()
                     ->get();
