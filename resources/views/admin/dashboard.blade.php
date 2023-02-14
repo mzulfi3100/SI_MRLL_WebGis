@@ -173,3 +173,12 @@
   </footer>
   <!-- /.content-wrapper -->
   @stop
+  @section('script_tabel')
+    <script>
+        @if (Session::has('status'))
+            toastr.success("{{ Session::get('status') }}");
+        @elseif (Session::has('error'))
+            toastr.error("{{ Session::get('error') }}");
+        @endif
+    </script>
+  @stop

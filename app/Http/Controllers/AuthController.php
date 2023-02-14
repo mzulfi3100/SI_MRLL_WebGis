@@ -73,10 +73,10 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
         if(Auth::attempt($credentials))
         {
-            return redirect()->intended('/administrator');
+            return redirect('/administrator')->with("status", "Anda Telah Berhasil Login");
         }
 
-        return redirect('/login');
+        return back()->with("error", "Username / Password Tidak Sesuai");
     }
 
     public function edit_password()

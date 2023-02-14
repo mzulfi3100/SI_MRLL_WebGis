@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
-                                <label>Fungsi Jalan <span style="color:red;">&#42;</span></label>
+                                <label>Fungsi Jalan</label>
                                 <input type="text" class="form-control" id="fungsiJalan" name="fungsiJalan">
                             </div>
                             <div class="form-group">

@@ -132,7 +132,7 @@ Route::group(['middleware' => ['auth', 'admin']], function() {
 });
     // All your admin routes go here.
 
-Route::get('login', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index']);
 
 Route::post('/administrator/login_process', [AuthController::class, 'login_process'])->name('login.process');
 

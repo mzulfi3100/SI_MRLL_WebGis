@@ -21,6 +21,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="Assets/css/style2.css" type="text/css">
+  <link rel="stylesheet" href="{{ asset('Admin/sweetalert2/sweetalert2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('Admin/toastr/toastr.min.css') }}">
 </head>
 <body>
         <div class="wrapper"><!-- bg-bubbles -> memanggil jumlah animasi yang muncul -->
@@ -72,5 +74,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{('/Assets/js/popper.js')}}"></script>
     <script src="{{('/Assets/js/bootstrap.min.js')}}"></script>
     <script src="{{('/Assets/js/main.js')}}"></script>
+    <!-- js modal dan notif alert -->
+    <script src="{{ asset('Admin/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('Admin/toastr/toastr.min.js') }}"></script>
+    <script>
+        @if (Session::has('status'))
+            toastr.success("{{ Session::get('status') }}");
+        @elseif (Session::has('error'))
+            toastr.error("{{ Session::get('error') }}");
+        @endif
+    </script>
 </body>
 </html>
