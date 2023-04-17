@@ -160,6 +160,12 @@
     </section>
   <!-- End Tabel Data Kecamatan -->
 @stop
+@section('copyright_data')
+<footer class="main-footer">
+    Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
+    All rights reserved.
+</footer>
+@stop
 @section('script_tabel')
   <!--- Ambil Warna Terinput -->
   <script>

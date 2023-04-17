@@ -104,7 +104,7 @@
                     <div class="form-group">
                         <label for="">Terkoneksi ATCS <span style="color:red;">&#42;</span></label>
                         <select class="form-control" name="terkoneksiATCS" id="terkoneksiATCS" required>
-                            <option value="">- Pilih -</option>
+                            <option>- Pilih -</option>
                             <option value="Belum">Belum</option>
                             <option value="Sudah">Sudah</option>
                         </select>
@@ -149,6 +149,9 @@
 
         
         var map = L.map('map', {
+            fullscreenControl: {
+                pseudoFullscreen: false
+            },
             layers: [satellite, hybrid, street], //base layers
             center: [-5.420000, 105.292969], //koordinat bandar lampung
             zoom: 12.4,
@@ -304,6 +307,12 @@
         lay.addTo(map).collapseTree().expandSelected().collapseTree(true);
     </script>
     <!-- End Tampil Map -->
+@stop
+@section('copyright_data')
+<footer class="main-footer">
+    Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
+    All rights reserved.
+</footer>
 @stop
 @section('script_tabel')
     <!-- DataTable -->

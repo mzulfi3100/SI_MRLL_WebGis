@@ -99,7 +99,7 @@
                                 <div class="form-group">
                                     <label for="">Tingkat Pelayanan <span style="color:red;">&#42;</span></label>
                                     <select class="form-control" id="tingkatPelayanan" name="tingkatPelayanan">
-                                        <option>- Pilih Tingkat Pelayanan -</option>
+                                        <option value="">- Pilih Tingkat Pelayanan -</option>
                                         <option value="A">A</option>
                                         <option value="B">B</option>
                                         <option value="C">C</option>
@@ -107,6 +107,10 @@
                                         <option value="E">E</option>
                                         <option value="F">F</option>
                                     </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">V/C Ratio</label>
+                                    <input type="text" class="form-control" name="ratio" id="ratio">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Tingkat Kemacetan <span style="color:red;">&#42;</span></label>
@@ -118,7 +122,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Kecepatan Tempuh(km)</label>
+                                    <label for="">Kecepatan Rata-Rata(km)</label>
                                     <input type="text" class="form-control" name="kecepatan" id="kecepatan">
                                 </div>
                                 <div class="form-group">
@@ -159,6 +163,12 @@
         </div>
       </div>
     </section>
+@stop
+@section('copyright_data')
+<footer class="main-footer">
+    Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
+    All rights reserved.
+</footer>
 @stop
 @section('script_peta')
     <!-- Tampil Map -->
@@ -324,7 +334,7 @@
         })
 
         //menghapus layer jalan jika mouse mengarah ke select jalan
-        $('#kecamatanId').on('contextmenu', function(){
+        $('#kecamatanId').on('mouseenter', function(){
             if(kecamatanSelected != null){
                 kecamatanGroup.removeLayer(kecamatanSelected);
                 getKecamatanGroup.removeLayer(getKecamatanLayer);
@@ -345,7 +355,7 @@
         });
 
         //menghapus layer jalan jika mouse mengarah ke select jalan
-        $('#jalanId').on('contextmenu', function(){
+        $('#jalanId').on('mouseenter', function(){
             if(jalanSelected != null){
                 jalanGroup.removeLayer(jalanSelected);
                 getJalanGroup.removeLayer(getJalanLayer);
@@ -554,14 +564,6 @@
                 $('#jalanId').append($('<option>', {
                     text: "- Pilih Jalan -",
                 }));
-                
-                // tambah option jalan
-                @foreach($dataJln as $jln)
-                    $('#jalanId').append($('<option>', {
-                        value: <?= $jln->jalanId ?>,
-                        text: "<?= $jln->namaJalan ?>",
-                    }));
-                @endforeach
 
                 $('#tingkatPelayanan').append($('<option>', {
                     text: "- Pilih Tingkat Pelayanan -",
@@ -596,7 +598,7 @@
                 console.log(lalinId);
                 $('#saveBtn').html('Simpan');
                 $.get("{{ route('lalulinta.index') }}" +'/' + lalinId +'/edit', function (data) {
-                    $('#modalHeading').html('Edit Data Apill');
+                    $('#modalHeading').html('Edit Data Lalin');
                     $('#saveBtn').val('editLalin');
                     $('#lalinModal').on('shown.bs.modal', function(){
                         setTimeout(function() {
@@ -610,6 +612,7 @@
                     $('#kapasitasJalan').val(data.kapasitasJalan);
                     $('#tingkatPelayanan').val(data.tingkatPelayanan);
                     $('#tingkatKemacetan').val(data.tingkatKemacetan);
+                    $('#ratio').val(data.ratio);
                     $('#tahun').val(data.tahun);
                     $('#jalanKecamatanId').val(data.jalanKecamatanId);
                     $('#kecamatanId').empty();
@@ -669,7 +672,7 @@
                     @foreach($dataJln as $jln)
                         if(<?= $jln->jalanId ?> == data.jalanId){
                             
-                        }else{
+                        }else if(<?= $jln->kecamatanId ?> == data.kecamatanId){
                             $('#jalanId').append($('<option>', {
                                 value: <?= $jln->jalanId ?>,
                                 text: "<?= $jln->namaJalan?>",

@@ -147,8 +147,16 @@
                                             <td>: <?= $lalin->volume ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Kecepatan Tempuh</td>
+                                            <td>Kecepatan Rata-Rata</td>
                                             <td>: <?= $lalin->kecepatan ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>V/C Ratio</td>
+                                            <td>: <?= $lalin->ratio ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Level Of Service</td>
+                                            <td>: <?= $lalin->tingkatPelayanan ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -162,8 +170,16 @@
                                             <td>: <?= $lalin->volume ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Kecepatan Tempuh</td>
+                                            <td>Kecepatan Rata-Rata</td>
                                             <td>: <?= $lalin->kecepatan ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>V/C Ratio</td>
+                                            <td>: <?= $lalin->ratio ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Level Of Service</td>
+                                            <td>: <?= $lalin->tingkatPelayanan ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -417,9 +433,6 @@
                                                             '<tr>' +
                                                                 '<td>Korban Meninggal Dunia</td>' +
                                                                 '<td>:' +" <?= $titik->korbanMD ?>" +'</td>' + 
-                                                            '</tr>' +
-                                                            '<tr>' +
-                                                                '<td>' + '<a href="/detail_jalan/<?= $titik->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
                                                             '</tr>' +
                                                         '</tbody>' +
                                                     '</table>' +

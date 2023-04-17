@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
-                                <label>Fungsi Jalan <span style="color:red;">&#42;</span></label>
+                                <label>Fungsi Jalan</label>
                                 <input type="text" class="form-control" id="fungsiJalan" name="fungsiJalan">
                             </div>
                             <div class="form-group">
@@ -158,6 +158,12 @@
         </div>
     </div>
     <!-- End Modal Tambah dan Update -->
+@stop
+@section('copyright_data')
+<footer class="main-footer">
+    Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
+    All rights reserved.
+</footer>
 @stop
 @section('script_peta')
     <script type="text/javascript">
@@ -277,7 +283,7 @@
         map.pm.addControls({
             position: 'topleft',
             drawCircle: false,
-            drawMarker: true,
+            drawMarker: false,
             drawRectangle: false,
             drawCircleMarker: false,
             drawText: false,
@@ -335,7 +341,7 @@
         var isClick;
 
         // melakukan action jika kecamatan id diinputkan 
-        $('#kecamatanId').on('contextmenu', function(){
+        $('#kecamatanId').on('mouseenter', function(){
             kecamatanGroup.removeLayer(kecamatanLayer);
             getKecamatanGroup.removeLayer(getKecamatanLayer)
             

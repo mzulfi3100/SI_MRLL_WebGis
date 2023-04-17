@@ -2,13 +2,8 @@
 
   <!-- untuk memanggil file header.blade.php -->
   <?php $title="Dashboard"?>
-  @include('admin/header')
-
-  <!-- untuk memanggil file sidebar.blade.php -->
-  @include('admin/sidebar')
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  @extends('admin/template')
+  @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -113,7 +108,7 @@
                   <div class="icon">
                   <i class="fas fa-fw fa-car-side fa-2x text-gray-300"></i>
                   </div>
-                  <a href="/administrator/titik_kemacetan" class="small-box-footer">Selengkapnya&nbsp;<i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="/administrator/lalulinta" class="small-box-footer">Selengkapnya&nbsp;<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               
@@ -146,7 +141,7 @@
                       ?>
                       @foreach($apill as $apil)
                         <?php
-                          if($apill->terkoneksiATCS  = "Sudah"){
+                          if($apil->terkoneksiATCS  == "Sudah"){
                             $count++;
                           }
                         ?>
@@ -165,68 +160,22 @@
           <!-- <div id="bca"></div> -->
         </div>
         <!-- /.content -->
+        
       </div>
+      
     </div>
-  </div>
+    <footer class="main-footer">
+      Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
+      All rights reserved.
+  </footer>
   <!-- /.content-wrapper -->
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script>
-  Highcharts.chart('bca', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Laporan Data Volume Lalu Lintas dan Kemacetan 2023'
-    }, 
-    xAxis: {
-        categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Frekuensi Data'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Kecelakaan',
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4,
-            194.1, 95.6, 54.4]
-
-    }, {
-        name: 'Kemacetan',
-        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5,
-            106.6, 92.3]
-
-    },]
-  });
-</script>
-
-  @include('admin/footer')
+  @stop
+  @section('script_tabel')
+    <script>
+        @if (Session::has('status'))
+            toastr.success("{{ Session::get('status') }}");
+        @elseif (Session::has('error'))
+            toastr.error("{{ Session::get('error') }}");
+        @endif
+    </script>
+  @stop

@@ -3,6 +3,12 @@
 @section('content')
     <div id="map" style="height:600px; width: 1050px;"></div>
 @stop
+@section('copyright_peta')
+<footer class="main-footer">
+    Copyright &copy; 2023<strong> Dinas Perhubungan Bandar Lampung.</strong>
+    All rights reserved.
+</footer>
+@stop
 @section('script_peta')
     <script type="text/javascript">
         var satellite = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
@@ -231,11 +237,19 @@
                                                                         '<td>: ' + '<?= $lalin->volume ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +
-                                                                        '<td>Kecepatan Tempuh</td>' +
+                                                                        '<td>Kecepatan Rata-Rata</td>' +
                                                                         '<td>: ' + '<?= $lalin->kecepatan ?>' +'</td>' +
                                                                     '</tr>' +
                                                                     '<tr>' +
-                                                                        '<td>' + '<a href="/detail_jalan/<?= $jln->jalanKecamatanId ?>" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
+                                                                        '<td>V/C Ratio</td>' +
+                                                                        '<td>: ' + '<?= $lalin->ratio?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
+                                                                        '<td>Level Of Service</td>' +
+                                                                        '<td>: ' + '<?= $lalin->tingkatPelayanan?>' +'</td>' +
+                                                                    '</tr>' +
+                                                                    '<tr>' +
+                                                                        '<td>' + '<a href="/administrator/jalan/<?= $jln->jalanKecamatanId ?>/show" class="btn btn-warning btn-sm">Detail Jalan</a>' + '</td>' +
                                                                     '</tr>' +
                                                                 <?php } ?>
                                                             @endforeach

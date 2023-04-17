@@ -9,10 +9,12 @@
   <!-- /.control-sidebar -->
   
   <!-- untuk memanggil file footer.blade.php -->
-
+  
+  @yield('copyright_peta')
   
 </div>
 <!-- ./wrapper -->
+@yield('copyright_data')
 
 <!-- REQUIRED SCRIPTS -->
 <!-- datatable dan export -->

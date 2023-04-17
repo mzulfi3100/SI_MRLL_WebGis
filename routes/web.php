@@ -121,10 +121,18 @@ Route::group(['middleware' => ['auth', 'admin']], function() {
 
     Route::get('/administrator/peta', [AdminController::class, 'peta']);
 
+    Route::get('/administrator/edit_password', [AuthController::class, 'edit_password']);
+
+    Route::post('/administrator/edit_password/process', [AuthController::class, 'edit_password_process'])->name('update.password');
+    
+    Route::get('/administrator/akun_admin', [AuthController::class, 'akun_admin'])->name('view.akun');
+    
+    Route::get('/administrator/{id}/delete_akun', [AuthController::class, 'delete_akun']);
+
 });
     // All your admin routes go here.
 
-Route::get('login', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index']);
 
 Route::post('/administrator/login_process', [AuthController::class, 'login_process'])->name('login.process');
 

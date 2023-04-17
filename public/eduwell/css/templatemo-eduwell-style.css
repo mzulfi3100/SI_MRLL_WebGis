@@ -88,7 +88,7 @@ html, body {
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   background-color: #fff;
-  font-size: 16px;
+  font-size: 15px;
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -283,7 +283,7 @@ header
 .header-area .main-nav .logo {
   line-height: 100px;
   color: #fff;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -568,12 +568,9 @@ header
 @media (max-width: 767px) {
   .header-area .main-nav .logo {
     color: #1e1e1e;
+    font-size: 13px;
   }
   .header-area.header-sticky .nav li a:hover,
-  .header-area.header-sticky .nav li a.active {
-    color: #dc8cdb!important;
-    opacity: 1;
-  }
   .header-area.header-sticky .nav li.search-icon a {
     width: 100%;
   }
@@ -1757,8 +1754,8 @@ body {
     font-size: 62px;
   }
   .header-area {
-    background: rgb(219,138,222) !important;
-    background: linear-gradient(-145deg, rgba(219,138,222,1) 0%, rgba(246,191,159,1) 100%) !important;
+    background: rgb(4, 156, 243) !important;
+    background: linear-gradient(-145deg, rgba(4, 156, 243) 0%, rgba(4, 156, 243) 100%) !important;
   }
   .services .owl-nav .owl-next{
     right: -70px;

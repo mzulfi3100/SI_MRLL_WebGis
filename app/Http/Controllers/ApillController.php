@@ -34,8 +34,13 @@ class ApillController extends Controller
                         ->rawColumns(['action', 'checkbox'])
                         ->make(true);
         }
-        $kecamatans = Kecamatan::get();
-        $jalans = Jalan::get();
+        $kecamatans = Kecamatan::orderBy('namaKecamatan')->get();
+        $jalans = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->orderBy('jalans.namaJalan')
+                    ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
+                    ->get();
         return view('admin/apill/data_apill', compact('kecamatans', 'jalans'));
     }
 

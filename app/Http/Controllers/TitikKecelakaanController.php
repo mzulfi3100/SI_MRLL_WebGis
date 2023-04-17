@@ -42,21 +42,28 @@ class TitikKecelakaanController extends Controller
         $data = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->orderBy('jalans.namaJalan')
                     ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId', 'jalans_kecamatans.id')
                     ->get();
         $dataKec = DB::table('jalans_kecamatans')
                     ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->orderBy('kecamatans.namaKecamatan')
                     ->select('kecamatans.namaKecamatan', 'jalans_kecamatans.kecamatanId')
                     ->distinct()
                     ->get();
         $dataJln = DB::table('jalans_kecamatans')
                     ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
-                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId')
+                    ->select('jalans.namaJalan', 'jalans_kecamatans.jalanId', 'jalans_kecamatans.kecamatanId')
                     ->distinct()
                     ->get();
         
-        $kecamatans = Kecamatan::get();
-        $jalans = Jalan::get();
+        $kecamatans = Kecamatan::orderBy('namaKecamatan')->get();
+        $jalans = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->orderBy('jalans.namaJalan')
+                    ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
+                    ->get();
         return view('admin/data_titik_kecelakaan', compact('kecamatans', 'jalans', 'data' ,'dataKec', 'dataJln'));
     }
 

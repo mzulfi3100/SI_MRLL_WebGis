@@ -1,5 +1,5 @@
 :root{
-    --gradient: linear-gradient( 109.6deg,  rgba(238,58,136,1) 11.2%, rgba(128,162,245,1) 91.1% );
+    --gradient: linear-gradient( 109.6deg,  rgb(24, 78, 228)11.2%, rgba(128,162,245,1) 91.1% );
   }
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
 * {

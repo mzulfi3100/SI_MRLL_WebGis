@@ -57,9 +57,14 @@ class JalanController extends Controller
         $lalulintas = Lalulinta::latest()->get();
         $titikLaka = TitikKecelakaan::latest()->get();
         $titikMacet = TitikKemacetan::latest()->get();
-        $kecamatans = Kecamatan::latest()->get();
+        $kecamatans = Kecamatan::orderBy('namaKecamatan')->get();
         // mengambil data jalan dari yang terbaru
-        $jalans = Jalan::latest()->get();
+        $jalans = DB::table('jalans_kecamatans')
+                    ->join('jalans', 'jalans_kecamatans.jalanId', '=', 'jalans.id')
+                    ->join('kecamatans', 'jalans_kecamatans.kecamatanId', '=', 'kecamatans.id')
+                    ->orderBy('jalans.namaJalan')
+                    ->select('jalans.*', 'jalans_kecamatans.kecamatanId', 'kecamatans.namaKecamatan', 'kecamatans.geoJsonKecamatan', 'kecamatans.warnaKecamatan', 'jalans_kecamatans.id AS jalanKecamatanId')
+                    ->get();
         // menampilkan view data_jalan dan mengirim data kecamatan dan jalan dari database
         return view('admin/data_jalan', compact('kecamatans', 'jalans', 'lalulintas', 'titikLaka', 'titikMacet'));
     }
@@ -140,12 +145,11 @@ class JalanController extends Controller
                         ->get();  
 
         $lalulintas = DB::table('lalulintas')
-                        ->where('lalulintas.tahun', '>', DB::raw('year(NOW()) - 5'))
                         ->where('lalulintas.jalanKecamatanId', '=', $id)
                         ->orderBy('lalulintas.tahun', 'desc')
                         ->get();
         $kecelakaan = DB::table('titik_kecelakaans')
-                        ->where(DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan)'), '>', DB::raw('year(NOW()) - 3'))
+                        ->where(DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan)'), '>', DB::raw('year(NOW()) - 7'))
                         ->where('titik_kecelakaans.jalanKecamatanId', '=', $id)
                         ->orderBy(DB::raw('titik_kecelakaans.tanggalKecelakaan'), 'desc')
                         ->select(DB::raw('sum(titik_kecelakaans.korbanMD) as korbanMD'), DB::raw('sum(titik_kecelakaans.korbanLB) as korbanLB'), DB::raw('sum(titik_kecelakaans.korbanLR) as korbanLR'), DB::raw('count(*) as jumlahKecelakaan'), DB::raw('extract(year from titik_kecelakaans.tanggalKecelakaan) as tahunKecelakaan'))
