@@ -266,17 +266,15 @@
             showClass: {
               popup: 'animate__animated animate__fadeInDown'
             },
-            title:'<h3 style ="color:red">Peringatan!</h3>',
-            icon: 'warning',
-            html:'Apakah anda yakin ingin menghapus <b>'+checkedKecamatan.length+'</b> data kecamatan yang dipilih?',
-            showCancelButton:true,
-            showCloseButton:true,
-            confirmButtonText:'Lanjutkan',
-            cancelButtonText:'Kembali',
-            confirmButtonColor:'#28a745',
-            cancelButtonColor:'#d33',
-            width:500,
-            allowOutsideClick:false
+            title:'<h3 style ="color:orange">Peringatan!</h3>',
+                            icon: 'error',
+                            html:'Salah satu data jalan ini tidak bisa dihapus! silahkan hapus terlebih dahulu data <span style="color:red">lalulintas/titik kemacetan/ titik kecelakaan</span> yang terkait dengan jalan ini terlebih dahulu',
+                            showCancelButton:false,
+                            showCloseButton:true,
+                            confirmButtonColor:'#28a745',
+                            cancelButtonColor:'#d33',
+                            width:500,
+                            allowOutsideClick:false
           }).then(function(result){
             if(result.value){
               $.post(url, {kecamatan_id:checkedKecamatan, countingKecamatan:countKecamatan}, function(data){
@@ -348,17 +346,15 @@
                         showClass: {
                             popup: 'animate__animated animate__fadeInDown'
                         },
-                        title:'<h3 style ="color:red">Peringatan!</h3>',
-                        icon: 'warning',
-                        html:'Apakah anda yakin ingin menghapus <b></b> data kecamatan yang dipilih?',
-                        showCancelButton:true,
-                        showCloseButton:true,
-                        confirmButtonText:'Lanjutkan',
-                        cancelButtonText:'Kembali',
-                        confirmButtonColor:'#28a745',
-                        cancelButtonColor:'#d33',
-                        width:500,
-                        allowOutsideClick:false
+                        title:'<h3 style ="color:orange">Peringatan!</h3>',
+                            icon: 'error',
+                            html:'Data kecamatan ini tidak bisa dihapus! silahkan hapus terlebih dahulu data <span style="color:red">lalulintas/titik kemacetan/ titik kecelakaan</span> yang terkait dengan kecamatan ini terlebih dahulu',
+                            showCancelButton:false,
+                            showCloseButton:true,
+                            confirmButtonColor:'#28a745',
+                            cancelButtonColor:'#d33',
+                            width:500,
+                            allowOutsideClick:false
                     }).then(function(result){
                         if(result.value){
                             $.post("{{ route('kecamatan.destroy') }}", {kecamatanId},function(data){
